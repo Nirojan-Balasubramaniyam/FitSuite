@@ -1,0 +1,124 @@
+                <!-- Password -->
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input id="password" formControlName="password" type="password" class="form-control"
+                                placeholder="" (input)="onPasswordChange($event)" />
+                            <label for="password" class="floating-label">Password</label>
+                        </div>
+                    
+
+                        <!-- Password Strength Meter -->
+                        <div *ngIf="passwordStrength !== null" class="password-strength">
+                            <div class="strength-bar">
+                                <div [ngClass]="getStrengthClass()" class="strength-meter"></div>
+                            </div>
+                            <div *ngIf="passwordStrength !== 'strong'" class="text-danger">
+                                <small *ngIf="passwordStrength === 'weak'">Weak password. Password must be less than 8 Characters Consider adding numbers and
+                                    special characters.</small>
+                                <small *ngIf="passwordStrength === 'medium'">Medium password. Add a mix of upper/lower
+                                    case letters, numbers, and special characters for better security.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input id="confirmPassword" formControlName="confirmPassword" type="password"
+                                class="form-control" placeholder="" />
+                            <label for="confirmPassword" class="floating-label">Confirm Password</label>
+                        </div>
+                        <div class="text-danger">
+                            <div
+                                *ngIf="memberForm.get('confirmPassword')?.touched && memberForm.get('confirmPassword')?.hasError('required')">
+                                Confirm password is required.
+                            </div>
+
+
+                            <div
+                                *ngIf="memberForm.get('confirmPassword')?.touched && memberForm.hasError('passwordMismatch')">
+                                Passwords do not match.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pswrd validation ts -->
+                <!-- 
+                
+ // Handle password input and calculate strength
+ onPasswordChange(event: Event): void {
+  const password = (event.target as HTMLInputElement).value;
+  const result = zxcvbn(password);
+
+  // Set the password strength based on the score
+  if (result.score === 0) {
+    this.passwordStrength = 'weak';
+  } else if (result.score === 1 || result.score === 2) {
+    this.passwordStrength = 'medium';
+  } else {
+    this.passwordStrength = 'strong';
+  }
+}
+
+// Get password strength class for styling
+getStrengthClass(): string {
+  switch (this.passwordStrength) {
+    case 'weak':
+      return 'weak-strength';
+    case 'medium':
+      return 'medium-strength';
+    case 'strong':
+      return 'strong-strength';
+    default:
+      return '';
+  }
+}
+
+// Validator to ensure passwords match
+passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+  if (password && confirmPassword && password.value !== confirmPassword.value) {
+    return { passwordMismatch: true };
+  }
+  return null;
+}
+
+// Custom validator to check if the confirm password matches the password
+passwordMatchValidators(group: FormGroup): { [key: string]: boolean } | null {
+  const password = group.get('password');
+  const confirmPassword = group.get('confirmPassword');
+  if (password && confirmPassword && password.value !== confirmPassword.value) {
+    return { 'passwordMismatch': true };
+  }
+  return null;
+}
+
+  this.memberForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[A-Z])(?=.*[@/$#])/)]],
+      confirmPassword: ['', Validators.required],
+      NIC: ['', [Validators.required, Validators.pattern(/^[0-9]{9}[vVxX]$/), Validators.pattern(/^[0-9]{12}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      emergencyContactName: ['', Validators.required],
+      emergencyContactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      doB: ['', [Validators.required, this.pastDateValidator]],
+      branchId: [null, Validators.required],
+      isActive: [true],
+      imageFile: [null],
+      address: this.fb.group({
+        street: [''],
+        city: [''],
+        province: [''],
+        country: ['']
+      })
+    }, { validator: this.passwordMatchValidator });
+
+                
+                -->

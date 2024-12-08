@@ -1,0 +1,103 @@
+#enrollment-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    /* border-radius: 10px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+#trainingProgramSelection {
+    display: flex;
+    justify-content: space-around;
+}
+
+.program-section {
+    width: 40%;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid green;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#trainingProgramSelection h3 {
+    text-align: center;
+}
+
+#enrollment-container .form-group {
+    margin-bottom: 15px;
+}
+
+#addProgramsBtn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addProgramsBtn :hover {
+    background-color: #218838;
+}
+
+#cardioPrograms,
+#weightPrograms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+#programEnrollPaymentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.form-input {
+    width: 200px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid green;
+}
+
+.selection-form-group {
+    display: flex;
+    justify-content: space-around;
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+#monthsSelect {
+    position: relative;
+}
+
+#enrollProgramCard {
+    max-height: 100vh;
+    height: 650px;
+    overflow-y: auto;
+    margin-top: 50px;
+    /* background-color: #ecf0f1; */
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.program-checkbox {
+    margin: 0px 20px 0px 100px;
+    transform: scale(1.5);
+}
+
+#trainingProgramSelection h3 {
+    color: #218838;
+    font-weight: 800;
+}
+
+.program-checkbox-label {
+    font-weight: 530;
+}

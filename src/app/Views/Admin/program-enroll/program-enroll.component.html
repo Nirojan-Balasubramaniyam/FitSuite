@@ -1,0 +1,51 @@
+<section id="content">
+    <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+        Program Enroll
+    </h4>
+    <div id="dynamicContent">
+        <div id="enrollProgramCard">
+
+
+            <div class="selection-form-group">
+                <div>
+                    <select  class="form-input">
+                    </select>
+                </div>
+
+                <div>
+                    <select  class="form-input">
+                    </select>
+                </div>
+            </div>
+
+            <div id="trainingProgramSelection">
+                <div class="program-section">
+                    <h3>Cardio Programs</h3>
+                    <div id="cardioPrograms">
+                    </div>
+                </div>
+
+                <div class="program-section">
+                    <h3>Weight Training Programs</h3>
+                    <div id="weightPrograms">
+                    </div>
+                </div>
+            </div>
+
+            <div id="programEnrollPaymentForm" class="form-group">
+                <div>
+                    <p><span id="totalPayment"></span></p>
+                    <p><span id="additionalPayment"></span></p>
+                </div>
+                <label>Select payment method:</label>
+                <label><input type="radio" name="paymentMethod" value="Cash" checked> Cash</label>
+                <label><input type="radio" name="paymentMethod" value="Card"> Card</label>
+                <button id="addProgramsBtn">Add Programs</button>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</section>

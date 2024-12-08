@@ -1,0 +1,157 @@
+/* Layout for the grid */
+.branch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Responsive grid with a minimum card size of 270px */
+    gap: 1.5rem;  /* Increased gap for better spacing */
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Style for each branch card */
+.branch-card {
+    /* padding: 1.5rem; */
+    border-radius: 12px;  /* Rounded corners for a smoother look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;  /* To ensure no overflow issues */
+}
+
+.branch-card:hover {
+    transform: translateY(-8px); /* Slightly more pronounced lift effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);  /* Enhanced shadow on hover */
+}
+
+/* Active members and leaved members styling */
+.branch-card .active-members,
+.branch-card .leaved-members {
+    font-weight: bold;
+    color: #4CAF50;  /* Green for active members */
+}
+
+.branch-card .leaved-members {
+    color: #F44336;  /* Red for leaved members */
+}
+
+/* Action buttons */
+.actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem; /* Add spacing between the buttons */
+    justify-content: flex-start;
+}
+
+.actions .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Edit button */
+.actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.actions .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Delete button */
+.actions .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.actions .btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Modal button styles */
+.modal-body button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-body .btn-default {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.modal-body .btn-default:hover {
+    background-color: #e2e6ea;
+}
+
+.modal-body .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-body .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Add Branch Button */
+#add-row {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+#add-row:hover {
+    background-color: #218838;
+}
+/* material card */
+.example-card {
+    max-width: 400px;
+    border: 1px solid red;
+  }
+  
+  .example-header-image {
+    background-image: url("/assessts/FFLogo.png");
+    background-size: cover;
+  }
+
+/* Style for the card to ensure actions are always at the bottom */
+.example-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the card takes full height */
+  }
+  
+  .mat-card-content {
+    flex-grow: 1;  /* Make the content area grow and take up available space */
+  }
+  
+  .mat-card-actions {
+    margin-top: auto; /* This pushes the actions to the bottom */
+  }
+  
+
+/* Additional styling for responsive adjustments */
+@media (max-width: 767px) {
+    .branch-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Smaller cards on smaller screens */
+    }
+
+    .branch-card {
+        padding: 1rem;
+    }
+
+    .branch-title {
+        font-size: 1.25rem;
+    }
+}

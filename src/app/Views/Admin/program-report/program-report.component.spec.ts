@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ProgramReportComponent } from './program-report.component';
+
+describe('ProgramReportComponent', () => {
+  let component: ProgramReportComponent;
+  let fixture: ComponentFixture<ProgramReportComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ProgramReportComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ProgramReportComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

@@ -1,0 +1,234 @@
+<div class="wrapper">
+    <aside id="sidebar" class="d-none d-md-block" [ngStyle]="{
+            'background-color': isMoonButton ? '#f5f5f5' : '#343a40',
+            'color': isMoonButton ? '#333' : 'white', 
+            'width': navBarWidth}">
+        <!-- Sidebar content -->
+        <div>
+            <div class="sidebar-logo" [ngStyle]="{
+                    'color': isMoonButton ? '#b71c1c' : 'white',
+                    'background-color': isMoonButton ? '#f5f5f5' : '#343a40',
+                    'position': 'sticky', 'top':'0' }">
+                <img *ngIf="isMoonButton" src="../../../../../assessts/FFLogo.png" width="60px">
+                <img *ngIf="!isMoonButton" src="../../../../../assessts/FFLogo1.png" width="60px">
+
+                <a href="#" *ngIf="isNavbarVisible" class="ms-4">FIT or FIGHT</a>
+            </div>
+            <ul class="sidebar-nav" [ngStyle]="{'color': isMoonButton ? '#b71c1c !important' : 'white !important'}">
+
+                <li class="sidebar-item">
+                    <a routerLink="/admin/dashboard" class="sidebar-link" routerLinkActive="sidebar-active">
+                        <i class="bi bi-speedometer2 nav-icon"></i>
+                        <span *ngIf="isNavbarVisible">Dashboard</span>
+
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#management" data-bs-toggle="collapse"
+                        aria-expanded="false">
+                        <i class="bi bi-kanban nav-icon"></i>
+                        <span *ngIf="isNavbarVisible">Management</span>
+                    </a>
+                    <ul id="management" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/members" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i style="margin-right: 12px;" class="bi bi-people-fill subNav-icon"></i>
+                                <span *ngIf="isNavbarVisible">Member Management</span> </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/programs" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i class="fas fa-dumbbell subNav-icon"></i>
+                                <span *ngIf="isNavbarVisible">Program Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a routerLink="/admin/enroll" class="sidebar-link" routerLinkActive="sidebar-active">
+                        <i class="bi bi-terminal-plus nav-icon"></i>
+                        <span *ngIf="isNavbarVisible"> Enroll Program</span>
+
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a routerLink="/admin/payment" class="sidebar-link" routerLinkActive="sidebar-active">
+                        <i class="bi bi-credit-card-2-back nav-icon"></i>
+                        <span *ngIf="isNavbarVisible">Payment</span>
+
+                    </a>
+                </li>
+
+                <li class="sidebar-item" style=" margin-bottom: -20px;">
+                    <a routerLink="/admin/approval-request" class="sidebar-link" routerLinkActive="sidebar-active">
+                        <i class="bi bi-check-circle nav-icon"></i>
+                        <span *ngIf="isNavbarVisible"> Approval Requests</span>
+                    </a>
+                    <span id="requestCount" class="position-relative translate-middle badge rounded-pill bg-danger"
+                        style="position: relative; top: -40px; left: 208px;">
+                        0
+                    </span>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link collapsed report-arrow" data-bs-target="#reports"
+                        data-bs-toggle="collapse" aria-expanded="false"
+                        [ngStyle]="{'margin-right':isNavbarVisible? '40px': '0px'}">
+                        <i class="bi bi-clipboard2-data nav-icon"></i>
+                        <span *ngIf="isNavbarVisible">Reports</span>
+
+                    </a>
+                    <ul id="reports" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/payment-report" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i class="fas fa-file-invoice-dollar subNav-icon"></i>
+
+                                <span *ngIf="isNavbarVisible">Payment Report</span>
+
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/member-report" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i class="fas fa-user-tie subNav-icon"></i>
+
+                                <span *ngIf="isNavbarVisible">Member Report</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/program-report" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive=" sub-sidebar-active">
+                                <i class="fas fa-file-alt subNav-icon"></i>
+
+                                <span *ngIf="isNavbarVisible">Program Report</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a routerLink="/admin/audit-report" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i class="fas fa-clipboard-list subNav-icon"></i>
+
+                                <span *ngIf="isNavbarVisible">Audit Report</span>
+
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a routerLink="/admin/branch" class="sidebar-link" routerLinkActive="sidebar-active">
+                        <i class="bi bi-diagram-3 nav-icon"></i>
+                        <span *ngIf="isNavbarVisible">Branches</span>
+
+                    </a>
+                </li>
+            </ul>
+
+            
+        </div>
+    </aside>
+
+    <div class="main" [ngStyle]="{'background-color': isMoonButton ? 'white' : 'rgba(0, 0, 0, 0.1)'}">
+        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#b71c1c' : '#343a40'}">
+            <div>
+                <button class="btn d-none d-md-block" id="sidebar-toggle" (click)="toggleNavbar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="d-block d-md-none">
+                    <div class="sidebar-logo" [ngStyle]="{
+                        'background-color': isMoonButton ? '#b71c1c' : '#343a40',
+                        'position': 'absolute', 'top':'0' }">
+                        
+                        <img src="../../../../../assessts/FFLogo1.png" width="60px">
+
+                        <a href="#" class="ms-4 text-light">FIT or FIGHT</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navbar content -->
+            <div class="nav-buttons">
+
+                <button (click)="toggleTheme()" class="theme-toggle">
+                    <ng-container *ngIf="!isMoonButton; else showIcon">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </ng-container>
+                    <ng-template #showIcon>
+                        <i class="bi bi-moon-stars-fill text-light"></i>
+                    </ng-template>
+                </button>
+
+                <button class="notification-btn">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+                <button class="notification-btn nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
+                    (click)="toggleDropdown($event)">
+                    <!-- <a  class="nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
+                    (click)="toggleDropdown($event)"> -->
+                    
+                    <img src="../../../../assessts/FFLogo.jpg" class="avatar img-fluid rounded" alt="User Avatar">
+
+                    <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen"
+                        aria-labelledby="dropdownMenuButton1">
+                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item" href="#">Profile</a></li>
+                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item" href="#">Setting</a></li>
+                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </button>
+
+                <!-- <div>
+                    <a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
+                        (click)="toggleDropdown($event)">
+                        <img src="../../../../assessts/FFLogo.jpg" class="avatar img-fluid rounded" alt="User Avatar">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen"
+                        aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Setting</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div> -->
+
+
+            </div>
+        </nav>
+        <main class="content">
+            <div class="container-fluid mt-3">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+
+        <div class="d-block d-md-none">
+            <!-- Sidebar Navigation -->
+            <aside class="bootom-sidebar" class="sidebar-nav">
+                <ul class="nav-list ">
+                    <li class="nav-item" *ngFor="let item of navItems; let i = index"
+                        [ngClass]="{'active': selectedIndex === i}">
+                        <a [routerLink]="item.link" (click)="selectItem(i); toggleSubmenu(i)" class="nav-link"
+                            [ngStyle]="{'color': isMoonButton ? '#333 !important' : 'white !important'}">
+                            <i [ngClass]="item.iconClass"></i>
+                            <!-- <span class="nav-label">{{ item.label }}</span> -->
+                        </a>
+
+                        <!-- Submenu for Management and Reports -->
+                        <ul *ngIf="item.submenuVisible && item.submenu" class="submenu">
+                            <li class="submenu-item" *ngFor="let subItem of item.submenu">
+                                <a [routerLink]="subItem.link" class="subnav-link">
+                                    <i [ngClass]="subItem.iconClass"></i>
+                                    <!-- <span>{{ subItem.label }}</span> -->
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+
+    </div>
+
+</div>
