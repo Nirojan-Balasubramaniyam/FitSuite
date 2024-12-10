@@ -1,0 +1,194 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+
+/* Header */
+.about-header {
+    color: #b71c1c;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.about-header p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* About Section */
+.about-section {
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.about-section h2,#category h2, .trainer-section h2{
+    color: #b71c1c;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+
+.about-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Facility Section */
+
+.contact .office .office-item {
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 45px rgba(0, 0, 0, 0.2);
+  background: var(--bs-light);
+  transition: 0.5s;
+}
+
+.contact .office .office-item:hover {
+  box-shadow: 20px 20px 20px rgba(0, 58, 102, 0.3);
+}
+
+.contact .office .office-item .office-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.contact .office .office-item .office-img img {
+  transition: 0.5s;
+}
+
+.contact .office .office-item:hover .office-img img {
+  transform: scale(1.3);
+}
+
+.contact .office .office-item .office-content a.text-secondary,
+.contact .office .office-item .office-content a.text-muted {
+  transition: 0.5s;
+}
+
+.contact .office .office-item .office-content a.text-muted:hover {
+  color: var(--bs-secondary) !important;
+}
+
+.contact .office .office-item .office-content a.text-secondary:hover {
+  color: var(--bs-primary) !important;
+}
+/*** Facility End ***/
+
+/* Image Styling */
+.img-fluid {
+    border-radius: 10px;
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}
+
+
+
+/*----- chooseus Section Style -------------------------*/
+.category-paragraph {
+    transition: all 0.3s ease-in;
+  }
+  
+  .primary {
+    background: var(--bs-danger-bg-subtle);
+    transition: all 0.3s ease-in;
+  }
+  
+  .svg-primary {
+    color: var(--primary-color);
+    transition: all 0.3s ease-in;
+  }
+  
+  .primary:hover {
+    background: var(--bs-danger);
+  }
+  
+  .secondary {
+    background: var(--bs-danger-bg-subtle);
+    transition: all 0.3s ease-in;
+  }
+  
+  .svg-secondary {
+    color: var(--secondary-color);
+    transition: all 0.3s ease-in;
+  }
+  
+  .secondary:hover {
+    background: var(--bs-danger);
+  }
+  
+  .tertiary {
+    background: var(--bs-tertiary-bg-subtle);
+    transition: all 0.3s ease-in;
+  }
+  
+  .svg-tertiary {
+    color: var(--bs-tertiary);
+    transition: all 0.3s ease-in;
+  }
+  
+  .tertiary:hover {
+    background: var(--bs-tertiary);
+  }
+  
+  .gray {
+    background: #e0e5eb;
+    transition: all 0.3s ease-in;
+  }
+  
+  .svg-gray {
+    color: var(--bs-gray);
+    transition: all 0.3s ease-in;
+  }
+  
+  .gray:hover {
+    background: var(--bs-gray);
+  }
+  
+  .primary:hover .svg-primary,
+  .primary:hover .category-paragraph,
+  .secondary:hover .svg-secondary,
+  .secondary:hover .category-paragraph,
+  .tertiary:hover .svg-tertiary,
+  .tertiary:hover .category-paragraph,
+  .gray:hover .svg-gray,
+  .gray:hover .category-paragraph {
+    color: var(--light-color);
+  }
+
+  .icon-hover {
+    color: black;
+    /* transition: color 0.3s ease; */
+  }
+
+  /* Change color on hover */
+  .icon-hover:hover {
+    color: white;
+  }
+  
+
+
+
+/* Responsive Spacing */
+@media (max-width: 768px) {
+    .about-header h1 {
+        font-size: 2rem;
+    }
+    .about-header p, .about-section p {
+        font-size: 1rem;
+    }
+    .trainer-card, .facility-section {
+        padding: 1rem;
+    }
+}
