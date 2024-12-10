@@ -1,1 +1,74 @@
-<p>member-bmi works!</p>
+<body>
+    <div class="form-wrapper d-flex">
+        <!-- Form Section -->
+        <div class="form-side flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center mb-4">
+                <strong class="title text-center" style="color: #b71c1c;">Calculate Your Body Mass Index</strong>
+            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="unit" class="form-label" style="font-weight: bold;">Unit</label>
+                    <div class="btn-group w-100">
+                        <button type="button" class=" sloped-button btn btn-outline-primary" [class.active]="unit === 'Standard'"
+                            (click)="setUnit('Standard')" name="unit">
+                            Standard
+                        </button>
+                        <button type="button" class=" sloped-button btn btn-outline-primary" [class.active]="unit === 'Metric'"
+                            (click)="setUnit('Metric')" name="unit">
+                            Metric
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label " style="font-weight: bold;">Age</label>
+                    <input type="number" id="age" class="form-control " [(ngModel)]="age" name="age"
+                        placeholder="Enter your age" />
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label" style="font-weight: bold;">Gender</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="male" class="form-check-input" [(ngModel)]="gender" value="Male"
+                                name="gender" />
+                            <label for="male" class="form-check-label">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="female" class="form-check-input" [(ngModel)]="gender" value="Female"
+                                name="gender" />
+                            <label for="female" class="form-check-label">Female</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="height" class="form-label" style="font-weight: bold;">Height</label>
+                    <div class="d-flex gap-2">
+                        <input *ngIf="unit === 'Standard'" type="number" class="form-control" [(ngModel)]="heightFeet"
+                            name="heightFeet" placeholder="Feet" />
+                        <input *ngIf="unit === 'Standard'" type="number" class="form-control" [(ngModel)]="heightInches"
+                            name="heightInches" placeholder="Inches" />
+                        <input *ngIf="unit === 'Metric'" type="number" class="form-control" [(ngModel)]="height"
+                            name="height" placeholder="Height in cm" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="weight" class="form-label" style="font-weight: bold;">Weight</label>
+                    <input type="number" class="form-control" [(ngModel)]="weight" name="weight"
+                        [placeholder]="unit === 'Standard' ? 'Weight in lbs' : 'Weight in kg'" />
+                </div>
+                <button type="button" class=" sloped-button btn btn w-100" style="background-color: #b71c1c; color: white;" (click)="calculateBMI()">Calculate BMI</button>
+
+            </form>
+
+        </div>
+
+        <!-- Image Section -->
+        <div class="image-side d-flex align-items-center justify-content-center">
+
+            <div class="text-center ml-2" *ngIf="bmi"
+                style="background-color: white; border: 1px solid #ccc; padding: 15px; border-radius: 5px; display: inline-block;">
+                <h4 style="color: #b71c1c; font-weight: bold;">Your BMI: {{ bmi.toFixed(2) }} kg/m²</h4>
+                <h5 style="color: #b71c1c; font-weight: bold;">{{ bmiCategory }}</h5>
+            </div>
+        </div>
+    </div>
+</body>
