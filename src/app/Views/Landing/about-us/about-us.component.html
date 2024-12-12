@@ -126,5 +126,39 @@
   </div>
 </div>
 <!-- facility End -->
+
+<!-- testimoniel -->
+<div class="container-fluid testimonial py-5">
+  <div class="container py-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+          <h2 class="text-bold" style="color:#b71c1c ;">TESTIMONIEL</h2>
+          <h1 class="display-4 mb-4">What Our Members Are Saying</h1>
+          <p class="mb-0">Our gym has transformed the fitness journeys of countless individuals. From state-of-the-art equipment to supportive trainers, our members share their inspiring stories of progress, health, and confidence. Here's what they have to say!</p>
+      </div>
+      <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.2s">
+          <div class="testimonial-item bg-light rounded" *ngFor="let testimonial of testimonials" >
+              <div class="row g-0">
+                  <div class="col-4 col-lg-4 col-xl-3">
+                      <div class="h-100">
+                          <img [src]="testimonial.imagepath" class="img-fluid h-100 rounded" style="object-fit: cover;" alt="">
+                      </div>
+                  </div>
+                  <div class="col-8 col-lg-8 col-xl-9">
+                      <div class="d-flex flex-column my-auto text-start p-4">
+                          <h4 class="text-dark mb-0">{{ testimonial.personName }}</h4>
+                          <p class="mb-3">{{ testimonial.profession }}</p>
+                          <div class="d-flex text-primary mb-3">
+                              <i *ngFor="let star of generateStars(testimonial.rating)" class="fas fa-star" [ngClass]="{'text-body': !star}"></i>
+                          </div>
+                          <p class="mb-0">{{ testimonial.feedback }}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 </div>
 

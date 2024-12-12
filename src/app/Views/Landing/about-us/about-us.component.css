@@ -192,3 +192,7 @@ body {
         padding: 1rem;
     }
 }
+
+.testimonial-item {
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
