@@ -1,3 +1,190 @@
-<h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
-    Payment
-</h4>
+<section>
+
+    <!-- Payment Card -->
+    <div class=" pb-2 px-4">
+        <div class="section-header-lg pt-3" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+            <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+                Payment
+            </h4>
+            <div class="row g-4">
+
+                <div class="col-12 col-md-5  d-block  justify-content-between">
+
+                    <div class="col-9 pt-1 pt-lg-3">
+                        <ng-select [(ngModel)]="selectedMember" (ngModelChange)="onMemberChange(selectedMember)"
+                            placeholder="Select member name or NIC or email..">
+                            @for (member of allMembers; track member.memberId) {
+                            <ng-option [value]="member.memberId">{{member.firstName+" - " + member.nic+ " - " +
+                                member.email}}</ng-option>
+                            }
+                        </ng-select>
+                    </div>
+
+                    <div class=" col-4 pt-1 pt-lg-3">
+                        <ng-select [(ngModel)]="selectedMonth" (ngModelChange)="onMonthChange(selectedMonth)"
+                            placeholder="Select month">
+                            @for (month of months; track month.id) {
+                            <ng-option [value]="month.id">{{month.name +" - "+ month.discount +"%"}}</ng-option>
+                            }
+                        </ng-select>
+                    </div>
+
+                </div>
+
+                <div class="col-6 ms-0 ps-0 col-md-3  ms-lg-5 ps-lg-5 me-md-4 pt-lg-3">
+                    <label class="form-label">Select Payment Method</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" value="Cash"
+                            [(ngModel)]="selectedPaymentMethod" checked>
+                        <label class="form-check-label" for="cash">Cash</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" value="Card"
+                            [(ngModel)]="selectedPaymentMethod">
+                        <label class="form-check-label" for="card">Card</label>
+                    </div>
+
+                    <div *ngIf="selectedMonth !==1" class="d-block d-md-none mt-3">
+                        <button type="button" class="btn btn-success w-100" (click)="openModal(confirmModal)">Add
+                            Payment</button>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 pt-lg-3">
+                    <div class="mb-3">
+                        <div *ngIf="selectedMonth !==1">
+                            <label for="">Total Amount</label>
+                            <input  type="text" class="form-control mb-2" disabled
+                                placeholder="Payment amount" value="{{'Rs. '+totalPayment}}">
+                        </div>
+
+                        <div>
+                            <label for="">Amount to Pay </label>
+                            <input type="text" class="form-control" disabled placeholder="Payment amount"
+                                value="{{'Rs. '+payment}}">
+
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="selectedMonth ===1"  class="d-block d-md-none">
+                        
+                    <button type="button" class="btn btn-success w-100" (click)="openModal(confirmModal)">Add
+                        Payment</button>
+                        
+                    </div>
+
+                    <div  class="d-none d-md-block">
+                        
+                        <button type="button" class="btn btn-success w-100" (click)="openModal(confirmModal)">Add
+                            Payment</button>
+                            
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Member Details -->
+        <div *ngIf="selectedMember" class="row g-4 mx-3 mt-5 shadow rounded mb-2 border border-info">
+            <div class="col-12 px-4 py-3 member-info">
+                <h4 class="text-success mb-3">Member Details</h4>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th class="text-primary">Name:</th>
+                                    <td>{{member ? member.firstName+' - ' + member.lastName : " "}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">ID:</th>
+                                    <td>{{member?.memberId}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">Monthly Payment:</th>
+                                    <td>{{member?.monthlyPayment}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">Last Payment Type:</th>
+                                    <td>{{selectedMemberPayment?.paymentType | uppercase}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">Last Paid Date:</th>
+                                    <td>{{selectedMemberPayment?.paidDate | date}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">Due Date:</th>
+                                    <td>{{selectedMemberPayment?.dueDate | date}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-primary">Membership:</th>
+                                    <td class="text-{{activeStatus ? 'success' : 'danger'}}">{{activeStatus? "Active" :
+                                        "Expired"}}</td>
+                                </tr>
+                                <tr *ngIf="!activeStatus">
+                                    <th class="text-danger">Expired In:</th>
+                                    <td class="text-danger">{{dueRemainingDays}} Days</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-2">
+                        <p><strong class="text-primary">Training Programs:</strong></p>
+                        <div *ngFor="let programType of trainingProgramsByType | keyvalue">
+                            <h5>{{ programType.key }}</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let program of programType.value">
+                                    {{ program.programName }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mt-0 mt-md-4 mt-lg-5 py-5">
+        <div class="row justify-content-around">
+
+            <div *ngFor="let month of months" class="col-md-3 mb-4">
+
+                <div class="offer-card card shadow-lg">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ month.name }}</h5>
+                        <p class="card-text">Save <strong>{{ month.discount }}%</strong> off!</p>
+
+                        <div class="discount-animation">
+                            <span class="badge bg-primary">{{ month.discount }}% OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
+<ng-template #confirmModal>
+    <div class="modal-body text-center">
+        <p>
+            <span class="text-primary">Are you sure you want to proceed with payment ?</span>
+        </p>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+            <button type="button" class="btn btn-outline-danger" (click)="decline()">No</button>
+        </div>
+    </div>
+</ng-template>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
