@@ -28,6 +28,7 @@ import { ProfileComponent } from './Views/Member/profile/profile.component';
 import { TrainingPackageComponent } from './Views/Member/training-package/training-package.component';
 import { UpdateSkillsComponent } from './Views/Member/update-skills/update-skills.component';
 import { MemberBmiComponent } from './Views/Member/member-bmi/member-bmi.component';
+import { authGuard } from './Guard/auth.guard';
 
 export const routes: Routes = [
 
@@ -49,6 +50,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminLayoutComponent,
+        canActivate:[authGuard],
         children: [
             { path: 'audit-report', component: AuditReportComponent },
             { path: 'branch', component: BranchComponent },
