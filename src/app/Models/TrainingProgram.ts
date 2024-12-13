@@ -1,6 +1,10 @@
 export interface TrainingProgram {
-    title: string;
-    price: number;
-    description: string;
-    imageUrl: string;
-  }
+  programId: number;
+  branchName:string;
+  programName:string;
+  typeId:number;
+  typeName?:string;
+  cost:number;
+  description:string;
+  imagePath:string;
+}
