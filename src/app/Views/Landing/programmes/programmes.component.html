@@ -5,10 +5,10 @@
         <div class="row g-4">
             <div class="col-md-3" *ngFor="let program of programs">
                 <div class="card">
-                    <img [src]="program.imageUrl" class="card-img-top" alt="{{ program.title }}">
-                    <a href="#" class="btn">Rs.{{ program.price }}</a>
+                    <img [src]="program.imagePath" class="card-img-top" alt="{{ program.programName }}">
+                    <a href="#" class="btn">Rs.{{ program.cost }}</a>
                     <div class="card-body">
-                        <h5 class="card-title">{{ program.title }}</h5>
+                        <h5 class="card-title">{{ program.programName }}</h5>
                         <p class="card-text">{{ program.description }}</p>
                     </div>
                 </div>
@@ -16,6 +16,7 @@
         </div>
     </div>
     </div>
+
 </body>
 
 
