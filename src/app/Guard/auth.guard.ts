@@ -11,12 +11,19 @@ import { LoginRegisterService } from '../Service/LoginRegister/login-register.se
 export class authGuard implements CanActivate { 
   constructor(private registerService: LoginRegisterService, private router: Router) {
   } 
+  
 
   canActivate(): boolean { 
+    const role = localStorage.getItem("Role");
   if (this.registerService.isLoggedIn()) { 
+    if (role?.toLocaleLowerCase() === "admin") {
+      this.router.navigate(['/admin/dashboard']); 
+    } else if (role?.toLowerCase() === "member") {
+      this.router.navigate(['/member/profile']); 
+    }
   return true; 
   } else { 
-  this.router.navigate(['/home']); 
+  this.router.navigate(['/login']); 
   return false; 
   } 
   }
