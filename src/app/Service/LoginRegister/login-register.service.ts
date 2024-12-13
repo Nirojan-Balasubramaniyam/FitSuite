@@ -23,21 +23,33 @@ export class LoginRegisterService {
     });
   }
 
-  isLoggedIn(){
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const decoded:any = jwtDecode(token);
-        console.log(decoded);
+  // isLoggedIn(){
+  //   if (localStorage.getItem("token")) {
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       const decoded:any = jwtDecode(token);
+  //       console.log(decoded);
         
-        localStorage.setItem("name", decoded.FullName)
-        localStorage.setItem("Role", decoded.Roles)
-      }
-      return true;
-    }else{
-      return false;
+  //       localStorage.setItem("name", decoded.FullName)
+  //       localStorage.setItem("Role", decoded.UserRole)
+  //     }
+  //     return true;
+  //   }else{
+  //     return false;
+  //   }
+  // }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem("Token");
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      console.log(decoded);
+      return true; // User is logged in
+    } else {
+      return false; // User is not logged in
     }
   }
+  
 
 }
 function decodeJwtToken(token: string): any {

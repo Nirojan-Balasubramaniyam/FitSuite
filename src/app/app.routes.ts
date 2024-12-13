@@ -36,7 +36,7 @@ export const routes: Routes = [
         path: '',
         component: LandingLayoutComponent,
         children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            // { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'registration', component: RegisterComponent},
             { path: 'login', component: LoginComponent },
             { path: 'about', component: AboutUsComponent },
