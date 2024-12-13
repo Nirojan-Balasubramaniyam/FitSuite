@@ -153,8 +153,8 @@ export class MemberManagementComponent {
       formData.append('Phone', this.memberForm.get('phone')?.value);
       formData.append('EmergencyContactName', this.memberForm.get('emergencyContactName')?.value);
       formData.append('EmergencyContactNumber', this.memberForm.get('emergencyContactNumber')?.value);
-      formData.append('BranchId', "1");  // You can replace this with dynamic branchId if needed
-      formData.append('Password', this.memberForm.get('phone')?.value); // Assuming phone as password for now
+      formData.append('BranchId', this.branchId.toString());  
+      formData.append('Password', this.memberForm.get('phone')?.value); 
       formData.append('IsActive', "true");
       formData.append('Gender', "male");
 

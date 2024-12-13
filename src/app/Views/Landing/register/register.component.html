@@ -1,0 +1,418 @@
+<section class="row px-4 py-5 my-4">
+    <div class="col-12 pt-2 d-block d-lg-flex justify-content-between">
+
+        <!-- Left section (Information) -->
+        <div class="col-12 col-lg-4 p-3 border border-info">
+            <h1>Please fill out the form and <br> <b style="color: orangered;">Click</b> <br><span
+                    style="color: #007BFF;">Button: Send approval for Member Registration Button</span></h1>
+            <p>Your member registration request will be checked and approved by the admin, then it's notified to you via
+                mobile number.</p>
+        </div>
+
+        <!-- Form Section -->
+        <div class="col-12 col-lg-8 px-4 my-3">
+            <div class="modal-body">
+                <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+
+                        <!-- First Section (Left Column) -->
+                        <div class="col-12 col-md-4">
+                            <!-- First Name -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="firstName" formControlName="firstName" class="form-control"
+                                            placeholder="" />
+                                        <label for="firstName" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">First Name <span
+                                                *ngIf="isRequired('firstName')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('firstName')?.invalid && memberForm.get('firstName')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('firstName')?.hasError('required')">First name is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="lastName" formControlName="lastName" class="form-control"
+                                            placeholder="" />
+                                        <label for="lastName" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Last Name <span
+                                                *ngIf="isRequired('lastName')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('lastName')?.invalid && memberForm.get('lastName')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('lastName')?.hasError('required')">Last name is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="email" formControlName="email" type="email" class="form-control"
+                                            placeholder="" />
+                                        <label for="email" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Email <span
+                                                *ngIf="isRequired('email')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('email')?.invalid && memberForm.get('email')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('email')?.hasError('required')">Email is required.
+                                        </div>
+                                        <div *ngIf="memberForm.get('email')?.hasError('email')">Please enter a valid
+                                            email address.</div>
+                                        <div *ngIf="memberForm.get('email')?.hasError('emailExists')">
+                                            There is already an account with this email.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- NIC -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="nic" formControlName="NIC" class="form-control" placeholder="" />
+                                        <label for="nic" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">NIC <span
+                                                *ngIf="isRequired('NIC')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('NIC')?.invalid && memberForm.get('NIC')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('NIC')?.hasError('required')">NIC is required.</div>
+                                        <div *ngIf="memberForm.get('NIC')?.hasError('pattern')">NIC must be 12 digits or
+                                            9 digits with 'x' or 'v' at the end.</div>
+                                        <div *ngIf="memberForm.get('NIC')?.hasError('nicExists')">
+                                            There is already an account with this NIC.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="phone" formControlName="phone" class="form-control" placeholder="" />
+                                        <label for="phone" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Phone <span
+                                                *ngIf="isRequired('phone')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('phone')?.invalid && memberForm.get('phone')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('phone')?.hasError('required')">Phone number is
+                                            required.</div>
+                                        <div *ngIf="memberForm.get('phone')?.hasError('pattern')">Phone number must be
+                                            10 digits.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date of Birth -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="dob" formControlName="doB" type="text" class="form-control"
+                                            bsDatepicker placeholder="Datepicker" />
+                                        <label for="doB" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Date of Birth <span
+                                                *ngIf="isRequired('doB')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('doB')?.invalid && memberForm.get('doB')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('doB')?.hasError('required')">Date of birth is
+                                            required.</div>
+                                        <div *ngIf="memberForm.get('doB')?.hasError('pastDate')">Date of birth must be
+                                            in the past.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <select id="gender" formControlName="gender" class="form-control">
+                                            <option class="text-muted" disabled value="">Select Gender</option>
+                                            <option class="text-dark" value="male">Male</option>
+                                            <option class="text-dark" value="female">Female</option>
+                                            <option class="text-dark" value="other">Other</option>
+                                        </select>
+                                        <label for="doB" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Gender<span
+                                                *ngIf="isRequired('gender')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('gender')?.invalid && memberForm.get('gender')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('gender')?.hasError('required')">Gender selection is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Second Section (Middle Column) -->
+                        <div class="col-12 col-md-4">
+                            <!-- Emergency Contact Name -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="emergencyContactName" formControlName="emergencyContactName"
+                                            class="form-control" placeholder="" />
+                                        <label for="emergencyContactName" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact
+                                            Name <span *ngIf="isRequired('emergencyContactName')"
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('emergencyContactName')?.invalid && memberForm.get('emergencyContactName')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('emergencyContactName')?.hasError('required')">
+                                            Emergency contact name is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Contact Number -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="emergencyContactNumber" formControlName="emergencyContactNumber"
+                                            class="form-control" placeholder="" />
+                                        <label for="emergencyContactNumber" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact
+                                            Number <span *ngIf="isRequired('emergencyContactNumber')"
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('emergencyContactNumber')?.invalid && memberForm.get('emergencyContactNumber')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('emergencyContactNumber')?.hasError('required')">
+                                            Emergency contact number is
+                                            required.</div>
+                                        <div *ngIf="memberForm.get('emergencyContactNumber')?.hasError('pattern')">
+                                            Emergency contact number must
+                                            be 10 digits.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div formGroupName=address class="col-12">
+                                <div class="form-group">
+                                    <label class="text-muted">Address</label>
+                                    <!-- street -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-wrapper">
+                                                <input id="street" formControlName="street" class="form-control"
+                                                    placeholder="" />
+                                                <label for="street" class="floating-label"
+                                                    [ngStyle]="{ 'background-color': getLabelBackground() }">Street
+                                                    <span *ngIf="isRequired('address.street')"
+                                                        class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-wrapper">
+                                                <input id="city" formControlName="city" class="form-control"
+                                                    placeholder="" />
+                                                <label for="city" class="floating-label"
+                                                    [ngStyle]="{ 'background-color': getLabelBackground() }">City <span
+                                                        *ngIf="isRequired('address.city')"
+                                                        class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Province -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-wrapper">
+                                                <input id="province" formControlName="province" class="form-control"
+                                                    placeholder="" />
+                                                <label for="province" class="floating-label"
+                                                    [ngStyle]="{ 'background-color': getLabelBackground() }">Province
+                                                    <span *ngIf="isRequired('address.province')"
+                                                        class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- District -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-wrapper">
+                                                <input id="district" formControlName="district" class="form-control"
+                                                    placeholder="" />
+                                                <label for="district" class="floating-label"
+                                                    [ngStyle]="{ 'background-color': getLabelBackground() }">District
+                                                    <span *ngIf="isRequired('address.district')"
+                                                        class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Country -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-wrapper">
+                                                <input id="country" formControlName="country" class="form-control"
+                                                    placeholder="" />
+                                                <label for="country" class="floating-label"
+                                                    [ngStyle]="{ 'background-color': getLabelBackground() }">Country
+                                                    <span *ngIf="isRequired('address.country')"
+                                                        class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <!-- Third Section (Right Column) -->
+                        <div class="col-12 col-md-4">
+                            <!-- Branch -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <select id="branchId" formControlName="branchId" class="form-control">
+                                            <option class="text-muted" value="" disabled selected>Nearby Branch Area
+                                            </option>
+                                            <option class="text-dark" *ngFor="let branch of branches"
+                                                [value]="branch.branchId">{{ branch.branchName }}</option>
+                                        </select>
+                                        <label for="doB" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Nearby Branch Area
+                                            <span *ngIf="isRequired('branchId')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('branchId')?.invalid && memberForm.get('branchId')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('branchId')?.hasError('required')">Branch Selection
+                                            is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="password" formControlName="password" type="password"
+                                            class="form-control" placeholder="" (input)="onPasswordInput()" />
+                                        <label for="password" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Password <span
+                                                *ngIf="isRequired('password')" class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('password')?.invalid && memberForm.get('password')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('password')?.hasError('required')">Password is
+                                            required.</div>
+                                        <div *ngIf="memberForm.get('password')?.hasError('pattern')">Password must
+                                            include one uppercase and a symbol.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Password Strength Meter -->
+                            <div class="col-12" *ngIf="password">
+                                <password-strength-meter [password]="password"></password-strength-meter>
+                            </div>
+
+                            <!-- Confirm Password Field -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="confirmPassword" formControlName="confirmPassword" type="password"
+                                            class="form-control" placeholder="" />
+                                        <label for="confirmPassword" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Confirm Password
+                                            <span *ngIf="isRequired('confirmPassword')"
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('confirmPassword')?.invalid && memberForm.get('confirmPassword')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('confirmPassword')?.hasError('required')">Confirm
+                                            password is required.</div>
+                                        <div *ngIf="memberForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                                            Passwords do not match.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Payment -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="input-wrapper">
+                                        <input id="paymentReceipt" formControlName="paymentReceipt" type="text"
+                                            class="form-control" />
+                                        <label for="paymentReceipt" class="floating-label"
+                                            [ngStyle]="{ 'background-color': getLabelBackground() }">Payment Receipt
+                                            Number<span *ngIf="isRequired('paymentReceipt')"
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                    <div *ngIf="memberForm.get('paymentReceipt')?.invalid && memberForm.get('paymentReceipt')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('paymentReceipt')?.hasError('required')">Payment
+                                            Receipt Number is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="imageFile" class="text-muted"
+                                        [ngStyle]="{ 'background-color': getLabelBackground() }">Profile Image <span
+                                            *ngIf="isRequired('imageFile')" class="text-danger">*</span></label>
+                                    <input id="imageFile" type="file" (change)="onFileChange($event)"
+                                        class="form-control" />
+                                    <div *ngIf="memberForm.get('imageFile')?.invalid && memberForm.get('imageFile')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="memberForm.get('imageFile')?.hasError('required')">Profile image is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="submit" [disabled]="!memberForm.valid"
+                                class="btn btn-success px-5 ">Register</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

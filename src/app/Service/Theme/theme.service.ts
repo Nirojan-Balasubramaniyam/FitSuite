@@ -8,10 +8,22 @@ export class ThemeService {
 
   constructor() { }
   
-  private lightTheme = new BehaviorSubject<boolean>(true); // Default is dark theme
+  private lightTheme = new BehaviorSubject<boolean>(true); 
   lightTheme$ = this.lightTheme.asObservable();
 
+  private isNavbarVisibleSubject = new BehaviorSubject<boolean>(true);
+  isNavbarVisible$ = this.isNavbarVisibleSubject.asObservable();
+
   setLightTheme(isLight: boolean): void {
-    this.lightTheme.next(isLight); // Update the value
+    this.lightTheme.next(isLight);
+  }
+
+ 
+  setNavbarVisibility(isVisible: boolean): void {
+    this.isNavbarVisibleSubject.next(isVisible);
+  }
+
+  getNavbarVisibility(): boolean {
+    return this.isNavbarVisibleSubject.getValue();
   }
 }
