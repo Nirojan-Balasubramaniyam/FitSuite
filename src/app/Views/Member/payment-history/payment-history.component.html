@@ -1,0 +1,25 @@
+<h4 class="text-danger fw-bold">PAYMENT HISTORY</h4>
+
+<div class="mt-4">
+    <table class="table table-hover table-bordered text-center">
+        <thead>
+          <tr>
+            <th scope="col">Payment Type</th>
+            <th scope="col">Amount (LKR)</th>
+            <th scope="col">Paid Date</th>
+            <th scope="col">Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="noPaymentMessage">
+                <td colspan="4">{{ noPaymentMessage }}</td>
+              </tr>
+              <tr *ngFor="let payment of memberPayments">
+                <td>{{ payment.paymentType }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ formatDate(payment.paidDate) }}</td>
+                <td>{{ payment.dueDate ? formatDate(payment.dueDate) : 'N/A' }}</td>
+              </tr>
+        </tbody>
+      </table>
+  </div>

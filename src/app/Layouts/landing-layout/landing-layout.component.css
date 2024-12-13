@@ -1,0 +1,76 @@
+/*** Footer Start ***/
+.footer {
+    background: #151a1f; /* Dark background for footer */
+}
+
+.footer .footer-item a {
+    line-height: 35px;
+    color: #ddd;
+    transition: 0.5s;
+}
+
+.footer .footer-item p {
+    line-height: 35px;
+    color: #bbb;
+}
+
+.footer .footer-item a:hover {
+    letter-spacing: 1px;
+    color: orangered; /* Primary color on hover */
+}
+.insta{
+	color:rgb(205, 30, 88);
+}
+
+.footer .footer-item .footer-btn a,
+.footer .footer-item .footer-btn a i {
+    transition: 0.5s;
+}
+
+.footer .footer-item .footer-btn a:hover {
+    background: #fff;
+}
+
+.footer .footer-item .footer-btn a:hover i {
+    color: #0d6efd !important;
+}
+
+.list-unstyled li a{
+    text-decoration: none;
+}
+
+.nav-link:hover {
+
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none; /* Remove default underline */
+    color: inherit;
+    display: inline-block;
+    outline: none; /* Optional: Remove focus outline for cleaner appearance */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px; /* Space between text and underline */
+    width: 0; /* Start with no width */
+    height: 2px; /* Thickness of the underline */
+    background-color: currentColor; /* Matches text color */
+    transition: width 0.3s ease; /* Smooth animation */
+}
+
+.nav-link:hover::after,
+.nav-link.navbar-active::after {
+    width: 100%; /* Full underline on hover or active state */
+}
+
+
+
+

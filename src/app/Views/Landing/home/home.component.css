@@ -1,0 +1,113 @@
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    /* color: #fdfdfd; */
+
+
+}
+
+
+.banner h2 {
+    font-size: 55px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: black;
+    /* Gold color for a striking effect */
+    text-transform: uppercase;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.banner h3 {
+    color: #b71c1c;
+    font-size: 35px;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1.2s ease-in-out;
+}
+
+
+
+.firstLetter {
+    color: #b71c1c;
+    font-weight: 900;
+}
+
+.gym-heading {
+    color: #b71c1c;
+    /* Vibrant orange for attention */
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.gym-description {
+    color: #333333;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 850px;
+    padding: 10px 20px;
+}
+
+.gym-description::first-letter {
+    font-size: 1.3rem;
+    color: #b71c1c;
+    font-weight: bold;
+}
+
+.gym-heading,
+.gym-description {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Optional: Style for schedule table */
+.schedule-table {
+    margin: 2rem auto;
+    max-width: 850px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    color: black;
+}
+
+.schedule-table th {
+    background-color: #b71c1c;
+    color: #fff;
+    font-weight: 600;
+}
+
+.schedule-table td {
+    background-color: #f9f9f9;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.animate__fadeInUp {
+    animation-name: fadeInUp;
+}
+
