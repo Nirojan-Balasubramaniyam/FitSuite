@@ -1,24 +1,107 @@
-<h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
-    Member Report
-</h4>
+<section>
 
-<div class="mt-4">
-    <table class="table table-hover table-bordered text-center">
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Member ID</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Phone</th>
-            <th scope="col">NIC</th>
-            <th scope="col">Programs</th>
-          </tr>
-        </thead>
-        <tbody>
-        
-        </tbody>
-      </table>
+  <!-- Payment Card -->
+  <div class=" pb-2 px-4">
+      <div class="section-header-lg pt-3" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+          <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+              Member Report
+          </h4>
+          <div class="row g-4">
 
+              <div class="col-9">
+                  <div class="col-md-4 mb-3">
+                      <ng-select [(ngModel)]="selectedMember" 
+                          placeholder="Select member name or NIC or email..">
+                          @for (member of allMembers; track member.memberId) {
+                          <ng-option [value]="member.memberId">{{member.firstName+" - " + member.nic+ " - " +
+                              member.email}}</ng-option>
+                          }
+                      </ng-select>
+                      <button  class="btn btn-outline-info mt-2" (click)="memberStatusChange()">{{isActive ? 'View Leaved Members' : 'View Active Members'}}</button>
+                  </div>
+              </div>
+              <div class="col-3">
+                <p class="text-success fw-bold">Active Members: {{activeMemberCount }}</p>
+                <p class="text-danger fw-bold">Leaved Members: {{nonActiveMemberCount }}</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- Member Details -->
+      <div class="row g-4 mx-1 ">
+          <div class="col-12 ">
+              <div class="row">
+
+                  <div class="col-12">
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Branch Id</th>
+                          <th>Member Id</th>
+                          <th>Member Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Training Programs</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let member of members | memberReportFilter:selectedMember">
+                          <td>{{ member.branchId }}</td>                        
+                          <td>{{ member.memberId }}</td>
+                          <td>{{ member.firstName }} {{ member.lastName }}</td>
+                          <td>{{ member.email }}</td>
+                          <td>{{ member.phone }}</td>
+                          <td>
+                            <!-- Display grouped training programs -->
+                            
+                              <div *ngIf="groupedProgramsByMember[member.memberId]">
+                                  <div *ngFor="let typeName of objectKeys(groupedProgramsByMember[member.memberId])">
+                                      <strong class="text-info">{{ typeName }}</strong>
+                                      <ul>
+                                          <li *ngFor="let program of groupedProgramsByMember[member.memberId][typeName]">
+                                              {{ program.programName }}
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+
+                              <div *ngIf="isProgramsEmpty(groupedProgramsByMember[member.memberId])">
+                                <p class="text-danger fw-bold">No Programs Enrolled</p>                                 
+                            </div>
+                         
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+
+                      <!-- Pagination Controls -->
+                      <ngb-pagination [(page)]="p" [pageSize]="5" [collectionSize]="members.length"
+                          aria-label="Page navigation" [boundaryLinks]="true">
+                      </ngb-pagination>
+                  </div>
+              </div>
+
+
+          </div>
+
+      </div>
   </div>
+</section>
 
+<!-- <ng-template #confirmModal>
+  <div class="modal-body text-center">
+      <p>
+          <span class="text-primary">Are you sure you want to proceed with payment ?</span>
+      </p>
 
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+          <button type="button" class="btn btn-outline-danger" (click)="decline()">No</button>
+      </div>
+  </div>
+</ng-template> -->
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

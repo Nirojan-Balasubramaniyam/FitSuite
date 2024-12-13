@@ -1,23 +1,22 @@
-<div class="container-fluid mt-5">
-  <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+<div class="container-fluid">
+  <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
     Member Management
   </h4>
-  <div class="card-body shadow mb-5 bg-white rounded p-3">
+  <div class="shadow mb-5 rounded p-3">
     <div class="row mb-3">
 
       <div class="col-12 col-md-6 d-flex align-items-center">
-        <input type="text" class="form-control w-50" placeholder="Search member by User ID or NIC">
-        <button type="button" class="btn btn-secondary ms-2">Search</button>
+        
+        <input type="text" [(ngModel)]="searchText" class="search-input w-50" placeholder="Search by Name, Email, NIC">
+        <!-- <button type="button" class="btn btn-secondary ms-2">Search</button> -->
       </div>
 
 
       <div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
         <!-- <button type="button" class="btn btn-success">Add New Member</button> -->
-        <button type="button" class="btn btn-success" (click)="openModalWithClass(template)">Add New
-          Member</button>
+        <button type="button" class="btn btn-success" (click)="openModalWithClass(memberFormTemplate)"> Add New Member</button>
       </div>
     </div>
-
 
     <div class="container">
       <table class="table table-hover table-bordered text-center">
@@ -30,39 +29,60 @@
             <th scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let member of members">
-            <td>{{ member.memberId }}</td>
-            <td>{{ member.firstName }}</td>
-            <td>{{ member.phone }}</td>
-            <td>{{ member.lastName }}</td>
-            <td class="d-flex justify-content-center">
-              <button type="button" class="btn btn-warning me-3" (click)="editMember(member)">
+        <tbody >
+          <tr *ngFor="let member of members | memberFilter:searchText">
+            <td class="d-flex justify-content-around align-items-center">
+              <img
+                [src]="(member.imagePath ? fullImgPath + member.imagePath : '../../../../../assessts/user-avatar-male-5.png')"
+                alt="Profile Image" width="50px" class="profile-image" /> 
+              M00{{ member.memberId }}</td>
+            <td>{{ member.firstName + "-" + member.lastName }}</td>
+
+            <td> {{member.phone}} </td>
+            <td>Rs. {{ member.monthlyPayment }}</td>
+            <td class="">
+              <button type="button" class="btn btn-warning me-3" (click)="editMember(member.memberId)">
                 <i class="bi bi-pencil-square"></i>
               </button>
-              <button type="button" class="btn btn-danger" (click)="deleteMember(member)">
+              <button type="button" class="btn btn-danger" (click)="openModal(deleteModal,member.memberId)">
                 <i class="bi bi-trash3"></i>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <!-- Angular Material Pagination -->
-      <mat-paginator [length]="totalRecords" [pageSize]="pageSize" [pageIndex]="pageIndex"
-        (page)="onPageChange($event)">
-      </mat-paginator>
     </div>
-
+          <!-- Angular Material Pagination -->
+          <mat-paginator [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}" [length]="totalRecords" [pageSize]="pageSize" [pageIndex]="pageIndex"
+          (page)="onPageChange($event)" class="custom-paginator">
+        </mat-paginator>
   </div>
 
 </div>
 
 
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 
-<ng-template #template>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>
+      All information associated to <span class="text-primary">{{memberName}}</span> will be deleted. <br>
+      <span class="text-danger fw-bold"> Do you want to Delete</span> <br>
+      <small class="text-danger">(This operation can not be undone.)</small>
+    </p>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-danger" (click)="decline()">No</button>
+  </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #memberFormTemplate>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Add Member</h4>
+    <h4 class="modal-title pull-left  {{memberId ==0 ? 'text-success' : 'text-warning'}}">{{memberId ==0 ? 'Add New Member': 'Edit Member'}}</h4>
     <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -75,7 +95,7 @@
           <div class="form-group">
             <div class="input-wrapper">
               <input id="firstName" formControlName="firstName" class="form-control" placeholder="" />
-              <label for="firstName" class="floating-label">First Name <span *ngIf="isRequired('firstName')"
+              <label for="firstName" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">First Name <span *ngIf="isRequired('firstName')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('firstName')?.invalid && memberForm.get('firstName')?.touched"
@@ -90,7 +110,7 @@
           <div class="form-group">
             <div class="input-wrapper">
               <input id="lastName" formControlName="lastName" class="form-control" placeholder="" />
-              <label for="lastName" class="floating-label">Last Name <span *ngIf="isRequired('lastName')"
+              <label for="lastName" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Last Name <span *ngIf="isRequired('lastName')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('lastName')?.invalid && memberForm.get('lastName')?.touched" class="text-danger">
@@ -104,7 +124,7 @@
           <div class="form-group">
             <div class="input-wrapper">
               <input id="email" formControlName="email" type="email" class="form-control" placeholder="" />
-              <label for="email" class="floating-label">Email <span *ngIf="isRequired('email')"
+              <label for="email" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Email <span *ngIf="isRequired('email')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('email')?.invalid && memberForm.get('email')?.touched" class="text-danger">
@@ -119,7 +139,7 @@
           <div class="form-group">
             <div class="input-wrapper">
               <input id="nic" formControlName="NIC" class="form-control" placeholder="" />
-              <label for="nic" class="floating-label">NIC <span *ngIf="isRequired('NIC')"
+              <label for="nic" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">NIC <span *ngIf="isRequired('NIC')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('NIC')?.invalid && memberForm.get('NIC')?.touched" class="text-danger">
@@ -135,7 +155,7 @@
           <div class="form-group">
             <div class="input-wrapper">
               <input id="phone" formControlName="phone" class="form-control" placeholder="" />
-              <label for="phone" class="floating-label">Phone <span *ngIf="isRequired('phone')"
+              <label for="phone" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Phone <span *ngIf="isRequired('phone')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('phone')?.invalid && memberForm.get('phone')?.touched" class="text-danger">
@@ -151,7 +171,7 @@
             <div class="input-wrapper">
               <input id="dob" formControlName="doB" type="text" class="form-control" bsDatepicker
                 placeholder="Datepicker" />
-              <label for="doB" class="floating-label">Date of Birth <span *ngIf="isRequired('doB')"
+              <label for="doB" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Date of Birth <span *ngIf="isRequired('doB')"
                   class="text-danger">*</span></label>
             </div>
             <div *ngIf="memberForm.get('doB')?.invalid && memberForm.get('doB')?.touched" class="text-danger">
@@ -167,7 +187,7 @@
             <div class="input-wrapper">
               <input id="emergencyContactName" formControlName="emergencyContactName" class="form-control"
                 placeholder="" />
-              <label for="emergencyContactName" class="floating-label">Emergency Contact Name <span
+              <label for="emergencyContactName" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact Name <span
                   *ngIf="isRequired('emergencyContactName')" class="text-danger">*</span></label>
             </div>
             <div
@@ -185,7 +205,7 @@
             <div class="input-wrapper">
               <input id="emergencyContactNumber" formControlName="emergencyContactNumber" class="form-control"
                 placeholder="" />
-              <label for="emergencyContactNumber" class="floating-label">Emergency Contact Number <span
+              <label for="emergencyContactNumber" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact Number <span
                   *ngIf="isRequired('emergencyContactNumber')" class="text-danger">*</span></label>
             </div>
             <div
@@ -211,7 +231,7 @@
                 <div class="form-group">
                   <div class="input-wrapper">
                     <input id="street" formControlName="street" class="form-control" placeholder="" />
-                    <label for="street" class="floating-label">Street <span *ngIf="isRequired('address.street')"
+                    <label for="street" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Street <span *ngIf="isRequired('address.street')"
                         class="text-danger">*</span></label>
                   </div>
                 </div>
@@ -222,7 +242,7 @@
                 <div class="form-group">
                   <div class="input-wrapper">
                     <input id="city" formControlName="city" class="form-control" placeholder="" />
-                    <label for="city" class="floating-label">City <span *ngIf="isRequired('address.city')"
+                    <label for="city" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">City <span *ngIf="isRequired('address.city')"
                         class="text-danger">*</span></label>
                   </div>
                 </div>
@@ -233,7 +253,7 @@
                 <div class="form-group">
                   <div class="input-wrapper">
                     <input id="province" formControlName="province" class="form-control" placeholder="" />
-                    <label for="province" class="floating-label">Province <span *ngIf="isRequired('address.province')"
+                    <label for="province" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Province <span *ngIf="isRequired('address.province')"
                         class="text-danger">*</span></label>
                   </div>
                 </div>
@@ -244,7 +264,7 @@
                 <div class="form-group">
                   <div class="input-wrapper">
                     <input id="country" formControlName="country" class="form-control" placeholder="" />
-                    <label for="country" class="floating-label">Country <span *ngIf="isRequired('address.country')"
+                    <label for="country" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Country <span *ngIf="isRequired('address.country')"
                         class="text-danger">*</span></label>
                   </div>
                 </div>
@@ -255,7 +275,7 @@
 
         <div class="col-12">
           <div class="form-group">
-            <label for="imageFile" class="text-muted">Profile Image <span *ngIf="isRequired('imageFile')"
+            <label for="imageFile" class="text-muted" [ngStyle]="{ 'background-color': getLabelBackground() }">Profile Image <span *ngIf="isRequired('imageFile')"
                 class="text-danger">*</span></label>
             <input id="imageFile" type="file" (change)="onFileChange($event)" class="form-control" />
             <div *ngIf="memberForm.get('imageFile')?.invalid && memberForm.get('imageFile')?.touched"
@@ -269,7 +289,7 @@
         <!-- Submit Button -->
         <div class="col-12">
           <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn {{memberId ==0 ? 'btn-success' : 'btn-warning'}}">{{memberId ==0 ? 'Add Member': 'Edit Member'}}</button>
           </div>
         </div>
       </div>

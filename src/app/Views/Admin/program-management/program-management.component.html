@@ -1,37 +1,190 @@
-<div class="container-fluid mt-5">
-    <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+<div class="container-fluid">
+  <div class="mb-5 p-3 shadow rounded">
+    <div class="row mb-4" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+      <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
         Program Management
-    </h4>
-    <div class="card-body shadow mb-5 bg-white rounded p-3">
-      <div class="row mb-3">
-     
-        <div class="col-12 col-md-6 d-flex align-items-center">
-          <input type="text" class="form-control w-50" placeholder="Search Program">
-          <button type="button" class="btn btn-secondary ms-2">Search</button>
-        </div>
-  
-       
-        <div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
-          <button type="button" class="btn btn-success">Add Program</button>
-        </div>
-      </div>
-  
-    
-      <table class="table table-hover table-bordered text-center">
-        <thead>
-          <tr>
-            <th scope="col">Program Id</th>
-            <th scope="col">Program Name</th>
-            <th scope="col">Program Type</th>
-            <th scope="col">Program Cost</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-         
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
+      </h4>
 
+      <div class="col-12 col-md-6" >
+        <input type="text" [(ngModel)]="searchText" class="search-input" placeholder="Search by Name, Type">
+      </div>
+
+
+      <div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
+        <button type="button" class="btn btn-success" (click)="openModalWithClass(trainingProgramForm)">Add
+          Program</button>
+      </div>
+    </div>
+
+
+    <div class="training-program-grid">
+      <mat-card class="example-card training-program-card" appearance="outlined"
+      [ngStyle]="{'background-color' : isLightTheme? 'white' : '#343a40'}"
+        *ngFor="let program of trainingPrograms | programFilter: searchText">
+        <mat-card-header [ngStyle]="
+        {'background-color' : isLightTheme? '#f5f5f5' : '#343a40',
+          'color': isLightTheme? '#888': 'white'
+        }">
+          <mat-card-title>{{ program.programName }}</mat-card-title>
+          <mat-card-subtitle [ngStyle]="
+          {'color': isLightTheme? '#888': 'white'}">
+          Program ID: {{ program.programId }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content >
+          <p [ngStyle]="{'color': isLightTheme? 'black': 'white'}"><strong>Type:</strong> {{ program.typeName }}</p>
+          <p [ngStyle]="{'color': isLightTheme? 'black': 'white'}"><strong>Cost:</strong> Rs. {{ program.cost }}</p>
+          <p [ngStyle]="{'color': isLightTheme? 'black': 'white'}"><strong>Description:</strong> {{ program.description }}</p>
+         
+            <img mat-card-image [src]="fullImgPath + program.imagePath" alt="Program Image" class="image-fluid"/>
+          
+        </mat-card-content>
+
+        <mat-card-actions >
+          <button [ngStyle]="{'color': isLightTheme? 'black': 'white'}" mat-button (click)="onEdit(program.programId)"> <i class="bi bi-pencil"></i> Edit</button>
+          <button [ngStyle]="{'color': isLightTheme? 'black': 'white'}" mat-button (click)="openModal(deleteModal, program.programId)"> <i class="bi bi-trash"></i>
+            Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>
+      All information associated to <span class="text-primary">{{programName}}</span> will be deleted. <br>
+      <span class="text-danger fw-bold"> Do you want to Delete</span> <br>
+      <small class="text-danger">(This operation can not be undone.)</small>
+    </p>
+    <!-- <p class="text-danger"></p> -->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-danger" (click)="decline()">No</button>
+  </div>
+  </div>
+</ng-template>
+
+<ng-template #trainingProgramForm>
+  <div class="modal-header">
+
+    <h4 class="modal-title pull-left">Add Program</h4>
+
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="programForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+
+        <!-- Program Name Field -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="text" id="programName" formControlName="programName" class="form-control"
+                placeholder="Program Name">
+              <label for="programName" class="floating-label" placeholder=""
+                [ngStyle]="{ 'background-color': getLabelBackground() }">
+                Program Name
+                <span *ngIf="isRequired('programName')" class="text-danger">*</span>
+              </label>
+            </div>
+            <div
+              *ngIf="programForm.controls['programName'].hasError('required') && programForm.controls['programName'].touched"
+              class="text-danger">
+              Program name is required.
+            </div>
+            <div *ngIf="programForm.controls['programName'].hasError('nameTaken')" class="text-danger">
+              Program name is already taken.
+            </div>
+          </div>
+        </div>
+
+        <!-- Program Type Field -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <select class="form-control" id="typeId" formControlName="typeId">
+                <option *ngFor="let type of programTypes" [value]="type.typeId">{{ type.typeName }}</option>
+              </select>
+              <label for="typeId" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">
+                Program Type
+                <span *ngIf="isRequired('typeId')" class="text-danger">*</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- Cost Field -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="number" id="cost" class="form-control" formControlName="cost" placeholder="">
+              <label for="cost" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">
+                Cost
+                <span *ngIf="isRequired('cost')" class="text-danger">*</span>
+              </label>
+            </div>
+            <div *ngIf="programForm.controls['cost'].hasError('required') && programForm.controls['cost'].touched"
+              class="text-danger">
+              Cost is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <textarea id="description" class="form-control" formControlName="description"
+                placeholder="Description"></textarea>
+              <label for="description" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">
+                Description
+                <span *ngIf="isRequired('description')" class="text-danger">*</span>
+              </label>
+            </div>
+            <div
+              *ngIf="programForm.controls['description'].hasError('required') && programForm.controls['description'].touched"
+              class="text-danger">
+              Description is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group">
+            <label for="imageFile" class="text-muted" [ngStyle]="{ 'background-color': getLabelBackground() }">Profile Image <span *ngIf="isRequired('imageFile')"
+                class="text-danger">*</span></label>
+            <input id="imageFile" type="file" (change)="onFileChange($event)" class="form-control" />
+            <div *ngIf="programForm.get('imageFile')?.invalid && programForm.get('imageFile')?.touched"
+              class="text-danger">
+              <div *ngIf="programForm.get('imageFile')?.hasError('required')">Profile image is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer with Buttons -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="programForm.invalid">Save</button>
+      </div>
+    </form>
+
+
+  </div>
+</ng-template>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

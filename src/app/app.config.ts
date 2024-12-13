@@ -8,6 +8,10 @@ import { provideToastr } from 'ngx-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(), // required animations providers
     provideToastr(),
     provideZxvbnServiceForPSM(),
-    DatePipe
+    DatePipe,
+    FormsModule,
+    NgxSpinnerModule,
+    NgSelectModule
   ]
 };

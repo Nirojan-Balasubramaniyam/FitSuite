@@ -7,13 +7,14 @@ export interface Member {
     lastName: string;
     email: string;
     passwordHash: string; 
-    NIC: string;
+    nic: string;
     phone: string;
     doB: string; 
     gender: string;
     emergencyContactName: string;
     emergencyContactNumber: string;
     imagePath?: string; 
+    monthlyPayment:number;
     trainerId?: number; 
     //staff?: Staff; 
     branchId: number;

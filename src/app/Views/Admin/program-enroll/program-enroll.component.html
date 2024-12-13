@@ -1,51 +1,174 @@
 <section id="content">
-    <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
-        Program Enroll
-    </h4>
-    <div id="dynamicContent">
-        <div id="enrollProgramCard">
+    <div class="row">
+        <div class="col-12 p-5 pt-0 pt-md-3  rounded shadow">
+            <div class="header-section" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+                <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+                    Program Enroll
+                </h4>
+
+                <!-- Selection Form Group -->
+                <div class="row mb-4 ">
+                    <div class="col-4 col-md-2">
+                        <!-- <label for="memberSelect" class="form-label">Select Member</label> -->
+                        <ng-select [(ngModel)]="selectedMember" (ngModelChange)="onMemberChange(selectedMember)"
+                            placeholder="Select Member..">
+                            @for (member of members; track member.memberId) {
+                            <ng-option [value]="member.memberId">{{member.firstName+" - " + member.nic+ " - " +
+                                member.email}}</ng-option>
+                            }
+                        </ng-select>
+
+                        <div class="d-none d-md-block mt-2">
+                            <input type="text" class="form-control mb-3" [(ngModel)]="searchText"
+                                placeholder="Search programs...">
+                        </div>
+                    </div>
+
+                    <div class="col-4 col-md-2 pe-0 me-0 me-md-5 pe-md-5">
+                        <!-- <label for="monthSelect" class="form-label">Select Month</label> -->
+                        <select [disabled]="isMonthSelectDisabled" class="form-select" [(ngModel)]="selectedMonth"
+                            (change)="onMonthChange()">
+
+                            <option value="" disabled selected>Select a month</option>
+                            <option *ngFor="let month of months" [value]="month.id">
+                                {{ month.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4 d-block d-md-none">
+                        <input type="text" class="form-control mb-3" [(ngModel)]="searchText"
+                            placeholder="Search programs...">
+                    </div>
 
 
-            <div class="selection-form-group">
-                <div>
-                    <select  class="form-input">
-                    </select>
-                </div>
 
-                <div>
-                    <select  class="form-input">
-                    </select>
-                </div>
-            </div>
+                    <div
+                        class="payment-card col-12 col-md-4 mt-3 mt-md-0 pt-0 ms-0 ps-0 ms-md-5 ps-md-5 me-0 me-lg-4 d-flex justify-content-between d-md-block">
 
-            <div id="trainingProgramSelection">
-                <div class="program-section">
-                    <h3>Cardio Programs</h3>
-                    <div id="cardioPrograms">
+                        <div class="mb-0 mb-md-3  ">
+                            <p><strong class="text-primary">Total Payment:</strong> <span
+                                    [ngStyle]="{'color': isLightTheme? '#4a4a4a': 'white'}">{{" Rs. "+
+                                    totalPayment}}</span>
+                                <br>
+                                <em><small class="text-success">(Monthly Payment: <span>{{" Rs. "+ monthlyPayment
+                                            }})</span> </small> </em>
+                            </p>
+
+                            <div *ngIf="!isLargeScreen">
+
+                                <p class="ms-4 ms-md-0" *ngIf="selectedMonth >1"><strong
+                                        class="text-primary ">Discounted Payment:</strong> <br> <span
+                                        [ngStyle]="{'color': isLightTheme? '#4a4a4a': 'white'}">
+                                        {{" Rs. "+ discountedPayment}}</span>
+                                </p>
+                            </div>
+
+                            <div *ngIf="isLargeScreen">
+
+                                <p class="ms-4 ms-md-0" *ngIf="selectedMonth >1"><strong
+                                        class="text-primary ">Discounted Payment:</strong> <span
+                                        [ngStyle]="{'color': isLightTheme? '#4a4a4a': 'white'}">
+                                        {{" Rs. "+ discountedPayment}}</span>
+                                </p>
+                            </div>
+
+                            <div *ngIf="isLargeScreen">
+
+                                <p *ngIf="additionalPayment!=0"><strong class="text-primary">Current Payment:</strong>
+                                    <span [ngStyle]="{'color': isLightTheme? '#4a4a4a': 'white'}">
+                                        {{" Rs. " + additionalPayment }}</span>
+                                </p>
+
+                            </div>
+
+                            <div *ngIf="!isLargeScreen">
+
+                                <p *ngIf="additionalPayment!=0"><strong class="text-primary">Current Payment:</strong>
+                                    <br>
+                                    <span [ngStyle]="{'color': isLightTheme? '#4a4a4a': 'white'}">
+                                        {{" Rs. " + additionalPayment }}</span>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="payment-options col-4 col-md-6">
+                            <label class="text-success">Payment method: </label>
+                            <div class="d-flex justify-content-around">
+                                <label>
+                                    <input type="radio" name="paymentMethod" value="Cash"
+                                        [(ngModel)]="selectedPaymentMethod"> Cash
+                                </label>
+                                <label>
+                                    <input type="radio" name="paymentMethod" value="Card"
+                                        [(ngModel)]="selectedPaymentMethod"> Card
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-2 mt-md-0 ps-4 ms-lg-5 ps-lg-0 ps-xl-5">
+
+                        <!-- <input type="text" class="form-control mb-3" [(ngModel)]="searchText" placeholder="Search programs..."> -->
+
+                        <button class="btn btn-success" style="width: 100%;"
+                            [disabled]=" (newlySelectedPrograms.length === 0 && leavingPrograms.length === 0)"
+                            (click)="openModal(confirmModal)">
+                            <i class="bi bi-file-earmark-plus"></i>
+                            Enroll
+                        </button>
+
                     </div>
                 </div>
+            </div>
 
-                <div class="program-section">
-                    <h3>Weight Training Programs</h3>
-                    <div id="weightPrograms">
+            <!-- Program Selection Sections -->
+            <div class="row g-4 mb-4">
+                <div *ngFor="let type of programTypes" class="col-12 col-md-6 col-lg-4">
+                    <div class="program-section card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between"
+                            style="height: 60px;">
+                            <h3 class="h5 mb-0 text-truncate text-success fw-bolder">{{ type.typeName }} Programs</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Show Programs if Available or Display Message -->
+                            <div *ngIf="(programsByType | filterProgram: searchText)[type.typeId]?.length">
+                                <div *ngFor="let program of (programsByType | filterProgram: searchText)[type.typeId]"
+                                    class="mb-2">
+                                    <label class="program-checkbox form-check-label">
+                                        <input type="checkbox" class="form-check-input me-2"
+                                            [checked]="enrolledProgramsByType[type.typeId] && enrolledProgramsByType[type.typeId].includes(program.programId)"
+                                            (change)="onProgramSelectionChange( program.programId, $event)">
+                                        {{ program.programName + " - Rs. " + program.cost }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngIf="!programsByType[type.typeId]?.length" class="text-muted">
+                                Currently no programs available for this type.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div id="programEnrollPaymentForm" class="form-group">
-                <div>
-                    <p><span id="totalPayment"></span></p>
-                    <p><span id="additionalPayment"></span></p>
-                </div>
-                <label>Select payment method:</label>
-                <label><input type="radio" name="paymentMethod" value="Cash" checked> Cash</label>
-                <label><input type="radio" name="paymentMethod" value="Card"> Card</label>
-                <button id="addProgramsBtn">Add Programs</button>
-            </div>
-
-
-
         </div>
-
     </div>
+
+    <ng-template #confirmModal>
+        <div class="modal-body text-center">
+            <p>
+                <span class="text-primary">Are you sure you want to proceed with program {{isNewMember? 'enrolling' :
+                    'updating'}} ?</span>
+            </p>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-outline-danger" (click)="decline()">No</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
 </section>

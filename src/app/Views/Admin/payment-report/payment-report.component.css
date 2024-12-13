@@ -1,0 +1,65 @@
+.bs-datepicker {
+    position: absolute;
+    top: 10px !important;
+    left: 100px !important;
+    z-index: 9999;
+}
+
+::ng-deep .ng-select .ng-select-container {
+    background: none !important;
+    color: #b71c1c !important;
+}
+
+/* #paymentTypeChart {
+    height: 400px;
+} */
+
+.chart-container {
+   
+    width: 500px;
+    height: 20%;
+   
+    /* position: relative;
+    left: 0px;
+    right: 350px; */
+}
+
+/* Styling the table */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+td{
+    font-weight: 500;
+}
+
+th {
+    background-color: #0d6efd;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+/* Add custom pagination styling */
+.pagination-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+canvas {
+    margin-top: 20px;
+    max-width: 100%;
+}

@@ -3,9 +3,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 @import url('https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css');
+@import "@ng-select/ng-select/themes/default.theme.css";
 
 
 @import 'ngx-toastr/toastr';
+
+
 
 main > .container {
   padding: 60px 15px 0;
