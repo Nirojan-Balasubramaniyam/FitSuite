@@ -1,0 +1,68 @@
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    /* background: url('/assessts/logback3.jpg') no-repeat center/cover; */
+
+
+     
+    
+     
+  }
+
+  .form-wrapper {
+    display: flex;
+    width: 900px;
+    height: 550px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .image-side {
+    flex: 1;
+    background: url('/assessts/login5.jpg') no-repeat center center/cover;
+    position: relative;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    /* margin: 20px; */
+    /* border-radius: 15px; */
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+  }
+  
+  .image-side .info {
+    font-size: 0.9rem;
+  }
+
+  .form-side {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .title {
+    display: block;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title span {
+    color: #77392e;
+}
+
+.info-message,.pw-forgot{
+    display: block;
+    text-align: center;
+}
+

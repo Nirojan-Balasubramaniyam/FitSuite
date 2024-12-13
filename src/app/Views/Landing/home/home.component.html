@@ -1,0 +1,47 @@
+<section class="banner mt-0" style="width: 100%;">
+    <div class="banner-content container-fluid">
+        <div class="row">
+            <div class="col-1 col-sm-2 col-md-3">
+                <img class="home-img" src="../../../../../assessts/homeImg1.jpg" alt="homeImg">
+            </div>
+
+            <div class="col-11 col-sm-10 col-md-9 mt-5 pt-5">
+                <h2 class="animate__animated animate__fadeInUp"><span class="firstLetter">B</span>UILD <span class="firstLetter">Y</span>OUR <span
+                        class="firstLetter">B</span>ODY</h2>
+                <h3 class="gym-heading">Transform Your Life with Us</h3>
+                <p class="gym-description">
+                    At FIT or FIGHT Gym, fitness is a lifestyle commitment. Our certified trainers are here to guide and
+                    support you with personalized plans tailored to your goals.
+                </p>
+                <p class="gym-description">
+                    We offer flexible schedules, dedicated facilities, and a variety of classes—from cardio to strength
+                    training—to help you succeed on your fitness journey.
+                </p>
+
+                <p class="gym-description">
+                    Explore our wide range of classes and find what works best for you. Join us today and let’s make
+                    each session a powerful step towards your transformation. Together, we’ll make fitness a rewarding
+                    part of your life!
+                </p>
+                <div class="row mt-5 px-5 ">
+                    <div class="col-sm-3" *ngFor="let counter of counters">
+                        <div class="counter-item rounded p-3 h-100" style="background-color: #b71c1c;">
+                            <div class="counter-counting">
+                                <span class="text-light fs-2 fw-bold">{{ counter.currentValue }}</span>
+                                <span class="h1 fw-bold text-light">+</span>
+                            </div>
+                            <h4 class="mb-0 text-light">{{ counter.label }}</h4>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+
+    
+
+<app-bmi></app-bmi>
+<app-about-us></app-about-us>
+<app-trainer></app-trainer>
+<app-contact-us></app-contact-us>

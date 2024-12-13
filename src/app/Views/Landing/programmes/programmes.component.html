@@ -1,0 +1,22 @@
+<body>
+    <div class="container-fluid program py-5 " >
+        <h1 class="mb-0 text-center" style="color: #b71c1c;">OUR PROGRMS</h1>
+    <div class="container mt-5">
+        <div class="row g-4">
+            <div class="col-md-3" *ngFor="let program of programs">
+                <div class="card">
+                    <img [src]="program.imageUrl" class="card-img-top" alt="{{ program.title }}">
+                    <a href="#" class="btn">Rs.{{ program.price }}</a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ program.title }}</h5>
+                        <p class="card-text">{{ program.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+
+

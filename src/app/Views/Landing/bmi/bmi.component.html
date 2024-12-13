@@ -1,0 +1,65 @@
+<section class="convert-area py-5" id="convert">
+    <div class="container">
+      <div class="convert-wrap text-center">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="title mb-4">
+              <h1 class="display-5 text-white fw-bold">Track Your Health Today!</h1>
+              <p class="text-white">Calculate your BMI and discover your health status now.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center g-3">
+          <div class="col-lg-3 col-md-6">
+            <input type="number" [(ngModel)]="height"  placeholder="Your Height (cm)"  class="form-control">
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <input  type="number" [(ngModel)]="weight"  placeholder="Your Weight (kg)"    class="form-control">
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <button (click)="calculateBMI()"  class="btn btn-custom w-100">Calculate Your BMI</button>
+          </div>
+        </div>
+        <div class="mt-4" *ngIf="bmi !== null">
+          <h2 class="text-white">Your BMI: {{ bmi }}</h2>
+          <p class="text-white">{{ healthStatus }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+    <!-- End convert Area -->
+  
+    <div class="mt-3">
+      <h3 class="text-center" style="color: #b71c1c; font-weight: 700;" >Recommended Tips for You</h3>
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-3 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title text-center text-primary">Diet Recommendations</h5>
+              <ul class="list-unstyled text-start">
+                <li>🍎 Eat more fruits and vegetables</li>
+                <li>🥗 Focus on balanced meals</li>
+                <li>🚫 Avoid processed foods</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title text-center text-primary">Exercise Suggestions</h5>
+              <ul class="list-unstyled text-start">
+                <li>🏃‍♂️ 30 minutes of cardio daily</li>
+                <li>💪 Strength training twice a week</li>
+                <li>🧘‍♀️ Try yoga or pilates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+   
+  

@@ -1,1 +1,143 @@
-<p>landing-layout works!</p>
+<div class="container-fluid">
+    <div class="row" >
+        <div class="col-12">
+            <header class="bg-info fixed-top">
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b71c1c;">
+                    <div class="container-fluid">
+                        <a class="navbar-brand text-white fw-bolder d-flex align-items-center" href="/">
+                            <img src="../../../../assessts/FFLogo1.png" alt="Logo" style="height: 30px; margin-right: 10px;"> FIT or FIGHT
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" href="/home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" href="/programs">Programs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" href="/bmi">BMI</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" href="/about">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white fw-bold" href="/contact">Contact Us</a>
+                                </li>
+                            </ul>
+                            <div class="d-flex">
+                                <a href="/login" class="nav-link login-btn me-3 text-white fw-bold border border-white rounded px-3 py-1" id="login_btn">LOGIN</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            
+            
+        </div>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-12">
+            <router-outlet></router-outlet>
+            
+        </div>
+    </div>
+
+
+
+   <!-- Footer Start -->
+<div class="container-fluid footer py-1 wow fadeIn" data-wow-delay="0.2s">
+    <div class="container pt-2">
+        <div class="row g-5">
+
+            <div class="col-12 text-center text-white">
+                <h2>FIT OR FIGHT GYM</h2>
+            </div>
+
+            <!-- About Us Section -->
+            <div class="col-12 text-center col-md-4 text-md-start col-lg-3">
+                <div class="footer-item">
+                    <h4 class="text-white mb-4">About Us</h4>
+                    <p class="mb-3">FIT OR FIGHT Gym is dedicated to providing a top-notch fitness experience with
+                        state-of-the-art equipment and expert trainers to help you reach your fitness goals.</p>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="col-12 text-center col-md-4 text-md-start  col-lg-3" >
+                <div class="footer-item ms-md-5">
+                    <h4 class="text-white mb-4">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/home" ><i class="fas fa-angle-right me-2"></i>Home</a></li>
+                        <li><a href="/about"><i class="fas fa-angle-right me-2"></i>About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right me-2"></i>Services</a></li>
+                        <li><a href="/contact"><i class="fas fa-angle-right me-2"></i>Contact Us</a>
+                        </li>
+                        <li><a href="/payment"><i class="fas fa-angle-right me-2"></i>Membership</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+           
+            <!-- Opening Hours Section -->
+            <div class="col-12 text-center col-md-4 text-md-start col-lg-3" >
+                <div class="footer-item ms-md-3">
+                    <h4 class="text-white mb-4">Opening Hours</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <h6 class="text-white mb-2">Monday - Friday:</h6>
+                        </li>
+                        <li>
+                            <p class=" mb-4">05.00 am to 11.00 pm</p>
+                        </li>
+                        <li>
+                            <h6 class="text-white mb-2">Saturday & Sunday:</h6>
+                        </li>
+                        <li>
+                            <p class=" mb-0">5.00 am to 08.00 pm</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+                <!-- Contact Info Section -->
+                <div class="col-12 text-center  col-lg-3 text-lg-start" >
+                    <div class="footer-item ms-md-4">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <ul class="list-unstyled ">
+                            <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> KKS Road, Mallakam</a></li>
+                            <li><a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                                    info&#64;fitorfightgym.com</a></li>
+                            <li><a href="tel:+01234567890"><i class="fas fa-phone me-2"></i> +012 345 67890</a></li>
+                            <li><a href="tel:+01234567890"><i class="fas fa-print me-2"></i> +012 345 67890</a></li>
+                        </ul>
+                        <div class="social ">
+                            <div class="d-flex">
+                                <a href="#" target="_blank"><i class="bi bi-facebook mx-2 fs-3 text-primary"></i></a>
+                                <a href="#" target="_blank"><i class="bi bi-twitter mx-2 fs-3 text-primary"></i></a>
+                                <a href="#" target="_blank"><i class=" insta bi bi-instagram mx-2 fs-3 text-$pink"></i></a>
+                                <a href="#" target="_blank"><i class="bi bi-youtube mx-2 fs-3 text-danger"></i></a>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+        </div>
+        <hr class="border-secondary">
+        <!-- Copyright Section -->
+        <div class="row p-0">
+            <div class="col-12 text-center text-white">
+                <p>&copy; 2024 FIT OR FIGHT Gym. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->

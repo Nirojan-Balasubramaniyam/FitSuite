@@ -1,0 +1,63 @@
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .card-body {
+    padding: 15px; 
+  
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  button{
+    background-color: #007bff;
+    border: black;
+  }
+
+  .convert-area {
+    background-color: #b71c1c;
+  }
+  
+  .convert-wrap {
+    padding: 50px 0;
+  }
+  
+  .convert-wrap h1, 
+  .convert-wrap p {
+    text-align: center;
+  }
+  
+  .convert-wrap .form-control {
+    color: #000000; /* Text color inside input */
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 0.25rem;
+    background: #ffffff; /* Input box background color */
+    border-color: #333333;
+  }
+  
+  .convert-wrap .form-control::placeholder {
+    color: #4e4b4b; /* Placeholder text color */
+    font-size: 14px;
+    text-transform: capitalize;
+  }
+  
+  .btn-custom {
+    padding: 10px 20px;
+    background-color: #b71c1c; /* Button background color */
+    color: #ffffff; /* Button text color */
+    border: 2px solid #ffffff;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-custom:hover {
+    background-color: #ffffff; /* Hover background color */
+    color: #000000; /* Hover text color */
+    border: 2px solid #000000;
+  }
+  
