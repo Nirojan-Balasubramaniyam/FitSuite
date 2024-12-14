@@ -1,4 +1,5 @@
 export interface TrainingProgram {
+
   programId: number;
   branchName:string;
   programName:string;
@@ -8,3 +9,4 @@ export interface TrainingProgram {
   description:string;
   imagePath:string;
 }
+
