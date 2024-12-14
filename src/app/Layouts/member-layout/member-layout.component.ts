@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ThemeService } from '../../Service/Theme/theme.service';
 
@@ -11,20 +11,26 @@ import { ThemeService } from '../../Service/Theme/theme.service';
   templateUrl: './member-layout.component.html',
   styleUrl: './member-layout.component.css'
 })
-export class MemberLayoutComponent {
+export class MemberLayoutComponent implements OnInit {
   name:string = "Admin";
   
-  isNavbarVisible: boolean = true; // Controls whether the sidebar is visible
-  navBarWidth: string = '250px'; // Default sidebar width
-  isScreenMedium: boolean = false; // Tracks if the screen is medium or smaller
+  isNavbarVisible: boolean = true; 
+  navBarWidth: string = '450px'; 
   isDropdownOpen = false;
   isMoonButton = true;
+  isLargeScreen: boolean = false;
 
 
   constructor(private themeService : ThemeService, private router: Router) {
-   //this.checkScreenSize();
+   
    this.updateTheme();
   }
+
+ngOnInit(): void {
+  this.checkScreenSize();
+  this.themeService.setNavbarVisibility(this.isNavbarVisible);
+}
+
   logout(){
     localStorage.removeItem("Token");
     localStorage.removeItem("Name");
@@ -33,7 +39,7 @@ export class MemberLayoutComponent {
 
   toggleNavbar(): void {
     this.isNavbarVisible = !this.isNavbarVisible;
-    this.navBarWidth = this.isNavbarVisible ? '250px' : '90px';
+    this.navBarWidth = this.isNavbarVisible ? '450px' : '120px';
 
   }
 
@@ -88,12 +94,7 @@ export class MemberLayoutComponent {
     { iconClass: 'bi bi-credit-card-2-back', label: 'Make Payment', link: '/member/payment' },
     { iconClass: 'fas fa-dumbbell', label: 'Change Programs', link: '/member/change-program' },
     { iconClass: 'fas fa-file-invoice-dollar', label: 'Payment History', link: '/member/payment-history' },
-
-    // { iconClass: 'bi bi-clipboard2-data', label: 'Reports', link: '#', submenu: [
-    //   { iconClass: 'fas fa-user-tie', label: 'Member Report', link: '#' },
-    //   { iconClass: 'fas fa-file-alt', label: 'Program Report', link: '#' },
-    //   { iconClass: 'fas fa-clipboard-list', label: 'Audit Report', link: '#' }
-    // ], submenuVisible: false }
+    { iconClass: 'bi bi-person', label: 'Profile', link: '/member/profile' }, 
 
   ];
 
@@ -107,6 +108,15 @@ export class MemberLayoutComponent {
   // Select the item and change the active state
   selectItem(index: number) {
     this.selectedIndex = index;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isLargeScreen = window.innerWidth >= 768; // Bootstrap lg breakpoint
   }
 
 }

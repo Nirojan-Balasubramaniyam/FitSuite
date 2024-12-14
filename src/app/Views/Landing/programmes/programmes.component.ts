@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { TrainingProgram } from '../../../Models/trainingProgram';
+=======
+
 import { CommonModule } from '@angular/common';
+import { TrainingProgram } from '../../../Models/trainingProgram';
 
 @Component({
   selector: 'app-programmes',
@@ -10,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './programmes.component.css'
 })
 export class ProgrammesComponent implements OnInit {
-  programs: TrainingProgram[] = [
+   programs: TrainingProgram[] = [
     {
         programId: 1,
         branchName: 'Downtown',
@@ -29,7 +33,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Strength',
         cost: 2500,
         description: 'Enhance your core strength and posture with Pilates.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/pilates.jpg',
+
     },
     {
         programId: 3,
@@ -39,7 +45,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Cardio',
         cost: 1800,
         description: 'Enjoy an energetic and fun cardio workout with Zumba.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/zumba.jpg',
+
     },
     {
         programId: 4,
@@ -49,7 +57,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Fitness',
         cost: 3000,
         description: 'Build your strength and endurance with our strength training program.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/strength.jpg',
+
     },
     {
         programId: 5,
@@ -59,7 +69,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Cardio',
         cost: 2200,
         description: 'Stay active and fit with high-energy aerobics sessions.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/aerobics.jpg',
+
     },
     {
         programId: 6,
@@ -69,7 +81,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Fitness',
         cost: 3500,
         description: 'Challenge yourself with high-intensity CrossFit workouts.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/crossfit.jpg',
+
     },
     {
         programId: 7,
@@ -79,7 +93,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Mental Wellness',
         cost: 1500,
         description: 'Relax and rejuvenate with guided meditation sessions.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/meditation.jpg',
+
     },
     {
         programId: 8,
@@ -89,7 +105,9 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Martial Arts',
         cost: 2800,
         description: 'Learn self-defense while staying fit with kickboxing.',
-        imagePath: '../../../../../assessts/yoga.jpg',
+
+        imagePath: '../../../../../assessts/kickboxing.jpg',
+
     },
     {
         programId: 9,
@@ -99,7 +117,10 @@ export class ProgrammesComponent implements OnInit {
         typeName: 'Cardio',
         cost: 2000,
         description: 'Dance your way to fitness with our dance fitness classes.',
-        imagePath: '../../../../../assessts/yoga.jpg',},
+
+        imagePath: '../../../../../assessts/dance.jpg',
+    },
+
 ];
 
   constructor() {}

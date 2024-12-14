@@ -1,0 +1,199 @@
+<section>
+
+  <!-- Payment Card -->
+  <div class=" pb-2 px-2">
+    <div class="section-header-lg pt-3" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+      <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+        Dashboard Report
+      </h4>
+
+      <!-- <div class="col-12 col-md-4">
+        <input type="text" placeholder="Filterby Date" class="form-control" bsDaterangepicker
+          [(ngModel)]="selectedDateRange" [bsConfig]="{ isAnimated: true, showClearButton:true, 
+                adaptivePosition: true,
+                  containerClass: 'theme-red' }" (bsValueChange)="onRangeChange($event)">
+      </div> -->
+
+
+      <!-- <div class="col-12 col-4 m-0 chart-container d-block d-md-flex justify-content-around">
+          <canvas  id="paymentTypeChart"></canvas>
+
+        </div>
+
+        <div class="col-12 col-4 m-0 chart-container">
+          <canvas #paymentChart></canvas>
+        </div> -->
+
+
+
+
+      <div class="container-fluid p-3" [ngStyle]="{'background-color': isLightTheme? '#f7f9fc' : '#1e2125'}">
+        <div class="row g-3">
+
+          <div class="d-block d-lg-flex justify-content-around">
+            <!-- First Box: Payment Chart -->
+            <div class="col-12 col-lg-4">
+              <div class="card shadow-sm border-info p-4 d-block d-md-flex justify-content-around"
+                [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+                <div>
+                  <h5 class="card-title text-center">Payment Summary</h5>
+                  <canvas #paymentChart class="my-3"></canvas>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                  <div class="text-center">
+                    <h6 class="text-muted">Total Monthly Payment</h6>
+                    <h5 class="text-primary">Rs {{totalMonthlyPayment}}</h5>
+                  </div>
+                  <div class="text-center">
+                    <h6 class="text-muted">Paid Amount</h6>
+                    <h5 class="text-success">{{paidAmount}}</h5>
+                  </div>
+                  <div class="text-center">
+                    <h6 class="text-muted">Remaining Amount</h6>
+                    <h5 class="text-danger">{{amountTopay}}</h5>
+                  </div>
+                  <div class="text-center">
+                    <h6 class="text-muted">Overdue Amount</h6>
+                    <h5 class="text-danger">{{overduePay}}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div >
+              <div class="col-12 d-block d-lg-flex justify-content-center" >
+                <div class="col-12 col-lg-6" style="height: fit-content;">
+                  <div class="card shadow-sm border-info p-4 d-block d-md-flex justify-content-between" style="height: 150px;"
+                    [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+                    <div>
+                      <h5 class="card-title text-center">Members Summary</h5>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                      <div class="text-center">
+                        <h6 class="text-muted">Active Members</h6>
+                        <h5 class="text-success">{{activeMemberCount}}</h5>
+                      </div>
+                      <div class="text-center">
+                        <h6 class="text-muted">Leaved Members</h6>
+                        <h5 class="text-danger">{{nonActiveMemberCount}}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-7" style="height: fit-content;">
+                  <div class="card shadow-sm border-info p-4 d-block d-md-flex justify-content-between" style="height: 150px;"
+                    [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+                    <div>
+                      <h5 class="card-title text-center">Branch Summary</h5>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                      <div class="text-center">
+                        <h6 class="text-muted">Total Programs</h6>
+                        <h5 class="text-primary" id="totalMonthlyPayment">20</h5>
+                      </div>
+                      <div class="text-center">
+                        <h6 class="text-muted">Total Staff</h6>
+                        <h5 class="text-success" id="paidAmount">8</h5>
+                      </div>
+                      <div class="text-center">
+                        <h6 class="text-muted">Total Income</h6>
+                        <h5 class="text-danger" id="overdueAmount">Rs 130000</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="col-12 col-lg-12 mt-3">
+                <div class="card py-4 d-flex align-items-center justify-content-center border-info"
+                [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+                  <h5 class="text-muted">Notifications</h5>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12">
+                      
+                          <div class="card-body">
+                            <table class="table table-striped align-middle">
+                              <thead class="">
+                                <tr>
+                                  <th>Type</th>
+                                  <th>Member ID</th>
+                                  <th>Member First Name</th>
+                                  <th>Amount</th>
+                                  <th>Due Date</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let alert of overdueAlers">
+                                  <td>Overdue</td>
+                                  <td>{{ alert.memberId }}</td>
+                                  <td>
+                                    {{ getMemberFirstName(alert.memberId)  }}
+                                  </td>
+                                  <td>{{ alert.amount | currency: "LKR " }}</td>
+                                  <td>{{ alert.dueDate | date: 'mediumDate' }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+         
+
+
+          <div class="col-12 col-lg-6">
+            <div class="card shadow-sm border-0 p-4 d-flex align-items-center justify-content-center"
+            [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+              <h5 class="text-muted">Payment Type Summary</h5>
+              <canvas id="paymentTypeChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Empty Box 2 -->
+          <div class="col-12 col-lg-6">
+            <div class="card shadow-sm border-0 p-4 d-flex align-items-center justify-content-center"
+            [ngStyle]="{'background-color': isLightTheme? '#ffffff' : '#1e2125'}">
+              <h5 class="text-muted">Programs Enroll Summary</h5>
+              <canvas id="programDetailChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- <ng-template #confirmModal>
+    <div class="modal-body text-center">
+        <p>
+            <span class="text-primary">Are you sure you want to proceed with payment ?</span>
+        </p>
+  
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+            <button type="button" class="btn btn-outline-danger" (click)="decline()">No</button>
+        </div>
+    </div>
+  </ng-template> -->
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

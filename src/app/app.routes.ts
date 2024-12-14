@@ -36,6 +36,7 @@ export const routes: Routes = [
         path: '',
         component: LandingLayoutComponent,
         children: [
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'registration', component: RegisterComponent},
             { path: 'login', component: LoginComponent },
             { path: 'about', component: AboutUsComponent },
@@ -69,6 +70,7 @@ export const routes: Routes = [
     {
         path: 'member',
         component: MemberLayoutComponent,
+        // canActivate:[authGuard],
         children: [
             { path: 'bmi', component: MemberBmiComponent },
             { path: 'change-info', component: ChangeInfoComponent },

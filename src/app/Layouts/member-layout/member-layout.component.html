@@ -1,48 +1,61 @@
 <div class="wrapper">
     <aside id="sidebar" class="d-none d-md-block" [ngStyle]="{
-            'background-color': isMoonButton ? '#f5f5f5' : '#343a40',
+            'background-color': isMoonButton ? 'white' : '#343a40',
             'color': isMoonButton ? '#333' : 'white', 
             'width': navBarWidth}">
         <!-- Sidebar content -->
-        <div>
+        <div class="">
             <div class="sidebar-logo" [ngStyle]="{
-                    'color': isMoonButton ? '#b71c1c' : 'white',
-                    'background-color': isMoonButton ? '#f5f5f5' : '#343a40',
+                    'color': isMoonButton ? 'white' : 'white',
+                    'background-color': isMoonButton ? '#dc3545' : '#343a40',
                     'position': 'sticky', 'top':'0' }">
-                <img *ngIf="isMoonButton" src="../../../../assessts/FFLogo.png" width="60px">
+                <img *ngIf="isMoonButton" src="../../../../assessts/FFLogo1.png" width="60px">
                 <img *ngIf="!isMoonButton" src="../../../../../assessts/FFLogo1.png" width="60px">
 
                 <a href="#" *ngIf="isNavbarVisible" class="ms-4">FIT or FIGHT</a>
             </div>
-            <ul class="sidebar-nav" [ngStyle]="{'color': isMoonButton ? '#b71c1c !important' : 'white !important'}">
+            <div class="text-center mt-3 p-3 mb-4 mb-md-0">
 
-                <li class="sidebar-item">
-                    <a routerLink="/member/bmi" class="sidebar-link" routerLinkActive="sidebar-active">
+                <img src="../../../../assessts/trainer3.jpg" alt="Profile Picture"
+                    class="rounded-circle border border-primary"
+                    [ngStyle]="{'width': isNavbarVisible? '200px' : '100px', 'height': isNavbarVisible? '200px' : '100px'}"
+                    style="width: 200px; height: 200px;" />
+
+                    <h2 class=" fw-bold" [ngStyle]="{'color': isMoonButton ? '#dc3545' : 'white'}">Rojan Baala</h2>
+                <!-- <button class="btn btn-danger mt-3 px-4 w-100">Logout</button> -->
+                <button class="btn btn-outline-secondary text-decoration-none mt-2">Edit</button>
+
+            </div>
+            <ul class="sidebar-nav" [ngStyle]="{'color': isMoonButton ? '#dc3545 !important' : 'white !important'}">
+
+                <li class="sidebar-item p-0" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                    <a routerLink="/member/bmi"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-calculator nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Calculate BMI</span>
 
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a routerLink="/member/payment" class="sidebar-link" routerLinkActive="sidebar-active">
+                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                    <a routerLink="/member/payment"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-credit-card-2-back nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Make Payment</span>
 
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a routerLink="/member/change-program" class="sidebar-link" routerLinkActive="sidebar-active">
-                        <i class="fas fa-dumbbell subNav-icon"></i>
+                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                    <a routerLink="/member/change-program"  class="sidebar-link  px-md-5 py-md-0" routerLinkActive="sidebar-active">
+                        <i class="bi bi-gear-fill  nav-icon"></i>
+
                         <span *ngIf="isNavbarVisible">Change Programs</span>
 
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a routerLink="/member/payment-history" class="sidebar-link" routerLinkActive="sidebar-active">
-                        <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                    <a routerLink="/member/payment-history"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
+                        <i class="bi bi-clock-history nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Payment History</span>
                     </a>
                 </li>
@@ -51,7 +64,7 @@
     </aside>
 
     <div class="main" [ngStyle]="{'background-color': isMoonButton ? 'white' : 'rgba(0, 0, 0, 0.1)'}">
-        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#b71c1c' : '#343a40'}">
+        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#dc3545' : '#343a40'}">
             <div>
                 <button class="btn d-none d-md-block" id="sidebar-toggle" (click)="toggleNavbar()">
                     <i class="fa-solid fa-bars"></i>
@@ -59,7 +72,7 @@
 
                 <div class="d-block d-md-none">
                     <div class="sidebar-logo" [ngStyle]="{
-                        'background-color': isMoonButton ? '#b71c1c' : '#343a40',
+                        'background-color': isMoonButton ? '#dc3545' : '#343a40',
                         'position': 'absolute', 'top':'0' }">
 
                         <img src="../../../../../assessts/FFLogo1.png" width="60px">
@@ -117,36 +130,52 @@
                 </div> -->
             </div>
         </nav>
-        
+
         <main class="content">
             <div class="container-fluid mt-3">
+
                 <router-outlet></router-outlet>
+
+                
+                            <!-- Left Section -->
+                            <!-- <div class="text-center me-md-4 mb-4 mb-md-0">
+                          <img
+                            src="https://via.placeholder.com/100"
+                            alt="Profile Picture"
+                            class="rounded-circle border border-primary"
+                            style="width: 100px; height: 100px;"
+                          />
+                          <button class="btn btn-primary mt-3 px-4 w-100">Connect to LinkedIn</button>
+                          <button class="btn btn-link text-decoration-none mt-2 text-primary">Edit</button>
+                        </div> -->
+
+                            <!-- Right Section -->
+                        
+
+
             </div>
         </main>
 
-        <div class="d-block d-md-none">
+        <div class="bottom-sidebar d-block d-md-none">
             <!-- Sidebar Navigation -->
-            <aside class="bootom-sidebar" class="sidebar-nav">
-                <ul class="nav-list ">
-                    <li class="nav-item" *ngFor="let item of navItems; let i = index"
-                        [ngClass]="{'active': selectedIndex === i}">
-                        <a [routerLink]="item.link" (click)="selectItem(i); toggleSubmenu(i)" class="nav-link"
-                            [ngStyle]="{'color': isMoonButton ? '#333 !important' : 'white !important'}">
-                            <i [ngClass]="item.iconClass"></i>
-                            <!-- <span class="nav-label">{{ item.label }}</span> -->
-                        </a>
-                        <!-- Submenu for Management and Reports -->
-                        <!-- <ul *ngIf="item.submenuVisible && item.submenu" class="submenu">
-                            <li class="submenu-item" *ngFor="let subItem of item.submenu">
-                                <a [routerLink]="subItem.link" class="subnav-link">
-                                    <i [ngClass]="subItem.iconClass"></i>
-                                   
-                                </a>
-                            </li>
-                        </ul> -->
-                    </li>
-                </ul>
+            <aside class="custom-sidebar">
+              <ul class="custom-nav-list">
+                <li
+                  class="custom-nav-item"
+                  *ngFor="let item of navItems; let i = index"
+                  [ngClass]="{'custom-active': selectedIndex === i}"
+                >
+                  <a
+                    [routerLink]="item.link"
+                    (click)="selectItem(i); toggleSubmenu(i)"
+                    class="custom-nav-link"
+                  >
+                    <i [ngClass]="item.iconClass"></i>
+                  </a>
+                </li>
+              </ul>
             </aside>
-        </div>
+          </div>
+          
     </div>
 </div>
