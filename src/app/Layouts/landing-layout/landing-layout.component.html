@@ -4,7 +4,7 @@
             <header class="bg-info fixed-top">
                 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b71c1c;">
                     <div class="container-fluid">
-                        <a class="navbar-brand text-white fw-bolder d-flex align-items-center" href="/">
+                        <a class="navbar-brand text-white fw-bolder d-flex align-items-center" routerLink="/">
                             <img src="../../../../assessts/FFLogo1.png" alt="Logo" style="height: 30px; margin-right: 10px;"> FIT or FIGHT
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -15,23 +15,23 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" href="/home">Home</a>
+                                    <a class="nav-link text-white fw-bold" routerLink="/home" routerLinkActive="navbar-active">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" href="/programs">Programs</a>
+                                    <a class="nav-link text-white fw-bold" routerLink="/programs" routerLinkActive="navbar-active">Programs</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" href="/bmi">BMI</a>
+                                    <a class="nav-link text-white fw-bold" routerLink="/bmi" routerLinkActive="navbar-active">BMI</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" href="/about">About Us</a>
+                                    <a class="nav-link text-white fw-bold" routerLink="/about" routerLinkActive="navbar-active">About Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-bold" href="/contact">Contact Us</a>
+                                    <a class="nav-link text-white fw-bold" routerLink="/contact" routerLinkActive="navbar-active">Contact Us</a>
                                 </li>
                             </ul>
                             <div class="d-flex">
-                                <a href="/login" class="nav-link login-btn me-3 text-white fw-bold border border-white rounded px-3 py-1" id="login_btn">LOGIN</a>
+                                <a routerLink="/login" class="nav-link login-btn me-3 text-white fw-bold border border-white rounded px-3 py-1" id="login_btn" routerLinkActive="navbar-active">LOGIN</a>
                             </div>
                         </div>
                     </div>
@@ -75,12 +75,12 @@
                 <div class="footer-item ms-md-5">
                     <h4 class="text-white mb-4">Quick Links</h4>
                     <ul class="list-unstyled">
-                        <li><a href="/home" ><i class="fas fa-angle-right me-2"></i>Home</a></li>
-                        <li><a href="/about"><i class="fas fa-angle-right me-2"></i>About Us</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right me-2"></i>Services</a></li>
-                        <li><a href="/contact"><i class="fas fa-angle-right me-2"></i>Contact Us</a>
+                        <li><a routerLink="/home" routerLinkActive="navbar-active"><i class="fas fa-angle-right me-2"></i>Home</a></li>
+                        <li><a routerLink="/about" routerLinkActive="navbar-active"><i class="fas fa-angle-right me-2"></i>About Us</a></li>
+                        <li><a routerLink="about" routerLinkActive="navbar-active"><i class="fas fa-angle-right me-2"></i>Services</a></li>
+                        <li><a routerLink="/contact" routerLinkActive="navbar-active"><i class="fas fa-angle-right me-2"></i>Contact Us</a>
                         </li>
-                        <li><a href="/payment"><i class="fas fa-angle-right me-2"></i>Membership</a>
+                        <li><a routerLink="/payment" routerLinkActive="navbar-active"><i class="fas fa-angle-right me-2"></i>Membership</a>
                         </li>
                     </ul>
                 </div>
@@ -113,18 +113,18 @@
                     <div class="footer-item ms-md-4">
                         <h4 class="text-white mb-4">Contact Info</h4>
                         <ul class="list-unstyled ">
-                            <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> KKS Road, Mallakam</a></li>
-                            <li><a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            <li><a routerLink="#"><i class="fas fa-map-marker-alt me-2"></i> KKS Road, Mallakam</a></li>
+                            <li><a routerLink="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
                                     info&#64;fitorfightgym.com</a></li>
-                            <li><a href="tel:+01234567890"><i class="fas fa-phone me-2"></i> +012 345 67890</a></li>
-                            <li><a href="tel:+01234567890"><i class="fas fa-print me-2"></i> +012 345 67890</a></li>
+                            <li><a routerLink="tel:+01234567890"><i class="fas fa-phone me-2"></i> +012 345 67890</a></li>
+                            <li><a routerLink="tel:+01234567890"><i class="fas fa-print me-2"></i> +012 345 67890</a></li>
                         </ul>
                         <div class="social ">
                             <div class="d-flex">
-                                <a href="#" target="_blank"><i class="bi bi-facebook mx-2 fs-3 text-primary"></i></a>
-                                <a href="#" target="_blank"><i class="bi bi-twitter mx-2 fs-3 text-primary"></i></a>
-                                <a href="#" target="_blank"><i class=" insta bi bi-instagram mx-2 fs-3 text-$pink"></i></a>
-                                <a href="#" target="_blank"><i class="bi bi-youtube mx-2 fs-3 text-danger"></i></a>
+                                <a routerLink="#" target="_blank"><i class="bi bi-facebook mx-2 fs-3 text-primary"></i></a>
+                                <a routerLink="#" target="_blank"><i class="bi bi-twitter mx-2 fs-3 text-primary"></i></a>
+                                <a routerLink="#" target="_blank"><i class=" insta bi bi-instagram mx-2 fs-3 text-$pink"></i></a>
+                                <a routerLink="#" target="_blank"><i class="bi bi-youtube mx-2 fs-3 text-danger"></i></a>
                             </div>
                         </div>
                        

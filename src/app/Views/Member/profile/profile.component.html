@@ -1,1 +1,60 @@
-<p>profile works!</p>
+<div class="container  ">
+    <div class="card shadow-sm p-4">
+        <div class="d-flex flex-column flex-md-row align-items-center">
+            <div class="flex-grow-1">
+                <div class="text-center d-block d-md-none me-md-4 mb-4 mb-md-0">
+                    <img src="../../../../assessts/trainer3.jpg" alt="Profile Picture"
+                        class="rounded-circle border border-primary"
+                        [ngStyle]="{'width': isNavbarVisible? '200px' : '100px', 'height': isNavbarVisible? '200px' : '100px'}"
+                        style="width: 200px; height: 200px;" />
+
+                    <h2 class=" fw-bold" [ngStyle]="{'color': isLightTheme ? '#dc3545' : 'white'}">Rojan Baala</h2>
+                    <button class="btn btn-danger mt-3 px-4 w-100">Logout</button>
+                    <button class="btn btn-outline-secondary text-decoration-none mt-2">Edit</button>
+                </div>
+                <h5 class="text-center text-md-start mb-4">My Profile</h5>
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" class="form-control" value="Andrew" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" value="Turing" readonly />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="timeZone" class="form-label">Time Zone</label>
+                            <select id="timeZone" class="form-select" disabled>
+                                <option selected>+5 GMT</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" id="phone" class="form-control" value="555-237-2384" readonly />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" value="andrew.turing@cryptographyinc.com"
+                            readonly />
+                    </div>
+                    <h6 class="mt-4 mb-3">Authentication</h6>
+                    <div class="mb-3">
+                        <label for="samlId" class="form-label">SAML ID</label>
+                        <input type="text" id="samlId" class="form-control" value="andrew.turing@cryptographyinc.com"
+                            readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="samlDetails" class="form-label">SAML Details</label>
+                        <a id="samlDetails" href="https://cryptographyinc.com/login/secure/kQ28neiw99"
+                            class="form-control text-primary text-decoration-none"
+                            target="_blank">https://cryptographyinc.com/login/secure/kQ28neiw99</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

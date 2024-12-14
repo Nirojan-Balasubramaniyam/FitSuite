@@ -21,10 +21,10 @@ body {
 #sidebar .sidebar-active,
 #sidebar .sub-sidebar-active,
 #sidebar .asidebar-active {
-    color: white !important;
+    color: #b71c1c !important;
     border: 2px solid #b71c1c;
     border-radius: 5px;
-    background-color: #b71c1c;
+    background-color: #fcfcfc;
     padding-top: 0px;
     padding-bottom: 0px;
 }

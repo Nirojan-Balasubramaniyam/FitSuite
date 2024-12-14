@@ -40,13 +40,37 @@
 }
 
 .nav-link:hover {
-    text-decoration: underline;
+
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
 }
 
-
-.nav-link.active {
-    text-decoration: underline;
+.nav-link {
+    position: relative;
+    text-decoration: none; /* Remove default underline */
+    color: inherit;
+    display: inline-block;
+    outline: none; /* Optional: Remove focus outline for cleaner appearance */
 }
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px; /* Space between text and underline */
+    width: 0; /* Start with no width */
+    height: 2px; /* Thickness of the underline */
+    background-color: currentColor; /* Matches text color */
+    transition: width 0.3s ease; /* Smooth animation */
+}
+
+.nav-link:hover::after,
+.nav-link.navbar-active::after {
+    width: 100%; /* Full underline on hover or active state */
+}
+
 
 
 
