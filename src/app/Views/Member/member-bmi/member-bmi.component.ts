@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThemeService } from '../../../Service/Theme/theme.service';
 
 @Component({
   selector: 'app-member-bmi',
@@ -9,50 +10,46 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './member-bmi.component.html',
   styleUrl: './member-bmi.component.css'
 })
-export class MemberBmiComponent {
+export class MemberBmiComponent implements OnInit {
 
-  unit: string = 'Standard';
-  age: number | null = null;
-  gender: string = 'Male';
-  heightFeet: number | null = null;
-  heightInches: number | null = null;
-  height: number | null = null;
-  weight: number | null = null;
-  bmi: number | null = null;
-  bmiCategory: string = '';
+  weight: number = 70;
+  height: number = 170;
+  bmi: number = 0;
+  healthStatus: string = '';
+  healthClass: string = 'normal-weight';
+  isLightTheme: boolean = true;
 
-  setUnit(unit: string) {
-    this.unit = unit;
-    this.height = null;
-    this.heightFeet = null;
-    this.heightInches = null;
-    this.weight = null;
-    this.bmi = null;
-    this.bmiCategory = '';  
+
+  constructor(private themeService: ThemeService) {
+      this.calculateBMI();
   }
 
-  calculateBMI() {
-    let heightInMeters: number;
+  ngOnInit(): void {
+    this.themeService.lightTheme$.subscribe(data => {
+      this.isLightTheme = data;
+      console.log(this.isLightTheme)
+    });
+  }
 
-    if (this.unit === 'Standard') {
-      if (this.heightFeet === null || this.heightInches === null || this.weight === null) return;
-      heightInMeters = ((this.heightFeet * 12) + this.heightInches) * 0.0254;
-      this.bmi = this.weight / (heightInMeters ** 2) * 703;
-    } else {
-      if (this.height === null || this.weight === null) return;
-      heightInMeters = this.height / 100;
-      this.bmi = this.weight / (heightInMeters ** 2);
-    }
+  calculateBMI(): void {
+      const heightInMeters = this.height / 100;
+      this.bmi = this.weight / (heightInMeters * heightInMeters);
+      this.updateHealthStatus();
+  }
 
-    // Set BMI category based on result
+  updateHealthStatus(): void {
     if (this.bmi < 18.5) {
-      this.bmiCategory = 'Underweight';
-    } else if (this.bmi >= 18.5 && this.bmi < 25) {
-      this.bmiCategory = 'Normal';
-    } else if (this.bmi >= 25 && this.bmi < 30) {
-      this.bmiCategory = 'Overweight';
+        this.healthStatus = 'Underweight';
+        this.healthClass = 'underweight';
+    } else if (this.bmi >= 18.5 && this.bmi < 24.9) {
+        this.healthStatus = 'Normal weight';
+        this.healthClass = 'normal-weight';
+    } else if (this.bmi >= 25 && this.bmi < 29.9) {
+        this.healthStatus = 'Overweight';
+        this.healthClass = 'overweight';
     } else {
-      this.bmiCategory = 'Obese';
+        this.healthStatus = 'Obesity';
+        this.healthClass = 'obesity';
     }
   }
 

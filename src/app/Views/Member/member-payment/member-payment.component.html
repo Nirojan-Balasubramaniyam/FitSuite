@@ -1,0 +1,152 @@
+<section>
+    <!-- Payment Card -->
+    <div class="pb-2 px-4">
+        <div class="section-header-lg" [ngStyle]="{'background-color': isLightTheme ? 'white' : '#1e2125'}">
+            <h4 class="fw-bold" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">Payment</h4>
+            <div class="row g-4">
+                <div class="col-12">
+                    <!-- Select Month Dropdown -->
+                    <div class="col-12 pt-1 d-none d-md-block">
+                        <div class="mt-0 mt-md-2 pt-1">
+                            <div class="row justify-content-around">
+                                <div *ngFor="let month of months" class="col-md-3 mb-4">
+                                    <div class="offer-card card shadow-lg"
+                                        [ngClass]="{ 'selected-card': selectedMonth === month.id }"
+                                        (click)="onMonthChange(month.id)">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">{{ month.name }}</h5>
+                                            <p class="card-text">Save <strong>{{ month.discount }}%</strong> off!</p>
+                                            <div class="discount-animation">
+                                                <span class="badge bg-primary">{{ month.discount }}% OFF</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 pt-1 pt-lg-3 d-block d-md-none">
+                        <ng-select [(ngModel)]="selectedMonth" (ngModelChange)="onMonthChange(selectedMonth)"
+                            placeholder="Select month">
+                            @for (month of months; track month.id) {
+                            <ng-option [value]="month.id">{{month.name +" - "+ month.discount +"%"}}</ng-option>
+                            }
+                        </ng-select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="mb-3">
+                        <form [formGroup]="paymentForm" (ngSubmit)="openModal(confirmModal)">
+
+                            <div class="form-group">
+                                <div class="input-wrapper">
+                                    <!-- Input field for Payment Receipt -->
+                                    <input id="paymentReceipt" formControlName="paymentReceipt" type="text"
+                                        class="form-control" />
+
+                                    <!-- Floating label for the input -->
+                                    <label for="paymentReceipt" class="floating-label"
+                                        [ngStyle]="{ 'background-color': getLabelBackground() }">
+                                        Payment Receipt Number
+                                        <span *ngIf="isRequired('paymentReceipt')" class="text-danger">*</span>
+                                    </label>
+
+                                    <!-- Validation error message -->
+                                    <div *ngIf="paymentForm.get('paymentReceipt')?.invalid && paymentForm.get('paymentReceipt')?.touched"
+                                        class="text-danger">
+                                        <div *ngIf="paymentForm.get('paymentReceipt')?.hasError('required')">
+                                            Payment Receipt Number is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="">Total Amount</label>
+                                    <input type="text" class="form-control mb-2" disabled placeholder="Payment amount"
+                                        value="{{ 'Rs. ' + totalPayment }}">
+                                </div>
+                                <div *ngIf="selectedMonth!=1">
+                                    <label for="">Amount to Pay</label>
+                                    <input type="text" class="form-control" disabled placeholder="Payment amount"
+                                        value="{{ 'Rs. ' + payment }}">
+                                </div>
+
+
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-success" [disabled]="paymentForm.invalid">Add
+                                    Payment</button>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+                    <!-- <div>
+                        <button type="button" class="btn btn-success w-100" (click)="openModal(confirmModal)">Add
+                            Payment</button>
+                    </div> -->
+                </div>
+
+                <div *ngIf="memberId" class="col-12 col-md-7 g-4 mx-3 shadow rounded border border-info">
+                    <div class=" px-4 py-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-primary">Monthly Payment:</th>
+                                            <td>{{ member?.monthlyPayment }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-primary">Last Payment Type:</th>
+                                            <td>{{ memberIdPayment?.paymentType | uppercase }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-primary">Last Paid Date:</th>
+                                            <td>{{ memberIdPayment?.paidDate | date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-primary">Due Date:</th>
+                                            <td>{{ memberIdPayment?.dueDate | date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-primary">Membership:</th>
+                                            <td class="text-{{ activeStatus ? 'success' : 'danger' }}">{{ activeStatus ?
+                                                "Active" : "Expired" }}</td>
+                                        </tr>
+                                        <tr *ngIf="activeStatus">
+                                            <th class="text-danger">Expired In:</th>
+                                            <td class="text-danger">{{ dueRemainingDays }} Days</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- Confirmation Modal -->
+<ng-template #confirmModal>
+    <div class="modal-body text-center">
+        <p>
+            <span class="text-primary">Are you sure you want to proceed with payment?</span>
+        </p>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+            <button type="button" class="btn btn-outline-danger" (click)="decline()">No</button>
+        </div>
+    </div>
+</ng-template>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white">Loading...</p>
+</ngx-spinner>

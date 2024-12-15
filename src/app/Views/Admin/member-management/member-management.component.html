@@ -16,6 +16,14 @@
         <!-- <button type="button" class="btn btn-success">Add New Member</button> -->
         <button type="button" class="btn btn-success" (click)="openModalWithClass(memberFormTemplate)"> Add New Member</button>
       </div>
+      <div *ngIf="userRole==='superAdmin'" class="col-2 pt-1 pt-lg-3">
+        <ng-select [(ngModel)]="selectedBranch" (ngModelChange)="onBranchChange(selectedBranch)"
+            placeholder="Main Branch">
+            @for (branch of branches; track branch.branchId) {
+            <ng-option [value]="branch.branchId">{{branch.branchName}}</ng-option>
+            }
+        </ng-select>
+    </div>
     </div>
 
     <div class="container">

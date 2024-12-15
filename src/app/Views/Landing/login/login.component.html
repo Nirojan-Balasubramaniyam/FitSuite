@@ -21,7 +21,12 @@
                                 class="bi bi-envelope"></i></div>
                         <input type="email" class="form-control mt-3" placeholder="Your Email"
                             aria-label="Input group example" aria-describedby="btnGroupAddon" formControlName="email">
+                          
                     </div>
+                    <div *ngIf="signinForm.get('email')?.invalid && signinForm.get('email')?.touched" class="text-danger">
+                        <div *ngIf="signinForm.get('email')?.hasError('required')">Email is required.</div>
+                        <div *ngIf="signinForm.get('email')?.hasError('email')">Please enter a valid email address.</div>
+                      </div>
                 </div>
 
                 <div class="form-group mb-3">
@@ -32,6 +37,10 @@
                             aria-label="Input group example" aria-describedby="btnGroupAddon"
                             formControlName="password">
                     </div>
+                    <div *ngIf="signinForm.get('password')?.invalid && signinForm.get('password')?.touched" class="text-danger">
+                        <div *ngIf="signinForm.get('password')?.hasError('required')">Email is required.</div>
+                        <div *ngIf="signinForm.get('password')?.hasError('password')">Please enter a valid email address.</div>
+                      </div>
                 </div>
 
                 <div class="form-check mb-3">
@@ -41,17 +50,99 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn w-100"
+                <button type="submit" class="btn btn w-100 mb-4"
                     style="background-color: #b71c1c; color: white;">LOGIN</button>
                 <div class="mb-3 text-center">
-                    <a href="#" class="text-decoration-none mt-3">Forgot password?</a>
+                    <a (click)="openModalWithClass(forgotPasswordTemplate)" class="text-decoration-none mt-3 forgot-password text-danger">Forgot password</a>
                 </div>
 
 
             </form>
             <p class="register-message mt-3">If you are a new member Please register here!</p>
-            <a href="/registration"><button type="submit" class="btn btn w-100"
+            <a routerLink="/registration"><button type="submit" class="btn btn w-100"
                     style="background-color: #b71c1c; color: white;">REGISTER</button></a>
         </div>
     </div>
 </body>
+
+<ng-template #forgotPasswordTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left text-info">Forgot Password</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body">
+      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()" novalidate>
+  
+        <!-- Step 1: NIC input -->
+        <div *ngIf="step === 1" class="form-group">
+          <label for="nic">Enter NIC</label>
+          <input
+            type="text"
+            id="nic"
+            class="form-control"
+            formControlName="nic"
+            (blur)="onNicSubmit()"
+            required
+          />
+          <button type="button" class="btn btn-primary mt-2" (click)="onNicSubmit()">Next</button>
+        </div>
+  
+        <!-- Step 2: Displaying masked email placeholder -->
+        <div *ngIf="step === 2" class="form-group">
+          <label for="email">Enter Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            [placeholder]="emailPlaceholder"
+            required
+          />
+          <button type="button" class="btn btn-primary mt-2" (click)="onEmailSubmit()">Next</button>
+        </div>
+  
+        <!-- Step 3: OTP input -->
+        <div *ngIf="step === 3" class="form-group">
+          <label for="otp">Enter OTP</label>
+          <input
+            type="text"
+            id="otp"
+            class="form-control"
+            formControlName="otp"
+            required
+          />
+          <button type="button" class="btn btn-primary mt-2" (click)="onOtpSubmit()">Next</button>
+        </div>
+  
+        <!-- Step 4: Password and Confirm Password -->
+        <div *ngIf="step === 4" class="form-group">
+          <label for="newPassword">Enter New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            class="form-control"
+            formControlName="newPassword"
+            required
+          />
+          <label for="confirmPassword">Confirm New Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            formControlName="confirmPassword"
+            required
+          />
+          <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </div>
+  
+      </form>
+    </div>
+  </ng-template>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+  
+  

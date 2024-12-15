@@ -1,25 +1,30 @@
-<h4 class="text-danger fw-bold">PAYMENT HISTORY</h4>
+<h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+  Program Management
+</h4>
 
 <div class="mt-4">
-    <table class="table table-hover table-bordered text-center">
+    <table class="table table-hover">
         <thead>
-          <tr>
-            <th scope="col">Payment Type</th>
-            <th scope="col">Amount (LKR)</th>
-            <th scope="col">Paid Date</th>
-            <th scope="col">Due Date</th>
+          <tr *ngIf="memberPayments.length!=0">
+            <th class="text-primary" scope="col">Payment Type</th>
+            <th class="text-primary" scope="col">Amount (LKR)</th>
+            <th class="text-primary" scope="col">Paid Date</th>
+            <th class="text-primary" scope="col">Due Date</th>
           </tr>
         </thead>
         <tbody>
-            <tr *ngIf="noPaymentMessage">
-                <td colspan="4">{{ noPaymentMessage }}</td>
+            <tr *ngIf="memberPayments.length ==0">
+                <td colspan="4" class="text-center fs-5 text-danger">You dont make any payments</td>
               </tr>
               <tr *ngFor="let payment of memberPayments">
                 <td>{{ payment.paymentType }}</td>
                 <td>{{ payment.amount }}</td>
-                <td>{{ formatDate(payment.paidDate) }}</td>
-                <td>{{ payment.dueDate ? formatDate(payment.dueDate) : 'N/A' }}</td>
+                <td>{{ payment.paidDate |date }}</td>
+                <td>{{ payment.dueDate ? (payment.dueDate | date) : 'N/A' }}</td>
               </tr>
         </tbody>
       </table>
   </div>
+
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+

@@ -1,28 +1,118 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ThemeService } from '../../../Service/Theme/theme.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../Service/Staff/admin.service';
+import { Member } from '../../../Models/member';
+import { TrainingProgram } from '../../../Models/trainingProgram';
+import { EnrollProgramService } from '../../../Service/Admin/Enroll-Program/enroll-program.service';
+import { WorkouplanService } from '../../../Service/Admin/Workoutplan/workouplan.service';
+import { WorkoutPlan } from '../../../Models/workoutPlans';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxSpinnerModule, ReactiveFormsModule, BsDatepickerModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
-  
   isLightTheme: boolean = true;
   isNavbarVisible: boolean = true;
-  constructor(    private themeService: ThemeService,
-        private adminService: AdminService,
-        private spinner: NgxSpinnerService,
-        private modalService: BsModalService,
-        private toastr: ToastrService,
-  ){}
+  memberId!: number;
+  member: Member | null = null;
+  allMembers: Member[] = [];
+  fullImgPath: string = 'https://localhost:7220';
+  workoutPlans: WorkoutPlan[] = [
+    {
+      workoutPlanId: 1,
+      name: 'Strength Training',
+      repsCount: 12,
+      weight: 50.5,
+      staffId: 101,
+    },
+    {
+      workoutPlanId: 2,
+      name: 'Cardio Blast',
+      repsCount: 30,
+      weight: 0, // No weight used in this plan
+      staffId: 102,
+    },
+    {
+      workoutPlanId: 3,
+      name: 'Leg Day Routine',
+      repsCount: 15,
+      weight: 70.0,
+      staffId: 103,
+    },
+    {
+      workoutPlanId: 4,
+      name: 'Full Body Workout',
+      repsCount: 20,
+      weight: 40.0,
+      staffId: 101,
+    },
+    {
+      workoutPlanId: 5,
+      name: 'Core Strengthening',
+      repsCount: 20,
+      weight: 30.0,
+      staffId: 104,
+    },
+  ];
+  trainingPrograms: TrainingProgram[] = [];
+  groupedTrainingPrograms: { typeName: string; programs: TrainingProgram[] }[] =
+    [];
+  memberForm: FormGroup;
+  modalRef?: BsModalRef;
+  @ViewChild('memberFormTemplate') memberFormTemplate!: TemplateRef<any>;
+
+  constructor(
+    private themeService: ThemeService,
+    private adminService: AdminService,
+    private spinner: NgxSpinnerService,
+    private modalService: BsModalService,
+    private toastr: ToastrService,
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private enrollProgramService: EnrollProgramService,
+    private workoutPlanService: WorkouplanService
+  ) {
+    const memberId = localStorage.getItem('UserId');
+
+    this.memberId = memberId ? parseInt(memberId) : 0;
+
+    this.memberForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      NIC: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[0-9]{9}[vVxX]$|^[0-9]{12}$/),
+        ],
+      ],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      emergencyContactName: ['', Validators.required],
+      emergencyContactNumber: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{10}$/)],
+      ],
+      doB: ['', [Validators.required, this.pastDateValidator]],
+      imageFile: [null],
+      address: this.fb.group({
+        street: ['', Validators.required],
+        city: ['', Validators.required],
+        province: ['', Validators.required],
+        country: ['', Validators.required],
+      }),
+    });
+  }
 
   ngOnInit(): void {
     this.themeService.lightTheme$.subscribe((data) => {
@@ -34,6 +124,282 @@ export class ProfileComponent implements OnInit {
       this.isNavbarVisible = isVisible;
     });
     this.spinner.show();
+    this.loadMember();
+    this.loadAllMembers();
+    this.loadTrainingPrograms();
+    this.spinner.show();
   }
 
+  loadMember(): void {
+    this.adminService.getMember(this.memberId).subscribe((response) => {
+      this.member = response;
+
+      console.log(this.member);
+
+      this.spinner.hide();
+    });
+  }
+
+  loadTrainingPrograms(): void {
+    this.enrollProgramService
+      .getTrainingProgramsByMemberId(this.memberId)
+      .subscribe((programs: TrainingProgram[]) => {
+        this.trainingPrograms = programs;
+        this.groupProgramsByType();
+        this.spinner.hide();
+      });
+  }
+
+  loadAllMembers(): void {
+    this.adminService.getAllMembers(0, 0, true, 0).subscribe((response) => {
+      this.allMembers = response.data;
+
+      this.spinner.hide();
+    });
+  }
+
+  loadWorkoutPlans(): void {
+    this.workoutPlanService
+      .getWorkoutplansForMember(this.memberId)
+      .subscribe((workoutPlans: WorkoutPlan[]) => {
+        this.workoutPlans = workoutPlans;
+        this.spinner.hide();
+      });
+  }
+  pastDateValidator(control: any): { [key: string]: boolean } | null {
+    const today = new Date();
+    const birthDate = new Date(control.value);
+    if (birthDate >= today) {
+      return { futureDate: true };
+    }
+    return null;
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+
+    if (file) {
+      this.memberForm.patchValue({
+        imageFile: file,
+      });
+    }
+  }
+
+  groupProgramsByType(): void {
+    const grouped: Record<string, TrainingProgram[]> = {}; // Correct type here
+
+    this.trainingPrograms.forEach((program) => {
+      const typeName = program.typeName || 'Uncategorized'; // Default group if no typeName
+      if (!grouped[typeName]) {
+        grouped[typeName] = [];
+      }
+      grouped[typeName].push(program);
+    });
+
+    // Convert grouped object into an array format for use in the template
+    this.groupedTrainingPrograms = Object.keys(grouped).map((typeName) => ({
+      typeName,
+      programs: grouped[typeName],
+    }));
+  }
+  groupWorkoutsByName(): void {
+    const grouped: Record<string, TrainingProgram[]> = {}; // Correct type here
+
+    this.trainingPrograms.forEach((program) => {
+      const typeName = program.typeName || 'Uncategorized'; // Default group if no typeName
+      if (!grouped[typeName]) {
+        grouped[typeName] = [];
+      }
+      grouped[typeName].push(program);
+    });
+
+    // Convert grouped object into an array format for use in the template
+    this.groupedTrainingPrograms = Object.keys(grouped).map((typeName) => ({
+      typeName,
+      programs: grouped[typeName],
+    }));
+  }
+
+  editMember(): void {
+    console.log("gg")
+    const member = this.allMembers.find((m) => m.memberId === this.memberId);
+    if (member) {
+      const formattedDate = member.doB ? new Date(member.doB) : null;
+
+      this.memberForm.patchValue({
+        firstName: member.firstName,
+        lastName: member.lastName,
+        email: member.email,
+        NIC: member.nic,
+        phone: member.phone,
+        emergencyContactName: member.emergencyContactName,
+        emergencyContactNumber: member.emergencyContactNumber,
+        doB: formattedDate,
+        branchId: member.branchId,
+        isActive: member.isActive,
+        address: {
+          street: member.address?.street || '',
+          city: member.address?.city || '',
+          province: member.address?.province || '',
+          country: member.address?.country || '',
+        },
+      });
+      this.openModalWithClass(this.memberFormTemplate); // Open modal with pre-filled data
+    }
+  }
+
+  openModalWithClass(template: TemplateRef<void>) {
+    console.log(this.memberId);
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+
+    this.modalRef.onHide?.subscribe(() => {
+      this.memberForm.reset();
+      // Reset form when modal is closed
+    });
+  }
+
+  isRequired(field: string): boolean {
+    return (
+      this.memberForm.get(field)?.hasValidator(Validators.required) ?? false
+    );
+  }
+
+  decline() {
+    this.modalRef?.hide();
+  }
+
+  confirm() {
+    this.adminService.deleteMember(this.memberId).subscribe(
+      (response) => {
+        this.toastr.success('Member Deleted successfully', 'Delete Member', {
+          timeOut: 3000,
+          closeButton: true,
+          easing: 'ease-in',
+          progressBar: true,
+          toastClass: 'ngx-toastr',
+        });
+        this.modalRef?.hide();
+        this.memberId = 0;
+        this.loadAllMembers();
+      },
+      (error) => {
+        console.log('Error creating member', error);
+        this.toastr.error('There was an error delete the member.', 'Error');
+      }
+    );
+    this.modalRef?.hide();
+  }
+
+  getLabelBackground() {
+    return this.isLightTheme ? 'white' : 'var(--bs-dark-bg-subtle)';
+  }
+
+  onSubmit(): void {
+    if (this.memberForm.valid) {
+      const formData = new FormData();
+      const formattedDoB = this.datePipe.transform(
+        this.memberForm.get('doB')?.value,
+        'yyyy-MM-dd'
+      );
+
+      if (formattedDoB) {
+        formData.append('DoB', formattedDoB);
+      } else {
+        formData.append('DoB', '');
+      }
+
+      // Append form control values
+      formData.append('FirstName', this.memberForm.get('firstName')?.value);
+      formData.append('LastName', this.memberForm.get('lastName')?.value);
+      formData.append('Email', this.memberForm.get('email')?.value);
+      formData.append('NIC', this.memberForm.get('NIC')?.value);
+      formData.append('Phone', this.memberForm.get('phone')?.value);
+      formData.append(
+        'EmergencyContactName',
+        this.memberForm.get('emergencyContactName')?.value
+      );
+      formData.append(
+        'EmergencyContactNumber',
+        this.memberForm.get('emergencyContactNumber')?.value
+      );
+      // formData.append('BranchId', this.branchId.toString());
+      formData.append('Password', this.memberForm.get('phone')?.value);
+      formData.append('IsActive', 'true');
+      formData.append('Gender', 'male');
+
+      // Append address fields
+      const address = this.memberForm.get('address')?.value;
+      formData.append('Address.Street', address?.street || '');
+      formData.append('Address.City', address?.city || '');
+      formData.append('Address.Province', address?.province || '');
+      formData.append('Address.Country', address?.country || '');
+
+      // Append profile image
+      const imageFile = this.memberForm.get('imageFile')?.value;
+      if (imageFile) {
+        formData.append('ImageFile', imageFile, imageFile.name);
+      }
+
+      if (this.memberId != 0) {
+        // If memberId exists, update the member
+        this.adminService.updateMember(this.memberId, formData).subscribe(
+          (response) => {
+            console.log('Member updated successfully', response);
+            this.toastr.success(
+              'Member updated successfully',
+              'Member Update',
+              {
+                timeOut: 5000,
+                closeButton: true,
+                easing: 'ease-in',
+                progressBar: true,
+                toastClass: 'ngx-toastr',
+              }
+            );
+            this.modalRef?.hide();
+            this.memberId = 0;
+            this.memberForm.reset();
+          },
+          (error) => {
+            console.log('Error updating member', error);
+            this.toastr.error(
+              'There was an error updating the member.',
+              'Error'
+            );
+          }
+        );
+      } else {
+        // If no memberId, create a new member
+        this.adminService.createMember(formData).subscribe(
+          (response: string) => {
+            console.log('Member created successfully, token:', response);
+            this.toastr.success(
+              'Member created successfully',
+              'Member Creation',
+              {
+                timeOut: 5000,
+                closeButton: true,
+                easing: 'ease-in',
+                progressBar: true,
+                toastClass: 'ngx-toastr',
+              }
+            );
+            this.modalRef?.hide();
+          },
+          (error) => {
+            console.log('Error creating member', error);
+            this.toastr.error(
+              'There was an error creating the member.',
+              'Error'
+            );
+          }
+        );
+      }
+    } else {
+      console.log('Form is invalid');
+    }
+  }
 }

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Branch } from '../../Models/branch';
+import { Branch, BranchReq } from '../../Models/branch';
 import { PaginationResponse } from '../../Models/pagination';
 import { Member } from '../../Models/member';
 import { Observable } from 'rxjs';
 import { TrainingProgram } from '../../Models/trainingProgram';
 import { ProgramType } from '../../Models/programType';
+import { Staff } from '../../Models/staff';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class AdminService {
     return this.http.get<PaginationResponse<Branch>>(this.branchUrl);
   }
 
-  createBranch(Branch: Branch) {
-    return this.http.post(this.branchUrl, Branch);
+  createBranch(branchRequest: BranchReq): Observable<any> {
+    return this.http.post<any>(`${this.branchUrl}`, branchRequest);
   }
 
   deleteBranch(BranchId: number) {
@@ -36,9 +37,10 @@ export class AdminService {
     return this.http.get<Branch>(this.branchUrl + '/' + BranchId);
   }
 
-  updateBranch(Branch: Branch, BranchId: number) {
-    return this.http.put(this.branchUrl + '/' + BranchId, Branch);
+  updateBranch(branchId: number, branch: BranchReq) {
+    return this.http.put(this.branchUrl + '/' + branchId, branch);
   }
+  
 
   //Member API
 
@@ -65,6 +67,13 @@ export class AdminService {
   updateMember(memberId: number, formData: FormData) {
     return this.http.put(`${this.memberUrl}/${memberId}`, formData);
   }
+
+  updateMemberPassword(memberId: number, password: string) {
+    const payload = { password }; // Send the password inside an object
+    return this.http.put(`${this.memberUrl}/update-password/${memberId}`, payload);
+  }
+  
+
 
 
   deleteMember(memberId: number) {
@@ -123,6 +132,53 @@ export class AdminService {
   
   deleteProgramType(typeId: number): Observable<void> {
     return this.http.delete<void>(`${this.programTypeUrl}/${typeId}`);
+  }
+
+
+  private staffUrl = `https://localhost:7220/api/Staff`; 
+
+ 
+
+  // Get all staff with pagination
+  getAllStaffs(pageNumber: number, pageSize: number, isActive: boolean): Observable<PaginationResponse<Staff>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('isActive', isActive.toString());
+  
+    return this.http.get<PaginationResponse<Staff>>(this.staffUrl, { params });
+  }
+  
+
+  // Add a new staff member
+  addStaff(formData: FormData): Observable<string> {
+    return this.http.post<string>(this.staffUrl, formData, {
+      responseType: 'text' as 'json'  // Ensure the response is treated as plain text
+    });
+  }
+
+  // Get staff by ID
+  getStaffById(staffId: number): Observable<Staff> {
+    return this.http.get<Staff>(`${this.staffUrl}/${staffId}`);
+  }
+
+  // Update staff details
+  updateStaff(staffId: number, formData: FormData): Observable<any> {
+    return this.http.put(`${this.staffUrl}/${staffId}`, formData);
+  }
+
+  // Delete a staff member
+  deleteStaff(staffId: number): Observable<any> {
+    return this.http.delete(`${this.staffUrl}/${staffId}`);
+  }
+
+  // Staff login
+  login(email: string, password: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('password', password);
+
+    return this.http.get<any>(`${this.staffUrl}/login`, { params });
   }
 
 

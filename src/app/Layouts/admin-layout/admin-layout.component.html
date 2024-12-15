@@ -36,6 +36,17 @@
                                 <i style="margin-right: 12px;" class="bi bi-people-fill subNav-icon"></i>
                                 <span *ngIf="isNavbarVisible">Member Management</span> </a>
                         </li>
+
+                        
+
+                        <li *ngIf="userRole=='superAdmin'" class="sidebar-item">
+                            <a routerLink="/admin/staffs" class="sub-sidebar-link"
+                                [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
+                                <i class="fas fa-user subNav-icon"></i> 
+
+                                <span *ngIf="isNavbarVisible"> {{userRole==='superAdmin' ? 'Staff Management ' : 'Trainer Management'}}</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a routerLink="/admin/programs" class="sub-sidebar-link"
                                 [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
@@ -216,14 +227,13 @@
                         </a>
 
                         <!-- Submenu for Management and Reports -->
-                        <ul *ngIf="item.submenuVisible && item.submenu" class="submenu">
+                        <!-- <ul *ngIf="item.submenuVisible && item.submenu" class="submenu">
                             <li class="submenu-item" *ngFor="let subItem of item.submenu">
                                 <a [routerLink]="subItem.link" class="subnav-link">
                                     <i [ngClass]="subItem.iconClass"></i>
-                                    <!-- <span>{{ subItem.label }}</span> -->
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                 </ul>
             </aside>

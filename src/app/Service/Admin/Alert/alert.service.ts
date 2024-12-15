@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Alert } from '../../../Models/overdueAlert';
+import { Alert, AlertReq } from '../../../Models/overdueAlert';
 import { PaymentSummary } from '../../../Models/paymentSummary';
 
 @Injectable({
@@ -22,5 +22,17 @@ export class AlertService {
   
     // Append alertType directly after 'alert-type'
     return this.http.get<Alert[]>(`${this.alertsUrl}/alert-type${alertType}`, { params });
+  }
+
+  getAlertsByMemberId(memberId: number): Observable<Alert[]> {
+    let params = new HttpParams();
+    
+      params = params.set('memberId', memberId.toString());
+    
+    return this.http.get<Alert[]>(`${this.alertsUrl}/member-id${memberId}`);
+  }
+
+  updateAlert(alertId: number, alertReq: AlertReq): Observable<Alert> {
+    return this.http.put<Alert>(`${this.alertsUrl}/${alertId}`, alertReq);
   }
 }

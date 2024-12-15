@@ -37,9 +37,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   styleUrl: './program-enroll.component.css'
 })
 export class ProgramEnrollComponent {
-  enrollProgram() {
-    throw new Error('Method not implemented.');
-  }
+ 
 
   isLightTheme: boolean = true;
   branchId: number = 0;
@@ -595,7 +593,7 @@ export class ProgramEnrollComponent {
         toastClass: 'ngx-toastr'
       });
       this.modalRef?.hide();
-    } else {
+    } 
       if (this.leavingPrograms.length >= 1) {
         this.leavingPrograms.forEach((programId) => {
           const enrollment = this.allEnrollPrograms.find(
@@ -622,7 +620,7 @@ export class ProgramEnrollComponent {
           toastClass: 'ngx-toastr'
         });
       }
-    }
+    
   
     this.modalRef?.hide();
   }

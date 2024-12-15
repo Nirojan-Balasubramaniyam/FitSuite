@@ -197,7 +197,7 @@ export class PaymentComponent implements OnInit {
       }
       this.paymentService.createPayment(newPayment).subscribe(
         (response) => { 
-          this.toastr.success(`Program Updated successfully`, "Make Payment", {
+          this.toastr.success(`Payment Updated successfully`, "Make Payment", {
             timeOut: 3000,
             closeButton: true,
             easing: 'ease-in',

@@ -29,6 +29,8 @@ import { TrainingPackageComponent } from './Views/Member/training-package/traini
 import { UpdateSkillsComponent } from './Views/Member/update-skills/update-skills.component';
 import { MemberBmiComponent } from './Views/Member/member-bmi/member-bmi.component';
 import { authGuard } from './Guard/auth.guard';
+import { MemberPaymentComponent } from './Views/Member/member-payment/member-payment.component';
+import { StaffManagementComponent } from './Views/Admin/staff-management/staff-management.component';
 
 export const routes: Routes = [
 
@@ -57,6 +59,7 @@ export const routes: Routes = [
             { path: 'branch', component: BranchComponent },
             { path: 'dashboard', component: DashboardComponent },
             { path: 'members', component: MemberManagementComponent },
+            { path: 'staffs', component: StaffManagementComponent },
             { path: 'member-report', component: MemberReportComponent },
             { path: 'payment', component: PaymentComponent },
             { path: 'payment-report', component: PaymentReportComponent },
@@ -70,12 +73,12 @@ export const routes: Routes = [
     {
         path: 'member',
         component: MemberLayoutComponent,
-        // canActivate:[authGuard],
+        canActivate:[authGuard],
         children: [
             { path: 'bmi', component: MemberBmiComponent },
             { path: 'change-info', component: ChangeInfoComponent },
             { path: 'change-program', component: ChangeProgramComponent },
-            { path: 'payment', component: PaymentComponent },
+            { path: 'member-payment', component: MemberPaymentComponent },
             { path: 'payment-history', component: PaymentHistoryComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'training-package', component: TrainingPackageComponent },

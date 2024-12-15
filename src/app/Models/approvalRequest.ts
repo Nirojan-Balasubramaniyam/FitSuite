@@ -5,8 +5,8 @@ export interface ApprovalRequest {
     paymentType?: string;
     amount?: number;
     receiptNumber?: string;
-    paidDate?: string; // Date as string (ISO format)
-    dueDate?: string;  // Date as string (ISO format)
+    paidDate?: string;
+    dueDate?: string;  
     status: string;
     programId?: number;
     firstName?: string;
@@ -14,7 +14,7 @@ export interface ApprovalRequest {
     phone?: string;
     nic?: string;
     email?: string;
-    dob?: string; // Date as string (ISO format)
+    dob?: string; 
     gender?: string;
     emergencyContactName?: string;
     emergencyContactNumber?: string;

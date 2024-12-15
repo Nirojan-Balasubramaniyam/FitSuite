@@ -95,12 +95,10 @@ export class ApprovalRequestService {
   }
 
   // Get All Requests
-  getAllRequests(pageNumber: number, pageSize: number): Observable<PaginationResponse<ApprovalRequest>> {
-    const params = new HttpParams()
-      .set('pageNumber', pageNumber.toString())
-      .set('pageSize', pageSize.toString());
+  getAllRequests(): Observable<ApprovalRequest[]> {
 
-    return this.http.get<PaginationResponse<any>>(`${this.requestUrl}/get-all`, { params });
+
+    return this.http.get<ApprovalRequest[]>(`${this.requestUrl}/get-all`);
   }
 
   // Get Specific Request by ID

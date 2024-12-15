@@ -16,11 +16,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Member } from '../../../Models/member';
 import { MemberFilterPipe } from "../../../Pipes/MemberFilter/member-filter.pipe";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
+import { Branch } from '../../../Models/branch';
+import { PaginationResponse } from '../../../Models/pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-member-management',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, BsDatepickerModule, PasswordStrengthMeterComponent, MatPaginatorModule, MemberFilterPipe, NgxSpinnerModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,NgSelectModule, MatFormFieldModule, MatInputModule, BsDatepickerModule, PasswordStrengthMeterComponent, MatPaginatorModule, MemberFilterPipe, NgxSpinnerModule],
   templateUrl: './member-management.component.html',
   styleUrl: './member-management.component.css'
 })
@@ -42,6 +45,10 @@ export class MemberManagementComponent {
   totalRecords: number = 0;  // Total number of records
   pageSize: number = 6;  // Records per page
   pageIndex: number = 0;
+  userRole:string='';
+  branches: Branch[] = [];
+  selectedBranch: number = this.branchId
+
 
   constructor(
     private themeService: ThemeService,
@@ -51,6 +58,13 @@ export class MemberManagementComponent {
     private toastr: ToastrService,
     private datePipe: DatePipe,
     private spinner: NgxSpinnerService) {
+
+      
+    const role = localStorage.getItem('Role') || '';
+    const branchId = localStorage.getItem('BranchId');
+
+    this.userRole = role;
+    this.branchId = branchId ? parseInt(branchId) : 0;
 
     this.memberForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -82,6 +96,8 @@ export class MemberManagementComponent {
     });
 
     this.loadMembers();
+    this.loadBranches();
+
     this.spinner.show();
 
 
@@ -102,6 +118,27 @@ export class MemberManagementComponent {
       this.spinner.hide();
 
     });
+  }
+
+  onBranchChange(branchId: number): void {
+    if (branchId !== null) {
+      this.selectedBranch = branchId;
+
+      this.loadMembers();
+    } else {
+      this.selectedBranch = this.branchId;
+    }
+  }
+
+  loadBranches(): void {
+    this.adminService
+      .getAllBranches()
+      .subscribe((response: PaginationResponse<Branch>) => {
+
+        this.branches = response.data.filter((branch) => branch.isActive);
+        this.totalRecords = response.totalRecords;
+      });
+      this.spinner.hide();
   }
 
   // Handle page change event from the paginator
@@ -287,6 +324,7 @@ export class MemberManagementComponent {
 
     this.modalRef.onHide?.subscribe(() => {
       this.memberForm.reset();
+      this.memberId = 0;
       // Reset form when modal is closed
     });
   }

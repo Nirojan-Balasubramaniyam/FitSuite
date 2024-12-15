@@ -48,6 +48,11 @@ export class PaymentService {
     return this.http.get<Payment>(`${this.paymentUrl}/last-renewal/${memberId}`);
   }
 
+  // Get payments for a member 
+  getPaymentsForMember(memberId: number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${this.paymentUrl}/member-payments/${memberId}`);
+  }
+
   // Get all payments (custom endpoint)
   getAllPayments(): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${this.paymentUrl}/all-payments`);

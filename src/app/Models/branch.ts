@@ -10,3 +10,9 @@ export interface Branch {
     isActive:boolean;
     address?: Address
   }
+
+  export interface BranchReq {
+    branchName:string;
+    branchAdminId:string;
+    address?: Address
+  }

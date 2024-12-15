@@ -1,13 +1,13 @@
 <div class="wrapper">
-    <aside id="sidebar" class="d-none d-md-block" [ngStyle]="{
-            'background-color': isMoonButton ? 'white' : '#343a40',
+    <aside id="sidebar" class="d-none d-lg-block" [ngStyle]="{
+            'background-color': isMoonButton ? 'white' : 'var(--bs-dark-bg-subtle)',
             'color': isMoonButton ? '#333' : 'white', 
             'width': navBarWidth}">
         <!-- Sidebar content -->
         <div class="">
             <div class="sidebar-logo" [ngStyle]="{
                     'color': isMoonButton ? 'white' : 'white',
-                    'background-color': isMoonButton ? '#dc3545' : '#343a40',
+                    'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)',
                     'position': 'sticky', 'top':'0' }">
                 <img *ngIf="isMoonButton" src="../../../../assessts/FFLogo1.png" width="60px">
                 <img *ngIf="!isMoonButton" src="../../../../../assessts/FFLogo1.png" width="60px">
@@ -16,19 +16,26 @@
             </div>
             <div class="text-center mt-3 p-3 mb-4 mb-md-0">
 
-                <img src="../../../../assessts/trainer3.jpg" alt="Profile Picture"
+                <img  [src]="(member?.imagePath ? fullImgPath + member?.imagePath : '../../../../../assessts/user-avatar-male-5.png')" alt="Profile Picture"
                     class="rounded-circle border border-primary"
                     [ngStyle]="{'width': isNavbarVisible? '200px' : '100px', 'height': isNavbarVisible? '200px' : '100px'}"
                     style="width: 200px; height: 200px;" />
 
-                    <h2 class=" fw-bold" [ngStyle]="{'color': isMoonButton ? '#dc3545' : 'white'}">Rojan Baala</h2>
+
+                    <h2  class=" fw-bold" [ngStyle]="{'color': isMoonButton ? '#dc3545' : 'white'}">{{member?.firstName +" "+ member?.lastName}}</h2>
                 <!-- <button class="btn btn-danger mt-3 px-4 w-100">Logout</button> -->
-                <button class="btn btn-outline-secondary text-decoration-none mt-2">Edit</button>
 
             </div>
             <ul class="sidebar-nav" [ngStyle]="{'color': isMoonButton ? '#dc3545 !important' : 'white !important'}">
 
-                <li class="sidebar-item p-0" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
+                    <a routerLink="/member/profile"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
+                        <i class="bi bi-person nav-icon"></i>
+                        <span *ngIf="isNavbarVisible"> Profile</span>
+
+                    </a>
+                </li>
+                <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
                     <a routerLink="/member/bmi"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-calculator nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Calculate BMI</span>
@@ -36,15 +43,15 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
-                    <a routerLink="/member/payment"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
+                <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
+                    <a routerLink="/member/member-payment"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-credit-card-2-back nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Make Payment</span>
 
                     </a>
                 </li>
 
-                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
                     <a routerLink="/member/change-program"  class="sidebar-link  px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-gear-fill  nav-icon"></i>
 
@@ -53,7 +60,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item" [ngClass]="{'sidebar-naa': isLargeScreen}">
+                <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
                     <a routerLink="/member/payment-history"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-clock-history nav-icon"></i>
                         <span *ngIf="isNavbarVisible">Payment History</span>
@@ -64,7 +71,7 @@
     </aside>
 
     <div class="main" [ngStyle]="{'background-color': isMoonButton ? 'white' : 'rgba(0, 0, 0, 0.1)'}">
-        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#dc3545' : '#343a40'}">
+        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)'}">
             <div>
                 <button class="btn d-none d-md-block" id="sidebar-toggle" (click)="toggleNavbar()">
                     <i class="fa-solid fa-bars"></i>
@@ -72,7 +79,7 @@
 
                 <div class="d-block d-md-none">
                     <div class="sidebar-logo" [ngStyle]="{
-                        'background-color': isMoonButton ? '#dc3545' : '#343a40',
+                        'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)',
                         'position': 'absolute', 'top':'0' }">
 
                         <img src="../../../../../assessts/FFLogo1.png" width="60px">
@@ -94,7 +101,7 @@
                     </ng-template>
                 </button>
 
-                <button class="notification-btn">
+                <button class="notification-btn" (click)="openModalWithClass(alertTemplate)">
                     <i class="fa-solid fa-bell"></i>
                 </button>
                 <button class="notification-btn nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
@@ -102,32 +109,20 @@
                     <!-- <a  class="nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
                     (click)="toggleDropdown($event)"> -->
 
-                    <img src="../../../../assessts/FFLogo.jpg" class="avatar img-fluid rounded-circle"
-                        alt="User Avatar">
+                    <img [src]="(member?.imagePath ? fullImgPath + member?.imagePath : '../../../../assessts/FFLogo.jpg')" class="avatar img-fluid rounded-circle">
+
 
                     <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen"
                         aria-labelledby="dropdownMenuButton1">
+                        <!-- <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
+                                href="#">Profile</a></li> -->
+                        <!-- <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
+                                href="#">Setting</a></li> -->
                         <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
-                                href="#">Profile</a></li>
-                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
-                                href="#">Setting</a></li>
-                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
-                                href="#">Logout</a></li>
+                                (click)="logout()">Logout</a></li>
                     </ul>
                 </button>
 
-                <!-- <div>
-                    <a href="#" class="nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
-                        (click)="toggleDropdown($event)">
-                        <img src="../../../../assessts/FFLogo.jpg" class="avatar img-fluid rounded" alt="User Avatar">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen"
-                        aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Setting</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                </div> -->
             </div>
         </nav>
 
@@ -156,7 +151,7 @@
             </div>
         </main>
 
-        <div class="bottom-sidebar d-block d-md-none">
+        <div class="bottom-sidebar d-block d-lg-none">
             <!-- Sidebar Navigation -->
             <aside class="custom-sidebar">
               <ul class="custom-nav-list">
@@ -179,3 +174,49 @@
           
     </div>
 </div>
+
+<ng-template #alertTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left text-info">Notifications</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <section id="alertSection">
+        <h2 id="alertTitle"></h2>
+  
+        <!-- Container for Alerts -->
+        <div id="alertContainer">
+          <div *ngIf="alerts.length === 0" class="no-alerts-message">
+            <p>No alerts available.</p>
+          </div>
+  
+          <!-- Alerts List -->
+          <div *ngFor="let alert of alerts" class="alert-card shadow" [ngClass]="alert.alertType">
+            <table class="alert-table">
+              <tr>
+                <td class="alert-content">
+                  <!-- Display the constructed alert message -->
+                  <p>{{ constructAlertContent(alert) }}</p>
+                </td>
+                <td class="close-btn-container">
+                  <!-- Close button (only for non-overdue/renewal) -->
+                  <button *ngIf="alert.alertType !== 'overdue' && alert.alertType !== 'renewal'"
+                          class="close-btn"
+                          (click)="closeAlert(alert.alertId)">
+                          <i class="bi bi-x-circle"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </ng-template>
+  
+
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

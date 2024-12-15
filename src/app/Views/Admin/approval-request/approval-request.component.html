@@ -3,21 +3,144 @@
 </h4>
 
 <div class="col-12 col-md-6 d-flex align-items-center mt-5">
-    <button type="button" class="btn btn-secondary ms-2">Pending Approvals</button>
-    <button type="button" class="btn btn-secondary ms-2">Reviewed Approvals</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="toggleSearchText()">
+        {{ searchText === 'Pending' ? 'Reviewed Requests' : 'Pending Requests' }}
+    </button>
 </div>
 
 <div class="mt-4">
     <table class="table table-hover table-bordered text-center">
-        <thead>
-            <tr>
-                <th scope="col">Approval Request ID</th>
-                <th scope="col">Requested Member</th>
-                <th scope="col">Approval Type</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
+      <thead>
+        <tr>
+          <th class="text-primary" scope="col">Approval Request ID</th>
+          <th class="text-primary" scope="col">Approval Type</th>
+          <th class="text-primary" scope="col">Requested Member</th>
+        
+          <th class="text-primary" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through approvalRequests array -->
+        <tr *ngFor="let request of approvalRequests | requestFilter : searchText">
+        
+          <td>{{ request.requestId }}</td>
+          <td>{{ request.requestType }}</td>
+          <td>{{ request.memberId ? (request.firstName + ' ' + request.lastName) : 'New Member' }}</td>
+          
+          <td>
+            <button class="btn btn-info" (click)="openModalWithClass(requestDetailsModal,request)">View</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-</div>
+  </div>
+  
+ 
+
+  <ng-template #requestDetailsModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left text-success">Approval Request Details</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-sm">
+        <tbody>
+          <!-- Request Type -->
+          <tr *ngIf="selectedRequest?.requestType">
+            <td><strong>Request Type:</strong></td>
+            <td>{{ selectedRequest?.requestType }}</td>
+          </tr>
+          
+          <!-- Request ID -->
+          <tr *ngIf="selectedRequest?.requestId">
+            <td><strong>Request ID:</strong></td>
+            <td>{{ selectedRequest?.requestId }}</td>
+          </tr>
+  
+          <!-- Member Information -->
+          <tr *ngIf="selectedRequest?.memberId">
+            <td><strong>Member Name:</strong></td>
+            <td>{{ selectedRequest?.firstName }} {{ selectedRequest?.lastName }}</td>
+          </tr>
+          <tr *ngIf="!selectedRequest?.memberId">
+            <td><strong>Member:</strong></td>
+            <td>New Member</td>
+          </tr>
+          
+          <!-- Payment Information -->
+          <tr *ngIf="selectedRequest?.paymentType">
+            <td><strong>Payment Type:</strong></td>
+            <td>{{ selectedRequest?.paymentType }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.amount">
+            <td><strong>Amount:</strong></td>
+            <td>{{ selectedRequest?.amount | currency }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.receiptNumber">
+            <td><strong>Receipt Number:</strong></td>
+            <td>{{ selectedRequest?.receiptNumber }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.paidDate">
+            <td><strong>Paid Date:</strong></td>
+            <td>{{ selectedRequest?.paidDate | date:'short' }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.dueDate">
+            <td><strong>Due Date:</strong></td>
+            <td>{{ selectedRequest?.dueDate | date:'short' }}</td>
+          </tr>
+          
+          <!-- Contact Information -->
+          <tr *ngIf="selectedRequest?.phone">
+            <td><strong>Phone:</strong></td>
+            <td>{{ selectedRequest?.phone }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.email">
+            <td><strong>Email:</strong></td>
+            <td>{{ selectedRequest?.email }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.dob">
+            <td><strong>Date of Birth:</strong></td>
+            <td>{{ selectedRequest?.dob | date:'shortDate' }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.gender">
+            <td><strong>Gender:</strong></td>
+            <td>{{ selectedRequest?.gender }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.emergencyContactName">
+            <td><strong>Emergency Contact Name:</strong></td>
+            <td>{{ selectedRequest?.emergencyContactName }}</td>
+          </tr>
+          <tr *ngIf="selectedRequest?.emergencyContactNumber">
+            <td><strong>Emergency Contact Number:</strong></td>
+            <td>{{ selectedRequest?.emergencyContactNumber }}</td>
+          </tr>
+          
+          <!-- Status -->
+          <tr *ngIf="selectedRequest?.status">
+            <td><strong>Status:</strong></td>
+            <td>{{ selectedRequest?.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Approve / Decline Buttons -->
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="approveRequest(selectedRequest!)">Approve</button>
+        <button class="btn btn-danger" (click)="declineRequest(selectedRequest!)">Decline</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  
+
+ 
+  
+ 
+  
+  
+
+  
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
