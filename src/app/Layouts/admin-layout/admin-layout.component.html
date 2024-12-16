@@ -137,9 +137,18 @@
 
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a
+                      routerLink="/admin/contact-us"
+                      class="sidebar-link"
+                      routerLinkActive="sidebar-active"
+                    >
+                      <i class="bi bi-envelope nav-icon"></i>
+                      <span *ngIf="isNavbarVisible">Contact Messages</span>
+                    </a>
+                </li>
             </ul>
 
-            
         </div>
     </aside>
 
