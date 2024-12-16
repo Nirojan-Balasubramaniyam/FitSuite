@@ -98,14 +98,16 @@ export class ContactUsAdminComponent {
         adminResponse:this.responseForm.value.response,
         email:this.selectedMessage.email,
         emailType: 2,
+        messageId:this.selectedMessage.messageId
       };
+
       this.sendMailService.sendMessageResponse(data).subscribe({
         next: (response: any) => {},
         complete: () => {
+          this.loadMessages();
           this.tostar.success('Message sent successfully');
         },
       });
     }
   }
-
 }
