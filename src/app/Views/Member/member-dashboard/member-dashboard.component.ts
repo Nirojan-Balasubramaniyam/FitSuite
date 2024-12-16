@@ -29,43 +29,7 @@ export class MemberDashboardComponent implements OnInit {
   groupedTrainingPrograms: { typeName: string; programs: TrainingProgram[] }[] =
     [];
   modalRef?: BsModalRef;
-  workoutPlans: WorkoutPlan[] = [
-    {
-      workoutPlanId: 1,
-      name: 'Strength Training',
-      repsCount: 12,
-      weight: 50.5,
-      staffId: 101,
-    },
-    {
-      workoutPlanId: 2,
-      name: 'Cardio Blast',
-      repsCount: 30,
-      weight: 0, // No weight used in this plan
-      staffId: 102,
-    },
-    {
-      workoutPlanId: 3,
-      name: 'Leg Day Routine',
-      repsCount: 15,
-      weight: 70.0,
-      staffId: 103,
-    },
-    {
-      workoutPlanId: 4,
-      name: 'Full Body Workout',
-      repsCount: 20,
-      weight: 40.0,
-      staffId: 101,
-    },
-    {
-      workoutPlanId: 5,
-      name: 'Core Strengthening',
-      repsCount: 20,
-      weight: 30.0,
-      staffId: 104,
-    },
-  ];
+  workoutPlans: WorkoutPlan[] = [];
 
 
 

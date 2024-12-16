@@ -1,15 +1,52 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ContactUs, ContactUsService } from '../../../Service/ContactUs/contact-us.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact-us',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.css'
 })
 export class ContactUsComponent {
+
+  contactForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private readonly contactUsService:ContactUsService,
+    private readonly toastr:ToastrService,
+  ) {
+    this.contactForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      message: ['', Validators.required],
+    });
+  }
+
+  onSubmit() {
+    if (this.contactForm.valid) {
+      const form = this.contactForm.value
+      const data:ContactUs = {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+        submittedAt: new Date(),
+      }
+      this.contactUsService.addContactUsMessage(data).subscribe({
+        next: (response) => {
+        },
+        complete:()=>{
+          this.toastr.success("Send Message Successfully",'')
+        }
+      })
+      this.contactForm.reset();
+    }
+  }
+
   // FAQ Data
   faqs = [
     {
@@ -33,10 +70,4 @@ export class ContactUsComponent {
   toggleFaq(faq: any): void {
     faq.showAnswer = !faq.showAnswer;
   }
-
-  // Form Submission Logic
-  onSubmit(): void {
-    alert('Your message has been sent. We will get back to you shortly.');
-  }
-
 }
