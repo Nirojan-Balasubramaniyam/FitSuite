@@ -7,7 +7,7 @@
         <div class="">
             <div class="sidebar-logo" [ngStyle]="{
                     'color': isMoonButton ? 'white' : 'white',
-                    'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)',
+                    'background-color': isMoonButton ? '#b71c1c' : 'var(--bs-dark-bg-subtle)',
                     'position': 'sticky', 'top':'0' }">
                 <img *ngIf="isMoonButton" src="../../../../assessts/FFLogo1.png" width="60px">
                 <img *ngIf="!isMoonButton" src="../../../../../assessts/FFLogo1.png" width="60px">
@@ -16,7 +16,7 @@
             </div>
             <div class="text-center mt-3 p-3 mb-4 mb-md-0">
 
-                <img  [src]="(member?.imagePath ? fullImgPath + member?.imagePath : '../../../../../assessts/user-avatar-male-5.png')" alt="Profile Picture"
+                <img  [src]="(member?.imagePath ?  member?.imagePath : '../../../../../assessts/user-avatar-male-5.png')" alt="Profile Picture"
                     class="rounded-circle border border-primary"
                     [ngStyle]="{'width': isNavbarVisible? '200px' : '100px', 'height': isNavbarVisible? '200px' : '100px'}"
                     style="width: 200px; height: 200px;" />
@@ -29,9 +29,9 @@
             <ul class="sidebar-nav" [ngStyle]="{'color': isMoonButton ? '#dc3545 !important' : 'white !important'}">
 
                 <li class="sidebar-item btn btn-outline-danger" [ngClass]="{'sidebar-buttons': isLargeScreen}">
-                    <a routerLink="/member/profile"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
+                    <a routerLink="/member/dashboard"  class="sidebar-link px-md-5 py-md-0" routerLinkActive="sidebar-active">
                         <i class="bi bi-person nav-icon"></i>
-                        <span *ngIf="isNavbarVisible"> Profile</span>
+                        <span *ngIf="isNavbarVisible"> Dashboard</span>
 
                     </a>
                 </li>
@@ -71,7 +71,7 @@
     </aside>
 
     <div class="main" [ngStyle]="{'background-color': isMoonButton ? 'white' : 'rgba(0, 0, 0, 0.1)'}">
-        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)'}">
+        <nav class="navbar" [ngStyle]="{'background-color': isMoonButton ? '#b71c1c' : 'var(--bs-dark-bg-subtle)'}">
             <div>
                 <button class="btn d-none d-md-block" id="sidebar-toggle" (click)="toggleNavbar()">
                     <i class="fa-solid fa-bars"></i>
@@ -79,7 +79,7 @@
 
                 <div class="d-block d-md-none">
                     <div class="sidebar-logo" [ngStyle]="{
-                        'background-color': isMoonButton ? '#dc3545' : 'var(--bs-dark-bg-subtle)',
+                        'background-color': isMoonButton ? '#b71c1c' : 'var(--bs-dark-bg-subtle)',
                         'position': 'absolute', 'top':'0' }">
 
                         <img src="../../../../../assessts/FFLogo1.png" width="60px">
@@ -109,13 +109,13 @@
                     <!-- <a  class="nav-link dropdown-toggle" id="dropdownMenuButton1" role="button"
                     (click)="toggleDropdown($event)"> -->
 
-                    <img [src]="(member?.imagePath ? fullImgPath + member?.imagePath : '../../../../assessts/FFLogo.jpg')" class="avatar img-fluid rounded-circle">
+                    <img [src]="(member?.imagePath ? member?.imagePath : '../../../../assessts/FFLogo.jpg')" class="avatar img-fluid rounded-circle">
 
 
                     <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen"
                         aria-labelledby="dropdownMenuButton1">
-                        <!-- <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
-                                href="#">Profile</a></li> -->
+                        <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
+                                routerLink="/member/profile">Profile</a></li>
                         <!-- <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
                                 href="#">Setting</a></li> -->
                         <li><a [ngStyle]="{'color': isMoonButton ? '#b71c1c' : 'white'}" class="dropdown-item"
@@ -129,24 +129,7 @@
         <main class="content">
             <div class="container-fluid mt-3">
 
-                <router-outlet></router-outlet>
-
-                
-                            <!-- Left Section -->
-                            <!-- <div class="text-center me-md-4 mb-4 mb-md-0">
-                          <img
-                            src="https://via.placeholder.com/100"
-                            alt="Profile Picture"
-                            class="rounded-circle border border-primary"
-                            style="width: 100px; height: 100px;"
-                          />
-                          <button class="btn btn-primary mt-3 px-4 w-100">Connect to LinkedIn</button>
-                          <button class="btn btn-link text-decoration-none mt-2 text-primary">Edit</button>
-                        </div> -->
-
-                            <!-- Right Section -->
-                        
-
+                <router-outlet></router-outlet>               
 
             </div>
         </main>
@@ -220,3 +203,4 @@
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
     <p style="color: white"> Loading... </p>
 </ngx-spinner>
+

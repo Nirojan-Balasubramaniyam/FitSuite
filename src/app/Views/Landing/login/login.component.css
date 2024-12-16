@@ -1,6 +1,7 @@
-body {
-    height: 100vh;
-    margin: 0;
+.body {
+   
+    padding-top: 90px;
+    padding-bottom: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,16 +18,17 @@ body {
   .form-wrapper {
     display: flex;
     width: 900px;
-    height: 550px;
-    background-color: white;
+    height: fit-content;
+    /* background-color: white; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .image-side {
     flex: 1;
-    background: url('/assessts/login5.jpg') no-repeat center center/cover;
+    background: url('/assessts/login5.jpg') no-repeat center center;
+    background-size: cover; /* Adjust the zoom effect */
     position: relative;
     color: white;
     display: flex;
@@ -37,6 +39,7 @@ body {
     /* border-radius: 15px; */
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
   }
+  
   
   .image-side .info {
     font-size: 0.9rem;

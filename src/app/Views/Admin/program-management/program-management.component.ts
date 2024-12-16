@@ -32,7 +32,7 @@ export class ProgramManagementComponent {
   programName:string="";
   programForm: FormGroup;
   searchText: string = '';
-  fullImgPath: string = "https://localhost:7220";
+  fullImgPath: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net";
 
   @ViewChild('trainingProgramForm') trainingProgramForm!: TemplateRef<any>;
 

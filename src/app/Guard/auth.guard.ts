@@ -34,7 +34,7 @@ export class authGuard implements CanActivate {
     const role = localStorage.getItem("Role");
     if (this.registerService.isLoggedIn()) {
       console.log("Role inside guard:", role);  // Debugging the role value
-      if (role?.toLowerCase() === "admin" || role?.toLowerCase() === "superadmin") {
+      if (role?.toLowerCase() === "1" || role?.toLowerCase() === "0") {
         // If the role is admin or superadmin, allow access to admin dashboard
         return true;
       } else if (role?.toLowerCase() === "member") {

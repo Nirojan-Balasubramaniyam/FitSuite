@@ -70,8 +70,8 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.spinner.show();
-    this.loadMembers();
+    //this.spinner.show();
+    //this.loadMembers();
   }
 
   ngLogin() {
@@ -100,12 +100,12 @@ export class LoginComponent implements OnInit {
         const role = localStorage.getItem('Role');
 
         if (
-          role?.toLowerCase() === 'admin' ||
-          role?.toLowerCase() === 'superadmin'
+          role?.toLowerCase() === '0' ||
+          role?.toLowerCase() === '1'
         ) {
           this.router.navigate(['/admin/dashboard']);
         } else if (role?.toLowerCase() === 'member') {
-          this.router.navigate(['/member/profile']);
+          this.router.navigate(['/member/dashboard']);
         }
       },
       error: (error: any) => {

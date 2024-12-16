@@ -10,8 +10,8 @@ import { Alert } from '../../../Models/overdueAlert';
 })
 export class DashboardService {
 
-  dashboardUrl: string = "https://localhost:7220/api/Dashboard/payment-summary";
-  alertsUrl: string = "https://localhost:7220/api/Alert";
+  dashboardUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Dashboard/payment-summary";
+  alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
 
   constructor(private http: HttpClient) {}
 

@@ -23,7 +23,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 @Component({
   selector: 'app-member-management',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,NgSelectModule, MatFormFieldModule, MatInputModule, BsDatepickerModule, PasswordStrengthMeterComponent, MatPaginatorModule, MemberFilterPipe, NgxSpinnerModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,NgSelectModule, MatFormFieldModule, MatInputModule, BsDatepickerModule, MatPaginatorModule, MemberFilterPipe, NgxSpinnerModule],
   templateUrl: './member-management.component.html',
   styleUrl: './member-management.component.css'
 })
@@ -36,10 +36,7 @@ export class MemberManagementComponent {
   memberId: number = 0;
   memberName:string="";
   searchText: string = '';
-  fullImgPath: string = "https://localhost:7220";
   @ViewChild('memberFormTemplate') memberFormTemplate!: TemplateRef<any>;
-
-
   members: Member[] = [];  // Members for the current page
   allMembers: Member[] = [];
   totalRecords: number = 0;  // Total number of records

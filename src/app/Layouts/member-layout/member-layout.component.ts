@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
   HostListener,
@@ -21,6 +21,13 @@ import { AdminService } from '../../Service/Staff/admin.service';
 import { AlertService } from '../../Service/Admin/Alert/alert.service';
 import { Alert } from '../../Models/overdueAlert';
 import { TrainingProgram } from '../../Models/trainingProgram';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-member-layout',
@@ -31,6 +38,8 @@ import { TrainingProgram } from '../../Models/trainingProgram';
     RouterLink,
     RouterModule,
     NgxSpinnerModule,
+    ReactiveFormsModule,
+    BsDatepickerModule,
   ],
   templateUrl: './member-layout.component.html',
   styleUrl: './member-layout.component.css',
@@ -47,106 +56,104 @@ export class MemberLayoutComponent implements OnInit {
   member: Member | null = null;
   alerts: Alert[] = [
     {
-      "alertId": 1,
-      "alertType": "overdue",
-      "memberId": 101,
-      "amount": 1500,
-      "dueDate": "2024-11-30T00:00:00",
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": false
+      alertId: 1,
+      alertType: 'overdue',
+      memberId: 101,
+      amount: 1500,
+      dueDate: '2024-11-30T00:00:00',
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: false,
     },
     {
-      "alertId": 2,
-      "alertType": "renewal",
-      "memberId": 102,
-      "amount": 2000,
-      "dueDate": "2024-12-10T00:00:00",
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": true
+      alertId: 2,
+      alertType: 'renewal',
+      memberId: 102,
+      amount: 2000,
+      dueDate: '2024-12-10T00:00:00',
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: true,
     },
     {
-      "alertId": 3,
-      "alertType": "paymentrequestMessage",
-      "memberId": 103,
-      "amount": 2500,
-      "dueDate": "2024-12-15T00:00:00",
-      "accessedDate": "2024-12-04T00:00:00",
-      "status": true,
-      "action": true
+      alertId: 3,
+      alertType: 'paymentrequestMessage',
+      memberId: 103,
+      amount: 2500,
+      dueDate: '2024-12-15T00:00:00',
+      accessedDate: '2024-12-04T00:00:00',
+      status: true,
+      action: true,
     },
     {
-      "alertId": 4,
-      "alertType": "leaveProgramRequestMessage",
-      "memberId": 104,
-      "programId": 501,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": true
+      alertId: 4,
+      alertType: 'leaveProgramRequestMessage',
+      memberId: 104,
+      programId: 501,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: true,
     },
     {
-      "alertId": 5,
-      "alertType": "programAddonRequestMessage",
-      "memberId": 105,
-      "programId": 502,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": true
+      alertId: 5,
+      alertType: 'programAddonRequestMessage',
+      memberId: 105,
+      programId: 502,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: true,
     },
     {
-      "alertId": 6,
-      "alertType": "memberInfoRequestMessage",
-      "memberId": 106,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": true
+      alertId: 6,
+      alertType: 'memberInfoRequestMessage',
+      memberId: 106,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: true,
     },
     {
-      "alertId": 7,
-      "alertType": "paymentrequestMessage",
-      "memberId": 107,
-      "amount": 1800,
-      "dueDate": "2024-12-10T00:00:00",
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": false
+      alertId: 7,
+      alertType: 'paymentrequestMessage',
+      memberId: 107,
+      amount: 1800,
+      dueDate: '2024-12-10T00:00:00',
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: false,
     },
     {
-      "alertId": 8,
-      "alertType": "leaveProgramRequestMessage",
-      "memberId": 108,
-      "programId": 5,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": false
+      alertId: 8,
+      alertType: 'leaveProgramRequestMessage',
+      memberId: 108,
+      programId: 5,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: false,
     },
     {
-      "alertId": 9,
-      "alertType": "programAddonRequestMessage",
-      "memberId": 109,
-      "programId": 5,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": false
+      alertId: 9,
+      alertType: 'programAddonRequestMessage',
+      memberId: 109,
+      programId: 5,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: false,
     },
     {
-      "alertId": 10,
-      "alertType": "memberInfoRequestMessage",
-      "memberId": 110,
-      "accessedDate": "2024-12-05T00:00:00",
-      "status": true,
-      "action": false
-    }
+      alertId: 10,
+      alertType: 'memberInfoRequestMessage',
+      memberId: 110,
+      accessedDate: '2024-12-05T00:00:00',
+      status: true,
+      action: false,
+    },
   ];
-  fullImgPath: string = 'https://localhost:7220';
+  // fullImgPath: string = 'https://gymfeemanagementsystem-appservice.azurewebsites.net';
   modalRef?: BsModalRef;
   @ViewChild('memberFormTemplate') memberFormTemplate!: TemplateRef<any>;
   notifications: Alert[] = [];
   members: Member[] = [];
   programs: TrainingProgram[] = [];
-
-
   loggedInUser = { memberId: 1 };
 
   constructor(
@@ -155,8 +162,10 @@ export class MemberLayoutComponent implements OnInit {
     private adminService: AdminService,
     private spinner: NgxSpinnerService,
     private modalService: BsModalService,
+    private datePipe: DatePipe,
     private toastr: ToastrService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private fb: FormBuilder
   ) {
     this.updateTheme();
 
@@ -197,14 +206,14 @@ export class MemberLayoutComponent implements OnInit {
   loadPrograms(): void {
     this.adminService.getAllTrainingPrograms().subscribe((programs) => {
       this.programs = programs;
-    
+
       this.spinner.hide();
     });
   }
 
   toggleNavbar(): void {
     this.isNavbarVisible = !this.isNavbarVisible;
-    this.navBarWidth = this.isNavbarVisible ? '450px' : '120px';
+    this.navBarWidth = this.isNavbarVisible ? '450px' : '0px';
   }
 
   toggleDropdown(event: Event): void {
@@ -306,28 +315,18 @@ export class MemberLayoutComponent implements OnInit {
     this.isLargeScreen = window.innerWidth >= 768; // Bootstrap lg breakpoint
   }
 
-  openModalWithClass(template: TemplateRef<void>) {
-    console.log(this.memberId);
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
-
-    this.modalRef.onHide?.subscribe(() => {
-      // Reset form when modal is closed
-    });
-  }
-
   constructAlertContent(alert: Alert): string {
     let programName = '';
 
     if (alert.programId) {
-      const program = this.programs.find(p => p.programId === alert.programId);
+      const program = this.programs.find(
+        (p) => p.programId === alert.programId
+      );
       programName = program ? program.programName : 'Unknown Program';
     }
 
     let alertContent = '';
-    
+
     if (alert.status) {
       if (alert.alertType === 'overdue' || alert.alertType === 'renewal') {
         alertContent = `You have the ${alert.alertType} alert of Rs ${alert.amount}: Due Date is ${alert.dueDate}`;
@@ -356,7 +355,7 @@ export class MemberLayoutComponent implements OnInit {
     } else {
       alertContent = 'This alert has been closed';
     }
-    
+
     return alertContent;
   }
 
@@ -380,25 +379,37 @@ export class MemberLayoutComponent implements OnInit {
       default:
         declinedMessage = 'Your request was declined';
     }
-    
+
     return declinedMessage;
   }
 
   // Mark the alert as closed
   closeAlert(alertId: number) {
-    
-
-    const alertToUpdate = this.alerts.find(alert => alert.alertId === alertId);
+    const alertToUpdate = this.alerts.find(
+      (alert) => alert.alertId === alertId
+    );
     if (alertToUpdate) {
       alertToUpdate.status = false;
 
-      this.alertService.updateAlert(alertId,alertToUpdate).subscribe((response) => {
-      
-      });
-      this.alerts = this.alerts.filter(alert => alert.alertId !== alertId);
-     
+      this.alertService
+        .updateAlert(alertId, alertToUpdate)
+        .subscribe((response) => {});
+      this.alerts = this.alerts.filter((alert) => alert.alertId !== alertId);
     }
   }
 
-  
+
+  openModalWithClass(template: TemplateRef<void>) {
+    console.log(this.memberId);
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+
+    this.modalRef.onHide?.subscribe(() => {
+      
+      // Reset form when modal is closed
+    });
+  }
+
 }

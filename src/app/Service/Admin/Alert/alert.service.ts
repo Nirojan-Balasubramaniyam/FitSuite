@@ -9,7 +9,8 @@ import { PaymentSummary } from '../../../Models/paymentSummary';
 })
 export class AlertService {
 
-  alertsUrl: string = "https://localhost:7220/api/Alert";
+  // alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
+  alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
 
   constructor(private http: HttpClient) {}
 

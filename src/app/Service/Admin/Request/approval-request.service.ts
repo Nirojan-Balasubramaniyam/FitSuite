@@ -13,7 +13,7 @@ import { PaymentRequestDTO } from '../../../Models/paymentRequest';
 })
 export class ApprovalRequestService {
 
-  private requestUrl = 'https://localhost:7220/api/Request';
+  private requestUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Request';
 
   constructor(private http: HttpClient) {}
 

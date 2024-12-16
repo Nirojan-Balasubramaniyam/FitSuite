@@ -7,7 +7,7 @@ import { SendMailRequest } from '../../../Models/sendMailRequest';
   providedIn: 'root'
 })
 export class MailService {
-   mailSendUrl = "https://localhost:7220/api/SendMail";
+   mailSendUrl = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/SendMail";
 
   constructor(private http: HttpClient) {}
 

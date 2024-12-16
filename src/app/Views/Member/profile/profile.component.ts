@@ -25,8 +25,8 @@ export class ProfileComponent implements OnInit {
   isNavbarVisible: boolean = true;
   memberId!: number;
   member: Member | null = null;
-  allMembers: Member[] = [];
-  fullImgPath: string = 'https://localhost:7220';
+  // allMembers: Member[] = [];
+  fullImgPath: string ="";
   workoutPlans: WorkoutPlan[] = [
     {
       workoutPlanId: 1,
@@ -67,9 +67,9 @@ export class ProfileComponent implements OnInit {
   trainingPrograms: TrainingProgram[] = [];
   groupedTrainingPrograms: { typeName: string; programs: TrainingProgram[] }[] =
     [];
-  memberForm: FormGroup;
   modalRef?: BsModalRef;
-  @ViewChild('memberFormTemplate') memberFormTemplate!: TemplateRef<any>;
+  memberForm: FormGroup;
+
 
   constructor(
     private themeService: ThemeService,
@@ -112,6 +112,10 @@ export class ProfileComponent implements OnInit {
         country: ['', Validators.required],
       }),
     });
+
+    this.patchMember();
+
+
   }
 
   ngOnInit(): void {
@@ -125,56 +129,18 @@ export class ProfileComponent implements OnInit {
     });
     this.spinner.show();
     this.loadMember();
-    this.loadAllMembers();
-    this.loadTrainingPrograms();
-    this.spinner.show();
   }
 
   loadMember(): void {
     this.adminService.getMember(this.memberId).subscribe((response) => {
       this.member = response;
-
       console.log(this.member);
 
       this.spinner.hide();
     });
   }
 
-  loadTrainingPrograms(): void {
-    this.enrollProgramService
-      .getTrainingProgramsByMemberId(this.memberId)
-      .subscribe((programs: TrainingProgram[]) => {
-        this.trainingPrograms = programs;
-        this.groupProgramsByType();
-        this.spinner.hide();
-      });
-  }
-
-  loadAllMembers(): void {
-    this.adminService.getAllMembers(0, 0, true, 0).subscribe((response) => {
-      this.allMembers = response.data;
-
-      this.spinner.hide();
-    });
-  }
-
-  loadWorkoutPlans(): void {
-    this.workoutPlanService
-      .getWorkoutplansForMember(this.memberId)
-      .subscribe((workoutPlans: WorkoutPlan[]) => {
-        this.workoutPlans = workoutPlans;
-        this.spinner.hide();
-      });
-  }
-  pastDateValidator(control: any): { [key: string]: boolean } | null {
-    const today = new Date();
-    const birthDate = new Date(control.value);
-    if (birthDate >= today) {
-      return { futureDate: true };
-    }
-    return null;
-  }
-
+  
   onFileChange(event: any): void {
     const file = event.target.files[0];
 
@@ -185,45 +151,12 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  groupProgramsByType(): void {
-    const grouped: Record<string, TrainingProgram[]> = {}; // Correct type here
-
-    this.trainingPrograms.forEach((program) => {
-      const typeName = program.typeName || 'Uncategorized'; // Default group if no typeName
-      if (!grouped[typeName]) {
-        grouped[typeName] = [];
-      }
-      grouped[typeName].push(program);
-    });
-
-    // Convert grouped object into an array format for use in the template
-    this.groupedTrainingPrograms = Object.keys(grouped).map((typeName) => ({
-      typeName,
-      programs: grouped[typeName],
-    }));
-  }
-  groupWorkoutsByName(): void {
-    const grouped: Record<string, TrainingProgram[]> = {}; // Correct type here
-
-    this.trainingPrograms.forEach((program) => {
-      const typeName = program.typeName || 'Uncategorized'; // Default group if no typeName
-      if (!grouped[typeName]) {
-        grouped[typeName] = [];
-      }
-      grouped[typeName].push(program);
-    });
-
-    // Convert grouped object into an array format for use in the template
-    this.groupedTrainingPrograms = Object.keys(grouped).map((typeName) => ({
-      typeName,
-      programs: grouped[typeName],
-    }));
-  }
-
-  editMember(): void {
-    console.log("gg")
-    const member = this.allMembers.find((m) => m.memberId === this.memberId);
+  patchMember(): void {
+    // const member = this.allMembers.find((m) => m.memberId === this.memberId);
+    const member = this.member;
+    console.log("patch")
     if (member) {
+      
       const formattedDate = member.doB ? new Date(member.doB) : null;
 
       this.memberForm.patchValue({
@@ -244,21 +177,11 @@ export class ProfileComponent implements OnInit {
           country: member.address?.country || '',
         },
       });
-      this.openModalWithClass(this.memberFormTemplate); // Open modal with pre-filled data
-    }
+          }
   }
 
-  openModalWithClass(template: TemplateRef<void>) {
-    console.log(this.memberId);
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
-
-    this.modalRef.onHide?.subscribe(() => {
-      this.memberForm.reset();
-      // Reset form when modal is closed
-    });
+  decline() {
+    this.modalRef?.hide();
   }
 
   isRequired(field: string): boolean {
@@ -267,9 +190,9 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  decline() {
-    this.modalRef?.hide();
-  }
+  
+
+
 
   confirm() {
     this.adminService.deleteMember(this.memberId).subscribe(
@@ -283,7 +206,7 @@ export class ProfileComponent implements OnInit {
         });
         this.modalRef?.hide();
         this.memberId = 0;
-        this.loadAllMembers();
+        // this.loadAllMembers();
       },
       (error) => {
         console.log('Error creating member', error);
@@ -291,6 +214,15 @@ export class ProfileComponent implements OnInit {
       }
     );
     this.modalRef?.hide();
+  }
+
+  pastDateValidator(control: any): { [key: string]: boolean } | null {
+    const today = new Date();
+    const birthDate = new Date(control.value);
+    if (birthDate >= today) {
+      return { futureDate: true };
+    }
+    return null;
   }
 
   getLabelBackground() {
@@ -347,7 +279,7 @@ export class ProfileComponent implements OnInit {
         // If memberId exists, update the member
         this.adminService.updateMember(this.memberId, formData).subscribe(
           (response) => {
-            console.log('Member updated successfully', response);
+            console.log(' successfully', response);
             this.toastr.success(
               'Member updated successfully',
               'Member Update',
@@ -402,4 +334,7 @@ export class ProfileComponent implements OnInit {
       console.log('Form is invalid');
     }
   }
+
+
+ 
 }

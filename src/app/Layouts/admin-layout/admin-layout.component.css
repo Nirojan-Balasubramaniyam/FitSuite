@@ -220,6 +220,11 @@ a.sub-sidebar-link {
     z-index: 1000;
 }
 
+.approval-count-active{
+    background-color: #b71c1c;
+    color: white;
+}
+
 .theme-toggle,
 .notification-btn {
     border: none;

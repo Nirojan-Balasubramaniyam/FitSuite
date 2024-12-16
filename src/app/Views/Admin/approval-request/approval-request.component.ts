@@ -10,16 +10,17 @@ import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../Service/Staff/admin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestFilterPipe } from '../../../Pipes/Request-Filter/request-filter.pipe';
+import { Member } from '../../../Models/member';
 
 @Component({
   selector: 'app-approval-request',
   standalone: true,
-   imports: [
-      CommonModule,
-      HttpClientModule,
-      NgxSpinnerModule,
-      RequestFilterPipe
-    ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    RequestFilterPipe,
+  ],
   templateUrl: './approval-request.component.html',
   styleUrl: './approval-request.component.css',
 })
@@ -27,10 +28,13 @@ export class ApprovalRequestComponent {
   isLightTheme: boolean = true;
   approvalRequests: ApprovalRequest[] = [];
   selectedRequest: ApprovalRequest | null = null;
-  searchText: string = "Pending";
-    modalRef?: BsModalRef;
-    @ViewChild('requestDetailsModal') requestDetailsModal!: TemplateRef<any>;
+  searchText: string = 'Pending';
+  members: Member[] = [];
+  branchId: number = 0;
+  userRole: string = '';
 
+  modalRef?: BsModalRef;
+  @ViewChild('requestDetailsModal') requestDetailsModal!: TemplateRef<any>;
 
   constructor(
     private themeService: ThemeService,
@@ -40,7 +44,13 @@ export class ApprovalRequestComponent {
     private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) {
+    const role = localStorage.getItem('Role') || '';
+    const branchId = localStorage.getItem('BranchId');
+
+    this.userRole = role;
+    this.branchId = branchId ? parseInt(branchId) : 0;
+  }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -50,6 +60,7 @@ export class ApprovalRequestComponent {
     });
 
     this.loadRequests();
+    this.loadMembers();
   }
 
   loadRequests(): void {
@@ -59,12 +70,26 @@ export class ApprovalRequestComponent {
         // Filter branches to only include active ones (isActive = true)
         this.approvalRequests = response;
 
-        console.log(this.approvalRequests)
+        console.log(this.approvalRequests);
       });
     this.spinner.hide();
   }
 
+  loadMembers(): void {
+    this.adminService
+      .getAllMembers(0, 0, true, this.branchId)
+      .subscribe((response) => {
+        this.members = response.data;
 
+        this.spinner.hide();
+      });
+  }
+
+
+  getMemberName(memberId: number): string {
+    const member = this.members.find((m) => m.memberId === memberId);
+    return member ? `${member.firstName} ${member.lastName}` : 'New Member';
+  }
 
   approveRequest(request: ApprovalRequest): void {
     console.log('Request approved:', request);
@@ -74,22 +99,24 @@ export class ApprovalRequestComponent {
     console.log('Request declined:', request);
   }
 
-    openModalWithClass(template: TemplateRef<void>, request:ApprovalRequest) {
+  openModalWithClass(template: TemplateRef<void>, request: ApprovalRequest) {
+    this.selectedRequest = request;
 
-      this.selectedRequest = request;
-      
-      this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'gray modal-lg' }));
-  
-      this.modalRef.onHide?.subscribe(() => {
-        this.selectedRequest = null;
-        // this.branchForm.reset();
-        // this.branchId=0;
-        // Reset form when modal is closed
-      });
-    }
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
 
-    toggleSearchText(): void {
-      // Toggle search text between 'Pending' and 'Reviewed'
-      this.searchText = this.searchText === 'Pending' ? 'Reviewed' : 'Pending';
-    }
+    this.modalRef.onHide?.subscribe(() => {
+      this.selectedRequest = null;
+      // this.branchForm.reset();
+      // this.branchId=0;
+      // Reset form when modal is closed
+    });
+  }
+
+  toggleSearchText(): void {
+    // Toggle search text between 'Pending' and 'Reviewed'
+    this.searchText = this.searchText === 'Pending' ? 'Reviewed' : 'Pending';
+  }
 }

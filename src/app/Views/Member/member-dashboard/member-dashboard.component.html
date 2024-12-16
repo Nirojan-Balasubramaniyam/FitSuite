@@ -1,0 +1,128 @@
+<div class="container  ">
+    <div class="card shadow-sm p-4">
+        <div class="d-flex flex-column flex-md-row align-items-center">
+            <div class="flex-grow-1">
+                <div class="text-center d-block d-md-none me-md-4 mb-4 mb-md-0">
+                    <img src="https://res.cloudinary.com/ddk1d8ncq/image/upload/v1734258833/zoyas4dsaztivsk4xk4u.jpg"
+                        alt="Profile Picture" class="rounded-circle border border-primary"
+                        [ngStyle]="{'width': isNavbarVisible? '200px' : '100px', 'height': isNavbarVisible? '200px' : '100px'}"
+                        style="width: 200px; height: 200px;" />
+
+                        <img src="../../../../../assessts/user_img.jpg" alt="Member Image">
+
+
+                    <h2 class=" fw-bold" [ngStyle]="{'color': isLightTheme ? '#dc3545' : 'white'}">{{member?.firstName
+                        +" "+ member?.lastName}}</h2>
+                    <!-- <button class="btn btn-danger mt-3 px-4 w-100">Logout</button> -->
+                </div>
+
+                <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+                    My Dashboard
+                </h4>
+                <div class="container mt-3">
+                    <div class="row">
+                        <!-- Member Details Section (Left) -->
+                        <div class="col-md-6">
+
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Name:</strong></div>
+                                        <div class="col-6">{{ member?.firstName + " " + member?.lastName}}</div>
+                                        <!-- <div class="col-1">
+                                            <button (click)="editMember()" class="btn btn-outline-secondary border-0 px-3 edit-btn m-0 p-0"><i
+                                                    class="bi bi-pen"  ></i></button>
+
+                                        </div> -->
+                                     
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Email:</strong></div>
+                                        <div class="col-7">{{ member?.email }}</div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Phone:</strong></div>
+                                        <div class="col-7">{{ member?.phone }}</div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Monthly Payment:</strong></div>
+                                        <div class="col-7">{{ member?.monthlyPayment | currency : "LKR "}}</div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Enroll Programs:</strong></div>
+                                        <div class="col-7">{{ trainingPrograms.length }}</div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <div class="col-5"><strong class="text-primary">Personalized plans:</strong>
+                                        </div>
+                                        <div class="col-7">{{ workoutPlans.length }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="training-programs-container mt-4 mt-lg-5">
+
+                                <ul class="program-list">
+                                    <h5 class="program-group-title">Personalized Plans</h5>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr *ngIf="workoutPlans.length != 0">
+                                                <th class="text-primary" scope="col">Workout Name</th>
+                                                <th class="text-primary" scope="col">Reps Count</th>
+                                                <th class="text-primary" scope="col">Weight (Kg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="workoutPlans.length == 0">
+                                                <td colspan="3" class="text-center fs-5 text-danger">No workout plans
+                                                    available</td>
+                                            </tr>
+                                            <tr *ngFor="let workout of workoutPlans">
+                                                <td>{{ workout.name }}</td>
+                                                <td>{{ workout.repsCount }} Reps</td>
+                                                <td>{{ workout.weight }} Kg</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <div class="training-programs-container">
+                              <p  *ngIf="trainingPrograms.length==0" class=" text-success fw-bold my-5 py-4">Enroll programs for your Healthy Life</p>
+                                <!-- <h4>Training Programs</h4> -->
+                                <div *ngFor="let programGroup of groupedTrainingPrograms" class="program-group">
+                                    <!-- Group Header -->
+                                    <h5 class="program-group-title">{{ programGroup.typeName }}</h5>
+                                    <!-- Program List -->
+                                    <ul class="program-list">
+                                        <li *ngFor="let program of programGroup.programs" class="program-item">
+                                            <div class="program-info">
+                                                <span class="program-name">{{ program.programName }}</span>
+                                                <span class="program-cost"><strong>Cost:</strong> ${{ program.cost
+                                                    }}</span>
+                                            </div>
+                                            <!-- <p class="program-description">{{ program.description }}</p> -->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+

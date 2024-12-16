@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/446ccfde-8545-43f6-b5bd-9d1c127dafa9/resourceGroups/FitSuite2024/providers/Microsoft.Web/sites/fitsuite2024",
+    "appService.deploySubpath": "dist\\fit-suite"
+}

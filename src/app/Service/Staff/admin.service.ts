@@ -4,19 +4,19 @@ import { Branch, BranchReq } from '../../Models/branch';
 import { PaginationResponse } from '../../Models/pagination';
 import { Member } from '../../Models/member';
 import { Observable } from 'rxjs';
-import { TrainingProgram } from '../../Models/trainingProgram';
 import { ProgramType } from '../../Models/programType';
 import { Staff } from '../../Models/staff';
+import { TrainingProgram } from '../../Models/trainingProgram';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  private branchUrl = 'https://localhost:7220/api/Branch';
-  private memberUrl = 'https://localhost:7220/api/Member';
-  private trainingProgramUrl = 'https://localhost:7220/api/TrainingProgram';  
-  private programTypeUrl = 'https://localhost:7220/api/ProgramType';  
+  private branchUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Branch';
+  private memberUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Member';
+  private trainingProgramUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/TrainingProgram';  
+  private programTypeUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/ProgramType';  
 
 
   constructor(private http: HttpClient) { }
@@ -135,7 +135,7 @@ export class AdminService {
   }
 
 
-  private staffUrl = `https://localhost:7220/api/Staff`; 
+  private staffUrl = `https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Staff`; 
 
  
 

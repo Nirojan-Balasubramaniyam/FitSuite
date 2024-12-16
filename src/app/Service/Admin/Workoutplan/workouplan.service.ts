@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class WorkouplanService {
 
-  private workoutPlanUrl = 'https://localhost:7220/api/workout-plans';  
+  private workoutPlanUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/workout-plans';  
 
   constructor(private http: HttpClient) {}
 

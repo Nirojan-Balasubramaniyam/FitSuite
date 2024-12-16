@@ -38,7 +38,7 @@ export class StaffManagementComponent {
   staffId: number = 0;
   staffName:string="";
   searchText: string = '';
-  fullImgPath: string = "https://localhost:7220";
+  fullImgPath: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net";
   @ViewChild('staffFormTemplate') staffFormTemplate!: TemplateRef<any>;
 
 

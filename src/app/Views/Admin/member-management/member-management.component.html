@@ -27,21 +27,21 @@
     </div>
 
     <div class="container">
-      <table class="table table-hover table-bordered text-center">
+      <table class="table table-hover text-center">
         <thead>
           <tr>
-            <th scope="col">Member Id</th>
-            <th scope="col">Member Name</th>
-            <th scope="col">Contact Number</th>
-            <th scope="col">Monthly Payment</th>
-            <th scope="col">Actions</th>
+            <th class="text-primary" scope="col">Member Id</th>
+            <th class="text-primary" scope="col">Member Name</th>
+            <th class="text-primary" scope="col">Contact Number</th>
+            <th class="text-primary" scope="col">Monthly Payment</th>
+            <th class="text-primary" scope="col">Actions</th>
           </tr>
         </thead>
         <tbody >
           <tr *ngFor="let member of members | memberFilter:searchText">
             <td class="d-flex justify-content-around align-items-center">
               <img
-                [src]="(member.imagePath ? fullImgPath + member.imagePath : '../../../../../assessts/user-avatar-male-5.png')"
+                [src]="(member.imagePath ?  member.imagePath : '../../../../../assessts/user-avatar-male-5.png')"
                 alt="Profile Image" width="50px" class="profile-image" /> 
               M00{{ member.memberId }}</td>
             <td>{{ member.firstName + "-" + member.lastName }}</td>

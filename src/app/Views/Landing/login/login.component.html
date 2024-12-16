@@ -1,5 +1,5 @@
-<body>
-    <div class="form-wrapper">
+<div class="body">
+    <div class="form-wrapper ">
         <!-- Image Section -->
         <div class="image-side">
         </div>
@@ -38,8 +38,7 @@
                             formControlName="password">
                     </div>
                     <div *ngIf="signinForm.get('password')?.invalid && signinForm.get('password')?.touched" class="text-danger">
-                        <div *ngIf="signinForm.get('password')?.hasError('required')">Email is required.</div>
-                        <div *ngIf="signinForm.get('password')?.hasError('password')">Please enter a valid email address.</div>
+                        <div *ngIf="signinForm.get('password')?.hasError('required')">Password is required.</div>
                       </div>
                 </div>
 
@@ -58,12 +57,12 @@
 
 
             </form>
-            <p class="register-message mt-3">If you are a new member Please register here!</p>
+            <p class="register-message mt-5 text-center text-primary fw-bold">If you are a new member Please register here!</p>
             <a routerLink="/registration"><button type="submit" class="btn btn w-100"
                     style="background-color: #b71c1c; color: white;">REGISTER</button></a>
         </div>
     </div>
-</body>
+  </div>
 
 <ng-template #forgotPasswordTemplate>
     <div class="modal-header">

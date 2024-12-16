@@ -34,9 +34,12 @@ export class AdminLayoutComponent  {
    //this.checkScreenSize();
    this.updateTheme();
   }
-  logout(){
-    localStorage.removeItem("Token");
-    localStorage.removeItem("Name");
+  
+  logout() {
+    localStorage.removeItem('Token');
+    localStorage.removeItem('Name');
+    localStorage.removeItem('Role');
+    localStorage.removeItem('UserId');
     this.router.navigate(['/login']);
   }
 

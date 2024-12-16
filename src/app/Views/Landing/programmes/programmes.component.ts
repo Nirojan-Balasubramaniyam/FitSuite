@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TrainingProgram } from '../../../Models/trainingProgram';
-=======
 
 import { CommonModule } from '@angular/common';
-import { TrainingProgram } from '../../../Models/trainingProgram';
+import { AdminService } from '../../../Service/Staff/admin.service';
 
 @Component({
   selector: 'app-programmes',
@@ -14,6 +13,7 @@ import { TrainingProgram } from '../../../Models/trainingProgram';
   styleUrl: './programmes.component.css'
 })
 export class ProgrammesComponent implements OnInit {
+
    programs: TrainingProgram[] = [
     {
         programId: 1,
@@ -123,12 +123,19 @@ export class ProgrammesComponent implements OnInit {
 
 ];
 
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor(private adminService: AdminService) {}
 
-  addProgram(program: TrainingProgram): void {
-    this.programs.push(program);
-}
+  ngOnInit(): void {
+    this.loadPrograms();
+  }
+
+  loadPrograms(){
+    this.adminService.getAllTrainingPrograms().subscribe( programs =>{
+        this.programs = programs;
+    })
+  }
+
+
 
 }

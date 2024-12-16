@@ -31,6 +31,7 @@ import { MemberBmiComponent } from './Views/Member/member-bmi/member-bmi.compone
 import { authGuard } from './Guard/auth.guard';
 import { MemberPaymentComponent } from './Views/Member/member-payment/member-payment.component';
 import { StaffManagementComponent } from './Views/Admin/staff-management/staff-management.component';
+import { MemberDashboardComponent } from './Views/Member/member-dashboard/member-dashboard.component';
 
 export const routes: Routes = [
 
@@ -81,6 +82,7 @@ export const routes: Routes = [
             { path: 'member-payment', component: MemberPaymentComponent },
             { path: 'payment-history', component: PaymentHistoryComponent },
             { path: 'profile', component: ProfileComponent },
+            { path: 'dashboard', component: MemberDashboardComponent },
             { path: 'training-package', component: TrainingPackageComponent },
             { path: 'skills', component: UpdateSkillsComponent }
         ]

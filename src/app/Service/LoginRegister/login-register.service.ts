@@ -12,13 +12,13 @@ export class LoginRegisterService {
   constructor(private http:HttpClient) { }
 
   AddRegisterUser(UserRegister:IUserRegister){
-    return this.http.post<any>('https://localhost:7220/api/Authentication/Register', UserRegister)
+    return this.http.post<any>('https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Authentication/Register', UserRegister)
    
   }
     
 
   UserLogin(login:Login){
-    return this.http.post('https://localhost:7220/api/Authentication/login', login,{
+    return this.http.post('https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Authentication/login', login,{
       responseType:'text'
     });
   }
