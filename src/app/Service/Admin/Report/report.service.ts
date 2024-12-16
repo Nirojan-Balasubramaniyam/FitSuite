@@ -10,7 +10,7 @@ import { MemberReport } from '../../../Models/memberReport';
 })
 export class ReportService {
 
-  reportUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Report";
+  reportUrl: string = "https://localhost:7220/api/Report";
 
   constructor(private http: HttpClient) {}
 

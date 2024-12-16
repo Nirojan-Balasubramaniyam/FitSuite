@@ -11,7 +11,7 @@ export interface Payment {
   export interface PaymentReq {
     memberId: number;
     paymentType: string;  
-    amount: number;
+    amount?: number;
     paymentMethod: string;  
-    paidDate: string;  
+    paidDate?: string;  
   }

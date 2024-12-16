@@ -1,3 +1,5 @@
+import { AddressDto } from "./address";
+
 export interface ApprovalRequest {
     requestId: number;
     requestType: string;
@@ -16,9 +18,11 @@ export interface ApprovalRequest {
     email?: string;
     dob?: string; 
     gender?: string;
+    branchId: string;
     emergencyContactName?: string;
     emergencyContactNumber?: string;
     imagePath?: string;
     password?: string;
+    address?: AddressDto;
   }
   

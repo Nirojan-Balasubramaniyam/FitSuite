@@ -45,6 +45,9 @@ export class RegisterComponent {
   passwordStrength: string = '';
   password: string = '';
   branches: Branch[] = [];
+  paidDate: Date = new Date();
+
+
 
   genders = [
     { value: 'male', label: 'Male' },
@@ -218,7 +221,7 @@ export class RegisterComponent {
       }
 
       this.approvalRequestServiceService
-        .createAddMemberRequest(formData)
+        .createAddMemberRequest(formData, this.paidDate)
         .subscribe(
          
           (response) => {

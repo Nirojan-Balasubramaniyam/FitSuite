@@ -14,7 +14,7 @@ import { PaymentReport } from '../../../Models/paymentReport';
 import { PaymentSummary } from '../../../Models/paymentSummary';
 import { DashboardService } from '../../../Service/Admin/Dashboard/dashboard.service';
 import { AlertService } from '../../../Service/Admin/Alert/alert.service';
-import { Alert } from '../../../Models/overdueAlert';
+import { Alert } from '../../../Models/alert';
 import { Member } from '../../../Models/member';
 import { ProgramReport } from '../../../Models/programReport';
 import { ProgramReportDetail } from '../../../Models/programReportDetail';

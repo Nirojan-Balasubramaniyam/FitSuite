@@ -135,6 +135,8 @@ export class ProfileComponent implements OnInit {
     this.adminService.getMember(this.memberId).subscribe((response) => {
       this.member = response;
       console.log(this.member);
+      console.log('member address:', this.member.address);
+      this.patchMember();
 
       this.spinner.hide();
     });
@@ -156,7 +158,9 @@ export class ProfileComponent implements OnInit {
     const member = this.member;
     console.log("patch")
     if (member) {
-      
+      console.log("ff")
+      console.log('member hh address:', member.address);
+
       const formattedDate = member.doB ? new Date(member.doB) : null;
 
       this.memberForm.patchValue({
@@ -257,13 +261,13 @@ export class ProfileComponent implements OnInit {
         'EmergencyContactNumber',
         this.memberForm.get('emergencyContactNumber')?.value
       );
-      // formData.append('BranchId', this.branchId.toString());
-      formData.append('Password', this.memberForm.get('phone')?.value);
+    
       formData.append('IsActive', 'true');
       formData.append('Gender', 'male');
 
       // Append address fields
       const address = this.memberForm.get('address')?.value;
+      console.log('update Address:', address);
       formData.append('Address.Street', address?.street || '');
       formData.append('Address.City', address?.city || '');
       formData.append('Address.Province', address?.province || '');
@@ -293,38 +297,12 @@ export class ProfileComponent implements OnInit {
             );
             this.modalRef?.hide();
             this.memberId = 0;
-            this.memberForm.reset();
+            //this.memberForm.reset();
           },
           (error) => {
             console.log('Error updating member', error);
             this.toastr.error(
               'There was an error updating the member.',
-              'Error'
-            );
-          }
-        );
-      } else {
-        // If no memberId, create a new member
-        this.adminService.createMember(formData).subscribe(
-          (response: string) => {
-            console.log('Member created successfully, token:', response);
-            this.toastr.success(
-              'Member created successfully',
-              'Member Creation',
-              {
-                timeOut: 5000,
-                closeButton: true,
-                easing: 'ease-in',
-                progressBar: true,
-                toastClass: 'ngx-toastr',
-              }
-            );
-            this.modalRef?.hide();
-          },
-          (error) => {
-            console.log('Error creating member', error);
-            this.toastr.error(
-              'There was an error creating the member.',
               'Error'
             );
           }
