@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Member } from '../../Models/member';
 import { AdminService } from '../../Service/Staff/admin.service';
 import { AlertService } from '../../Service/Admin/Alert/alert.service';
-import { Alert } from '../../Models/overdueAlert';
+import { Alert } from '../../Models/alert';
 import { TrainingProgram } from '../../Models/trainingProgram';
 import {
   FormBuilder,
@@ -28,6 +28,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MemberService } from '../../Service/Member/member.service';
 
 @Component({
   selector: 'app-member-layout',
@@ -54,101 +55,8 @@ export class MemberLayoutComponent implements OnInit {
   isLargeScreen: boolean = false;
   memberId!: number;
   member: Member | null = null;
-  alerts: Alert[] = [
-    {
-      alertId: 1,
-      alertType: 'overdue',
-      memberId: 101,
-      amount: 1500,
-      dueDate: '2024-11-30T00:00:00',
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: false,
-    },
-    {
-      alertId: 2,
-      alertType: 'renewal',
-      memberId: 102,
-      amount: 2000,
-      dueDate: '2024-12-10T00:00:00',
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: true,
-    },
-    {
-      alertId: 3,
-      alertType: 'paymentrequestMessage',
-      memberId: 103,
-      amount: 2500,
-      dueDate: '2024-12-15T00:00:00',
-      accessedDate: '2024-12-04T00:00:00',
-      status: true,
-      action: true,
-    },
-    {
-      alertId: 4,
-      alertType: 'leaveProgramRequestMessage',
-      memberId: 104,
-      programId: 501,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: true,
-    },
-    {
-      alertId: 5,
-      alertType: 'programAddonRequestMessage',
-      memberId: 105,
-      programId: 502,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: true,
-    },
-    {
-      alertId: 6,
-      alertType: 'memberInfoRequestMessage',
-      memberId: 106,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: true,
-    },
-    {
-      alertId: 7,
-      alertType: 'paymentrequestMessage',
-      memberId: 107,
-      amount: 1800,
-      dueDate: '2024-12-10T00:00:00',
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: false,
-    },
-    {
-      alertId: 8,
-      alertType: 'leaveProgramRequestMessage',
-      memberId: 108,
-      programId: 5,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: false,
-    },
-    {
-      alertId: 9,
-      alertType: 'programAddonRequestMessage',
-      memberId: 109,
-      programId: 5,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: false,
-    },
-    {
-      alertId: 10,
-      alertType: 'memberInfoRequestMessage',
-      memberId: 110,
-      accessedDate: '2024-12-05T00:00:00',
-      status: true,
-      action: false,
-    },
-  ];
-  // fullImgPath: string = 'https://gymfeemanagementsystem-appservice.azurewebsites.net';
+  alerts: Alert[] = [ ];
+  // fullImgPath: string = 'https://localhost:7220';
   modalRef?: BsModalRef;
   @ViewChild('memberFormTemplate') memberFormTemplate!: TemplateRef<any>;
   notifications: Alert[] = [];
@@ -165,7 +73,8 @@ export class MemberLayoutComponent implements OnInit {
     private datePipe: DatePipe,
     private toastr: ToastrService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private memberService: MemberService
   ) {
     this.updateTheme();
 
@@ -411,5 +320,13 @@ export class MemberLayoutComponent implements OnInit {
       // Reset form when modal is closed
     });
   }
+
+  // checkPassword():void{
+  //   this.memberService.checkMemberPassword(this.memberId).subscribe(response => {
+  //     if(response){
+  //       this.openModalWithClass()
+  //     }
+  //   })
+  // }
 
 }

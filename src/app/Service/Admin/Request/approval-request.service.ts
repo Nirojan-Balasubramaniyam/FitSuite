@@ -13,12 +13,13 @@ import { PaymentRequestDTO } from '../../../Models/paymentRequest';
 })
 export class ApprovalRequestService {
 
-  private requestUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Request';
+  private requestUrl = 'https://localhost:7220/api/Request';
 
   constructor(private http: HttpClient) {}
 
   // Add Member Request
-  createAddMemberRequest(formData: FormData): Observable<string> {
+  createAddMemberRequest(formData: FormData, paid: Date): Observable<string> {
+    formData.append('paidDate', paid.toISOString()); // Append paidDate as ISO string
     return this.http.post<string>(`${this.requestUrl}/add-member`, formData, {
       responseType: 'text' as 'json',
     });
@@ -107,7 +108,7 @@ export class ApprovalRequestService {
   }
 
   // Update Request by ID
-  updateRequest(requestId: number, formData: FormData): Observable<ApprovalRequest> {
-    return this.http.put<any>(`${this.requestUrl}/${requestId}`, formData);
+  updateRequest(requestId: number, request: ApprovalRequest): Observable<ApprovalRequest> {
+    return this.http.put<any>(`${this.requestUrl}/${requestId}`, request);
   }
 }

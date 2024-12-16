@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProgramReport } from '../../../Models/programReport';
 import { PaymentSummary } from '../../../Models/paymentSummary';
-import { Alert } from '../../../Models/overdueAlert';
+import { Alert } from '../../../Models/alert';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  dashboardUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Dashboard/payment-summary";
-  alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
+  dashboardUrl: string = "https://localhost:7220/api/Dashboard/payment-summary";
+  alertsUrl: string = "https://localhost:7220/api/Alert";
 
   constructor(private http: HttpClient) {}
 

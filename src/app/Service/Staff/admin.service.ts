@@ -13,10 +13,10 @@ import { TrainingProgram } from '../../Models/trainingProgram';
 })
 export class AdminService {
 
-  private branchUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Branch';
-  private memberUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Member';
-  private trainingProgramUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/TrainingProgram';  
-  private programTypeUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/ProgramType';  
+  private branchUrl = 'https://localhost:7220/api/Branch';
+  private memberUrl = 'https://localhost:7220/api/Member';
+  private trainingProgramUrl = 'https://localhost:7220/api/TrainingProgram';  
+  private programTypeUrl = 'https://localhost:7220/api/ProgramType';  
 
 
   constructor(private http: HttpClient) { }
@@ -135,7 +135,7 @@ export class AdminService {
   }
 
 
-  private staffUrl = `https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Staff`; 
+  private staffUrl = `https://localhost:7220/api/Staff`; 
 
  
 

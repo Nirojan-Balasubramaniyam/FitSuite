@@ -9,7 +9,7 @@ import { PaginationResponse } from '../../../Models/pagination';
 })
 export class PaymentService {
 
-  private paymentUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Payment';  // Base URL for Payment API
+  private paymentUrl = 'https://localhost:7220/api/Payment';  // Base URL for Payment API
 
   constructor(private http: HttpClient) {}
 

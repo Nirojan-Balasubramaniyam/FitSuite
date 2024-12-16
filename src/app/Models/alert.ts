@@ -12,7 +12,7 @@ export interface Alert {
 
   export interface AlertReq {
     alertType: string;
-    memberId: number;  
+    memberId?: number;  
     amount?: number;    
     programId?: number; 
     dueDate?: string;    

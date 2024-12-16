@@ -25,7 +25,8 @@
         
           <td>{{ request.requestId }}</td>
           <td>{{ request.requestType }}</td>
-          
+          <td>{{ request.memberId ? getMemberName(request.memberId) : 'New Member' }}</td>
+
           
           <td>
             <button class="btn btn-info" (click)="openModalWithClass(requestDetailsModal,request)">View</button>
@@ -62,7 +63,8 @@
           <!-- Member Information -->
           <tr *ngIf="selectedRequest?.memberId">
             <td><strong>Member Name:</strong></td>
-            <td>{{ selectedRequest?.firstName }} {{ selectedRequest?.lastName }}</td>
+            <td>{{ getMemberName(selectedRequest?.memberId ?? -1) }}</td>
+
           </tr>
           <tr *ngIf="!selectedRequest?.memberId">
             <td><strong>Member:</strong></td>
@@ -76,7 +78,7 @@
           </tr>
           <tr *ngIf="selectedRequest?.amount">
             <td><strong>Amount:</strong></td>
-            <td>{{ selectedRequest?.amount | currency }}</td>
+            <td>{{ selectedRequest?.amount | currency : "LKR " }}</td>
           </tr>
           <tr *ngIf="selectedRequest?.receiptNumber">
             <td><strong>Receipt Number:</strong></td>
@@ -126,7 +128,7 @@
       </table>
       
       <!-- Approve / Decline Buttons -->
-      <div class="modal-footer">
+      <div class="modal-footer d-flex justify-content-center">
         <button class="btn btn-success" (click)="approveRequest(selectedRequest!)">Approve</button>
         <button class="btn btn-danger" (click)="declineRequest(selectedRequest!)">Decline</button>
       </div>

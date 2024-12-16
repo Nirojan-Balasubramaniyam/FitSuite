@@ -8,8 +8,8 @@ import { TrainingProgram } from '../../../Models/trainingProgram';
   providedIn: 'root'
 })
 export class EnrollProgramService {
-  private enrollUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/api/EnrollProgram'; 
-  private trainingProgramUrl = 'https://gymfeemanagementsystem-appservice.azurewebsites.net/training-programs'; 
+  private enrollUrl = 'https://localhost:7220/api/EnrollProgram'; 
+  private trainingProgramUrl = 'https://localhost:7220/training-programs'; 
 
   constructor(private http: HttpClient) { }
 

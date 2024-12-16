@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Alert, AlertReq } from '../../../Models/overdueAlert';
+import { Alert, AlertReq } from '../../../Models/alert';
 import { PaymentSummary } from '../../../Models/paymentSummary';
 
 @Injectable({
@@ -9,10 +9,14 @@ import { PaymentSummary } from '../../../Models/paymentSummary';
 })
 export class AlertService {
 
-  // alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
-  alertsUrl: string = "https://gymfeemanagementsystem-appservice.azurewebsites.net/api/Alert";
+  // alertsUrl: string = "https://localhost:7220/api/Alert";
+  alertsUrl: string = "https://localhost:7220/api/Alert";
 
   constructor(private http: HttpClient) {}
+
+  addAlert(alertReq: AlertReq): Observable<any> {
+    return this.http.post<any>(this.alertsUrl, alertReq);
+  }
 
   getAlertsByType(alertType: string, branchId?: number): Observable<Alert[]> {
     let params = new HttpParams();
@@ -20,8 +24,6 @@ export class AlertService {
     if (branchId !== undefined && branchId !== null) {
       params = params.set('branchId', branchId.toString());
     }
-  
-    // Append alertType directly after 'alert-type'
     return this.http.get<Alert[]>(`${this.alertsUrl}/alert-type${alertType}`, { params });
   }
 
