@@ -1,44 +1,57 @@
-<section class="convert-area py-5" id="convert">
-    <div class="container">
-      <div class="convert-wrap text-center">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="title mb-4">
-              <h1 class="display-5 text-white fw-bold">Track Your Health Today!</h1>
-              <p class="text-white">Calculate your BMI and discover your health status now.</p>
-            </div>
+<!-- BMI Section -->
+<section class="bmi-section spad">
+  <div class="container">
+      <div class="row align-items-center">
+          <!-- Left Side: Image -->
+          <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+              <div class="bmi-bg">
+                  <img src="../../../../../assessts/bmi-bg.jpg" alt="BMI Background" class="img-fluid rounded">
+              </div>
           </div>
-        </div>
-        <div class="row justify-content-center align-items-center g-3">
-          <div class="col-lg-3 col-md-6">
-            <input type="number" [(ngModel)]="height"  placeholder="Your Height (cm)"  class="form-control">
+          <!-- Right Side: Content -->
+          <div class="col-lg-7 col-md-6">
+              <div class="section-title mb-0">
+                  <h1 class="text" style="color: #b71c1c;">Calculate your BMI</h1>
+                  <p>Body Mass Index (BMI) is a measure that uses your height and weight to estimate body fat and categorize your weight status as underweight, normal, overweight, or obese. It is a simple tool often used to assess health risks, but it does not account for factors like muscle mass or fat distribution.</p>
+              </div>
+              <div class="bmi-calculator-warp mb-5">
+                  <div class="bmi-calculator text-center">
+                      <div class="row justify-content-center">
+                          <div class="col-sm-6 mb-3">
+                              <input type="number" [(ngModel)]="height" placeholder="Your Height (cm)" class="form-control">
+                          </div>
+                          <div class="col-sm-6 mb-3">
+                              <input type="number" [(ngModel)]="weight" placeholder="Your Weight (kg)" class="form-control">
+                          </div>
+                          <div class="col-sm-6 mb-3">
+                              <button (click)="calculateBMI()" class="site-btn btn btn-primary w-100 " style="font-weight: 900;">CALCULATE BMI</button>
+                          </div>
+                      </div>
+                      <!-- Result Section -->
+                      <div class="yourbmi" *ngIf="bmi !== null">
+                          <h2 class="text-white">Your BMI: {{ bmi }}</h2>
+                          <p class="text-white">{{ healthStatus }}</p>
+                      </div>
+                      <h4 class="mt-4 text-white">Your health is essential because it is the foundation for living a fulfilling, productive, and happy life.</h4>
+                  </div>
+              </div>
           </div>
-          <div class="col-lg-3 col-md-6">
-            <input  type="number" [(ngModel)]="weight"  placeholder="Your Weight (kg)"    class="form-control">
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <button (click)="calculateBMI()"  class="btn btn-custom w-100">Calculate Your BMI</button>
-          </div>
-        </div>
-        <div class="mt-4" *ngIf="bmi !== null">
-          <h2 class="text-white">Your BMI: {{ bmi }}</h2>
-          <p class="text-white">{{ healthStatus }}</p>
-        </div>
       </div>
-    </div>
-  </section>
+  </div>
+</section>
+<!-- BMI Section End -->
   
   
     <!-- End convert Area -->
   
-    <div class="mt-3">
-      <h3 class="text-center" style="color: #b71c1c; font-weight: 700;" >Recommended Tips for You</h3>
+    <div class="mt-2">
+      <h2 class="text-center" style="color: #b71c1c; font-weight: 700;" >Recommended Tips for You</h2>
       <div class="row justify-content-center mt-3">
         <div class="col-md-3 mb-3">
-          <div class="card h-100">
+          <div class="card h-100" style="background-color: #b71c1c;">
             <div class="card-body">
-              <h5 class="card-title text-center text-primary">Diet Recommendations</h5>
-              <ul class="list-unstyled text-start">
+              <h5 class="card-title text-center" style="color:rgb(216, 215, 215);">Diet Recommendations</h5>
+              <ul class="list-unstyled text-start text-white">
                 <li>🍎 Eat more fruits and vegetables</li>
                 <li>🥗 Focus on balanced meals</li>
                 <li>🚫 Avoid processed foods</li>
@@ -47,19 +60,16 @@
           </div>
         </div>
         <div class="col-md-3 mb-3">
-          <div class="card h-100">
+          <div class="card h-100" style="background-color: #b71c1c;">
             <div class="card-body">
-              <h5 class="card-title text-center text-primary">Exercise Suggestions</h5>
-              <ul class="list-unstyled text-start">
-                <li>🏃‍♂️ 30 minutes of cardio daily</li>
+              <h5 class="card-title text-center" style="color:rgb(216, 215, 215);">Exercise Suggestions</h5>
+              <ul class="list-unstyled text-start text-white">
+                <li>🏃‍♂ 30 minutes of cardio daily</li>
                 <li>💪 Strength training twice a week</li>
-                <li>🧘‍♀️ Try yoga or pilates</li>
+                <li>🧘‍♀ Try yoga or pilates</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  
-   
-  
+</div>
