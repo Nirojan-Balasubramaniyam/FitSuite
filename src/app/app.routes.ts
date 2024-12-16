@@ -32,6 +32,7 @@ import { authGuard } from './Guard/auth.guard';
 import { MemberPaymentComponent } from './Views/Member/member-payment/member-payment.component';
 import { StaffManagementComponent } from './Views/Admin/staff-management/staff-management.component';
 import { MemberDashboardComponent } from './Views/Member/member-dashboard/member-dashboard.component';
+import { ContactUsAdminComponent } from './Views/Admin/contact-us-admin/contact-us-admin.component';
 
 export const routes: Routes = [
 
@@ -67,7 +68,8 @@ export const routes: Routes = [
             { path: 'enroll', component: ProgramEnrollComponent },
             { path: 'programs', component: ProgramManagementComponent },
             { path: 'program-report', component: ProgramReportComponent },
-            { path: 'approval-request',component:ApprovalRequestComponent}
+            { path: 'approval-request',component:ApprovalRequestComponent},
+            { path: 'contact-us',component:ContactUsAdminComponent}
         ]
     },
 

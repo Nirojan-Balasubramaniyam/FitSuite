@@ -15,4 +15,8 @@ export class MailService {
   sendMail(sendMailRequest: SendMailRequest): Observable<any> {
     return this.http.post(`${this.mailSendUrl}/Send-Mail`, sendMailRequest);
   }
+
+  sendMessageResponse(data:any){
+    return this.http.post(`${this.mailSendUrl}/Send-Response`, data);
+  }
 }
