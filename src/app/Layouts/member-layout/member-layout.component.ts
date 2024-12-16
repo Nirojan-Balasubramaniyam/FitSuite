@@ -28,6 +28,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MemberService } from '../../Service/Member/member.service';
 
 @Component({
   selector: 'app-member-layout',
@@ -72,7 +73,8 @@ export class MemberLayoutComponent implements OnInit {
     private datePipe: DatePipe,
     private toastr: ToastrService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private memberService: MemberService
   ) {
     this.updateTheme();
 
@@ -318,5 +320,13 @@ export class MemberLayoutComponent implements OnInit {
       // Reset form when modal is closed
     });
   }
+
+  // checkPassword():void{
+  //   this.memberService.checkMemberPassword(this.memberId).subscribe(response => {
+  //     if(response){
+  //       this.openModalWithClass()
+  //     }
+  //   })
+  // }
 
 }
