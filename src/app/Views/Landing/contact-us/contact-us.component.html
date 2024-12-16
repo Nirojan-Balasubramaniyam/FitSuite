@@ -62,40 +62,64 @@
             <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class=" form p-5 rounded" style="background-color: rgb(227, 227, 227); height: 600px;">
                     <h4 class="mb-4" style="color: #b71c1c;" >Send Your Message</h4>
-                    <form class="form-label-color">
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-label-color">
                         <div class="row g-4">
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
-                                </div>
+                          <!-- Name Field -->
+                          <div class="col-12">
+                            <div class="form-floating">
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                placeholder="Your Name"
+                                formControlName="name"
+                              />
+                              <label for="name">Your Name</label>
                             </div>
-                            <div class="col-lg-12 col-xl-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Phone</label>
-                                </div>
+                          </div>
+                      
+                          <!-- Email Field -->
+                          <div class="col-12">
+                            <div class="form-floating">
+                              <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                placeholder="Your Email"
+                                formControlName="email"
+                              />
+                              <label for="email">Your Email</label>
                             </div>
-
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Your Email</label>
-                                </div>
+                          </div>
+                      
+                          <!-- Message Field -->
+                          <div class="col-12">
+                            <div class="form-floating">
+                              <textarea
+                                class="form-control"
+                                placeholder="Leave a message here"
+                                id="message"
+                                formControlName="message"
+                                style="height: 160px"
+                              ></textarea>
+                              <label for="message">Message</label>
                             </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message"
-                                        style="height: 160px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn w-100 py-3" style="background-color: #b71c1c; color: white;">Send Message</button>
-                            </div>
+                          </div>
+                      
+                          <!-- Submit Button -->
+                          <div class="col-12">
+                            <button
+                              type="submit"
+                              class="btn btn w-100 py-3"
+                              style="background-color: #b71c1c; color: white"
+                              [disabled]="contactForm.invalid"
+                            >
+                              Send Message
+                            </button>
+                          </div>
                         </div>
-                    </form>
+                      </form>
+                      
                 </div>
             </div>
 
