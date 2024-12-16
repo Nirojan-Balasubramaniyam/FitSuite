@@ -33,6 +33,8 @@ import { MemberPaymentComponent } from './Views/Member/member-payment/member-pay
 import { StaffManagementComponent } from './Views/Admin/staff-management/staff-management.component';
 import { MemberDashboardComponent } from './Views/Member/member-dashboard/member-dashboard.component';
 import { ContactUsAdminComponent } from './Views/Admin/contact-us-admin/contact-us-admin.component';
+import { WorkoutPlanManagementComponent } from './Views/Admin/workout-plan-management/workout-plan-management.component';
+import { MonitoringComponent } from './Views/Admin/monitoring/monitoring.component';
 
 export const routes: Routes = [
 
@@ -69,7 +71,9 @@ export const routes: Routes = [
             { path: 'programs', component: ProgramManagementComponent },
             { path: 'program-report', component: ProgramReportComponent },
             { path: 'approval-request',component:ApprovalRequestComponent},
-            { path: 'contact-us',component:ContactUsAdminComponent}
+            { path: 'contact-us',component:ContactUsAdminComponent},
+            { path: 'workout-plan-management',component:WorkoutPlanManagementComponent},
+            { path: 'monitoring',component:MonitoringComponent},
         ]
     },
 

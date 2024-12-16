@@ -1,0 +1,41 @@
+<div class="container mt-4" [class.blurred]="selectedMember">
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let member of members">
+        <div class="card member-card" style="border-color: #b71c1c;" (click)="openModal(member)">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ member.name }}</h5>
+            <p class="card-text">{{ member.email }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for Workouts -->
+  <div class="custom-modal" *ngIf="selectedMember">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: #b71c1c;">{{ selectedMember.name }}'S WORKOUTS</h3>
+        <button class="close-btn" (click)="closeModal()">X</button>
+      </div>
+      <div class="modal-body" style="overflow: auto;">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Workout Plan</th>
+              <th>Start Time</th>
+              <th>Check</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plan of selectedMember.workoutPlans">
+              <td>{{ plan.name }}</td>
+              <td>{{ plan.startTime }}</td>
+              <td><input type="checkbox" [(ngModel)]="plan.checked" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

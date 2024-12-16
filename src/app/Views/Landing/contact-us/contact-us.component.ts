@@ -47,7 +47,6 @@ export class ContactUsComponent {
     }
   }
 
-
   // FAQ Data
   faqs = [
     {
@@ -66,7 +65,7 @@ export class ContactUsComponent {
       showAnswer: false
     }
   ];
-  
+
   // Toggle FAQ Answer Visibility
   toggleFaq(faq: any): void {
     faq.showAnswer = !faq.showAnswer;
