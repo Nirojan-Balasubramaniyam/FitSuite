@@ -1,0 +1,168 @@
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="text-primary">💬 Contact Messages</h2>
+      <button 
+        class="btn btn-outline-primary"
+        (click)="refreshMessages()"
+        title="Refresh Messages">
+        <i class="bi bi-arrow-clockwise"></i> Refresh
+      </button>
+    </div>
+  
+    <!-- Cards Layout -->
+    <div class="row gy-4">
+      <div
+        class="col-lg-4 col-md-6"
+        *ngFor="let message of allMessages"
+      >
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <h5 class="mb-0">{{ message.name }}</h5>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-success': message.read,
+                'bg-danger': !message.read
+              }"
+            >
+              {{ message.read ? 'Read' : 'Unread' }}
+            </span>
+          </div>
+  
+          <div class="card-body">
+            <p class="text-muted">
+              <i class="bi bi-envelope-fill"></i> {{ message.email }}
+            </p>
+            <p>{{ message.message }}</p>
+            <small class="text-secondary">
+              <i class="bi bi-calendar-check"></i>
+              {{ message.submittedAt | date: 'medium' }}
+            </small>
+          </div>
+  
+          <div class="card-footer bg-light d-flex justify-content-end">
+            <!-- Respond Button -->
+            <button
+              class="btn btn-sm btn-outline-success me-2"
+              *ngIf="!message.read"
+              (click)="response(message)"
+              data-bs-toggle="modal"
+              data-bs-target="#messageResponseModal"
+            >
+              <i class="bi bi-reply-fill"></i> Respond
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Empty State -->
+    <div *ngIf="allMessages.length === 0" class="text-center py-5">
+      <h4>No messages received yet.</h4>
+      <p>Check back later for new messages from gym members.</p>
+    </div>
+
+
+    <div class="d-flex justify-content-between align-items-center px-3 py-2 my-3 bg-light border-top">
+        <div class="hint-text">
+          Showing <b>{{ currentLength }}</b> out of <b>{{ totalItems }}</b> entries
+        </div>
+        <ul class="pagination mb-0">
+          <li class="page-item pointer" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+          </li>
+
+          <li class="page-item pointer" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+            <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+          </li>
+
+          <li class="page-item pointer" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+  
+
+  <!-- MESSAGE RESPONSE MODAL -->
+<div class="modal fade" id="messageResponseModal" tabindex="-1" aria-labelledby="messageResponseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg gym-modal">
+  
+        <!-- Modal Header -->
+        <div class="modal-header gym-modal-header text-white">
+          <h4 class="modal-title fw-bold" id="messageResponseModalLabel">
+            🏋️‍♂️ Respond to Message
+          </h4>
+          <button 
+            type="button" 
+            class="btn-close btn-close-white" 
+            data-bs-dismiss="modal" 
+            aria-label="Close"
+          ></button>
+        </div>
+  
+        <!-- Modal Body -->
+        <div class="modal-body px-4 py-4">
+          <form [formGroup]="responseForm" (ngSubmit)="onSubmitResponse()" class="row gy-4">
+  
+            <!-- Sender Details Card -->
+            <div class="col-12">
+              <div class="card border-0 shadow-sm bg-light rounded-3">
+                <div class="card-body d-flex align-items-center">
+                  <div class="icon-box bg-primary text-white rounded-circle me-3">
+                    <i class="bi bi-person-fill"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 text-dark fw-bold">Sender</h6>
+                    <p class="mb-0 text-muted">{{ responseForm.get('senderName')?.value }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Original Message -->
+            <div class="col-12">
+              <label for="messagePreview" class="form-label fw-bold text-dark">Original Message</label>
+              <div class="form-control bg-white rounded-3 p-3 shadow-sm" readonly>
+                <p class="mb-0 text-muted">{{ responseForm.get('messagePreview')?.value }}</p>
+              </div>
+            </div>
+  
+            <!-- Response Input -->
+            <div class="col-12">
+              <label for="response" class="form-label fw-bold text-dark">Write Your Response</label>
+              <textarea 
+                id="response" 
+                formControlName="response" 
+                class="form-control border-0 bg-light rounded-3 p-3 shadow-sm"
+                rows="5"
+                placeholder="Type your response here..."
+              ></textarea>
+            </div>
+  
+            <!-- Modal Footer -->
+            <div class="col-12 d-flex justify-content-end">
+              <button 
+                type="button" 
+                class="btn btn-outline-secondary me-3 rounded-pill px-4" 
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button 
+                type="submit" 
+                [disabled]="responseForm.invalid" 
+                class="btn btn-primary rounded-pill px-4"
+                data-bs-dismiss="modal"
+              >
+                Send Response
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
