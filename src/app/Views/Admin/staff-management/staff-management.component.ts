@@ -71,9 +71,7 @@ export class StaffManagementComponent {
       email: ['', [Validators.required, Validators.email]],
       NIC: ['', [Validators.required, Validators.pattern(/^[0-9]{9}[vVxX]$|^[0-9]{12}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      useRole: ['', Validators.required],
-      emergencyContactName: ['', Validators.required],
-      emergencyContactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      userRole: ['', Validators.required],
       doB: ['', [Validators.required, this.pastDateValidator]],
       branchId: [null],
       isActive: [true],
@@ -165,13 +163,11 @@ export class StaffManagementComponent {
       formData.append('Email', this.staffForm.get('email')?.value);
       formData.append('NIC', this.staffForm.get('NIC')?.value);
       formData.append('Phone', this.staffForm.get('phone')?.value);
-      formData.append('EmergencyContactName', this.staffForm.get('emergencyContactName')?.value);
-      formData.append('EmergencyContactNumber', this.staffForm.get('emergencyContactNumber')?.value);
       formData.append('BranchId', this.branchId.toString());  
       formData.append('Password', this.staffForm.get('phone')?.value); 
-      formData.append('UserRole', this.staffForm.get('phone')?.value); 
+      formData.append('UserRole', this.staffForm.get('userRole')?.value); 
       formData.append('IsActive', "true");
-      formData.append('Gender', "male");
+      formData.append('Gender', this.staffForm.get('gender')?.value);
 
       // Append address fields
       const address = this.staffForm.get('address')?.value;
@@ -229,6 +225,8 @@ export class StaffManagementComponent {
           }
         );
       }
+     // location.reload();
+      this.loadstaffs();
     } else {
       console.log('Form is invalid');
     }

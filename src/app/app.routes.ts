@@ -35,6 +35,9 @@ import { MemberDashboardComponent } from './Views/Member/member-dashboard/member
 import { ContactUsAdminComponent } from './Views/Admin/contact-us-admin/contact-us-admin.component';
 import { WorkoutPlanManagementComponent } from './Views/Admin/workout-plan-management/workout-plan-management.component';
 import { MonitoringComponent } from './Views/Admin/monitoring/monitoring.component';
+import { BioComponent } from './Views/bio/bio.component';
+import { AdminProfileComponent } from './Views/Admin/admin-profile/admin-profile.component';
+import { SettingComponent } from './Views/Admin/setting/setting.component';
 
 export const routes: Routes = [
 
@@ -53,6 +56,7 @@ export const routes: Routes = [
             { path: 'package', component: PackagesComponent },
         ]
     },
+    {path:'bio',component:BioComponent},
 
     {
         path: 'admin',
@@ -74,6 +78,8 @@ export const routes: Routes = [
             { path: 'contact-us',component:ContactUsAdminComponent},
             { path: 'workout-plan-management',component:WorkoutPlanManagementComponent},
             { path: 'monitoring',component:MonitoringComponent},
+            { path: 'profile',component:AdminProfileComponent},
+            { path: 'setting',component:SettingComponent},
         ]
     },
 

@@ -1,0 +1,222 @@
+<div class="container-fluid">
+    <div class="mb-5 p-3  rounded">
+        <div class="row mb-4" [ngStyle]="{'background-color': isLightTheme ? 'white' : '#1e2125'}">
+            <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
+                Discount/Offer Management
+            </h4>
+
+            <!-- <div class="col-12 col-md-6">
+                <input type="text" [(ngModel)]="searchText" class="search-input" placeholder="Search by Name, Type">
+            </div> -->
+            <div class="col-12 m-2">
+                <button class="btn" [ngClass]="{'btn-success': setDiscount, 'btn-info': !setDiscount}"
+                    (click)="toggleDiscount()">
+                    Set Discounts
+                </button>
+            </div>
+            <div class="col-12 m-2">
+                <button class="btn" [ngClass]="{'btn-success': setDiscount, 'btn-info': !setDiscount}"
+                    (click)="togglePassword()">
+                    Change Password
+                </button>
+            </div>
+
+
+        </div>
+        <div *ngIf="setDiscount" class="row g-4">
+            <div class="col-12  mt-3 mt-md-0">
+                <button type="button" class="btn btn-success mt-4" (click)="openModalWithClass(discountFormModal)">Add
+                    Discount</button>
+            </div>
+            <div class="col-12 col-md-4" *ngFor="let discount of discounts">
+                <div class="card" [ngStyle]="{'background-color': isLightTheme ? 'white' : '#343a40'}">
+                    <div class="card-header"
+                        [ngStyle]="{'background-color': isLightTheme ? '#f5f5f5' : '#343a40', 'color': isLightTheme ? '#888' : 'white'}">
+                        <h5 class="card-title">{{ discount.name }}</h5>
+                        <h6 class="card-subtitle mb-2" [ngStyle]="{'color': isLightTheme ? '#888' : 'white'}">Discount
+                            ID: {{ discount.discountId }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <p [ngStyle]="{'color': isLightTheme ? 'black' : 'white'}"><strong>Name:</strong> {{
+                            discount.name }}</p>
+                        <p [ngStyle]="{'color': isLightTheme ? 'black' : 'white'}"><strong>Discount:</strong> {{
+                            discount.discount }}%</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <button class="btn btn-link" [ngStyle]="{'color': isLightTheme ? 'black' : 'white'}"
+                            (click)="onEdit(discount.discountId)">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-link" [ngStyle]="{'color': isLightTheme ? 'black' : 'white'}"
+                            (click)="openModal(deleteModal, discount.discountId)">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<ng-template #deleteModal>
+    <div class="modal-body text-center">
+        <p>
+            All information associated with <span class="text-primary">{{name}}</span> will be deleted. <br>
+            <span class="text-danger fw-bold">Do you want to delete?</span> <br>
+            <small class="text-danger">(This operation cannot be undone.)</small>
+        </p>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="confirm()">Yes</button>
+            <button type="button" class="btn btn-danger" (click)="decline()">No</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #discountFormModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit Discount/Offer</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <!-- Discount Name Field -->
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="number" id="Name" formControlName="name" class="form-control"
+                                placeholder="Discount Name">
+                            <label for="Name" class="floating-label"
+                                [ngStyle]="{ 'background-color': getLabelBackground() }">
+                                Enter Month
+                                <span *ngIf="isRequired('name')" class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div *ngIf="discountForm.get('name')?.invalid && discountForm.get('name')?.touched"
+                            class="text-danger">
+                            <div *ngIf="discountForm.get('name')?.hasError('required')"> Month is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amount Field -->
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="number" id="Amount" class="form-control" formControlName="discount"
+                                placeholder="Discount Amount (%)">
+                            <label for="Amount" class="floating-label"
+                                [ngStyle]="{ 'background-color': getLabelBackground() }">
+                                Enter the Discount Percentage(%)
+                                <span *ngIf="isRequired('discount')" class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div *ngIf="discountForm.get('discount')?.invalid && discountForm.get('discount')?.touched"
+                            class="text-danger">
+                            <div *ngIf="discountForm.get('discount')?.hasError('required')"> Discount percentage is
+                                required.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="discountForm.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<div *ngIf="oldPasswordDiv">
+    <div class="col-12">
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input id="password"  type="password" class="form-control"
+                    placeholder="" [(ngModel)]="oldPassword" (input)="checkPassword()" />
+                <label for="password" class="floating-label"
+                    [ngStyle]="{ 'background-color': getLabelBackground() }">Enter Your Current Password <span
+                        *ngIf="isRequired('password')" class="text-danger">*</span></label>
+            </div>
+            <div *ngIf="!passwordMatch" class="text-danger">
+                            <div *ngIf="memberForm.get('password')?.hasError('required')">Wrong Password</div>
+                        </div>
+           
+        </div>
+        <!-- <button class="btn btn-outline-secondary" (clic)>Click</button> -->
+    </div>
+</div>
+
+<div *ngIf="passwordMatch">
+    <div class="modal-body text-center">
+        <form [formGroup]="memberForm" (ngSubmit)="onPasswordSubmit()">
+            <div class="row">
+
+                <!-- Password Field -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input id="password" formControlName="password" type="password" class="form-control"
+                                placeholder="" (input)="onPasswordInput()" />
+                            <label for="password" class="floating-label"
+                                [ngStyle]="{ 'background-color': getLabelBackground() }">Password <span
+                                    *ngIf="isRequired('password')" class="text-danger">*</span></label>
+                        </div>
+                        <div *ngIf="memberForm.get('password')?.invalid && memberForm.get('password')?.touched"
+                            class="text-danger">
+                            <div *ngIf="memberForm.get('password')?.hasError('required')">Password is
+                                required.</div>
+                            <div *ngIf="memberForm.get('password')?.hasError('pattern')">Password must
+                                include one uppercase and a symbol.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Strength Meter -->
+                <div class="col-12" *ngIf="password">
+                    <password-strength-meter [password]="password"></password-strength-meter>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input id="confirmPassword" formControlName="confirmPassword" type="password"
+                                class="form-control" placeholder="" />
+                            <label for="confirmPassword" class="floating-label"
+                                [ngStyle]="{ 'background-color': getLabelBackground() }">Confirm Password
+                                <span *ngIf="isRequired('confirmPassword')" class="text-danger">*</span></label>
+                        </div>
+                        <div *ngIf="memberForm.get('confirmPassword')?.invalid && memberForm.get('confirmPassword')?.touched"
+                            class="text-danger">
+                            <div *ngIf="memberForm.get('confirmPassword')?.hasError('required')">Confirm
+                                password is required.</div>
+                            <div *ngIf="memberForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                                Passwords do not match.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="submit" [disabled]="!memberForm.valid" class="btn btn-success px-5 ">Update
+                            Password</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>

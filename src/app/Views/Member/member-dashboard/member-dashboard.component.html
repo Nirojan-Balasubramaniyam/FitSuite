@@ -126,3 +126,81 @@
     <p style="color: white"> Loading... </p>
 </ngx-spinner>
 
+<ng-template #passwordUpdateTemplate>
+    <div class="modal-body text-center">
+        <p>
+          <strong>Welcome, <span class="text-primary">{{member?.firstName}}</span>!</strong> <br>
+          You are required to update your password. <br>
+          <span class="text-warning fw-bold">Please choose a new password to secure your account.</span> <br>
+          <small class="text-muted">(This action will update your current password.)</small>
+        </p>
+
+        <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+
+                    <!-- Password Field -->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input id="password" formControlName="password" type="password"
+                                    class="form-control" placeholder="" (input)="onPasswordInput()" />
+                                <label for="password" class="floating-label"
+                                    [ngStyle]="{ 'background-color': getLabelBackground() }">Password <span
+                                        *ngIf="isRequired('password')" class="text-danger">*</span></label>
+                            </div>
+                            <div *ngIf="memberForm.get('password')?.invalid && memberForm.get('password')?.touched"
+                                class="text-danger">
+                                <div *ngIf="memberForm.get('password')?.hasError('required')">Password is
+                                    required.</div>
+                                <div *ngIf="memberForm.get('password')?.hasError('pattern')">Password must
+                                    include one uppercase and a symbol.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Strength Meter -->
+                    <div class="col-12" *ngIf="password">
+                        <password-strength-meter [password]="password"></password-strength-meter>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input id="confirmPassword" formControlName="confirmPassword" type="password"
+                                    class="form-control" placeholder="" />
+                                <label for="confirmPassword" class="floating-label"
+                                    [ngStyle]="{ 'background-color': getLabelBackground() }">Confirm Password
+                                    <span *ngIf="isRequired('confirmPassword')"
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div *ngIf="memberForm.get('confirmPassword')?.invalid && memberForm.get('confirmPassword')?.touched"
+                                class="text-danger">
+                                <div *ngIf="memberForm.get('confirmPassword')?.hasError('required')">Confirm
+                                    password is required.</div>
+                                <div *ngIf="memberForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                                    Passwords do not match.</div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>          
+
+       
+        <div class="modal-footer">
+            <div class="col-12">
+                <div class="form-group">
+                    <button type="submit" [disabled]="!memberForm.valid"
+                        class="btn btn-success px-5 ">Update Password</button>
+                </div>
+            </div>
+        
+        </div>
+    </form>
+      </div>
+      
+  </ng-template>
+
+
+
+

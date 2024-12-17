@@ -1,84 +1,75 @@
+import { Component, OnInit } from '@angular/core';
+import { Staff } from '../../../Models/staff';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThemeService } from '../../../Service/Theme/theme.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../Service/Staff/admin.service';
-import { Member } from '../../../Models/member';
-import { TrainingProgram } from '../../../Models/trainingProgram';
-import { EnrollProgramService } from '../../../Service/Admin/Enroll-Program/enroll-program.service';
-import { WorkouplanService } from '../../../Service/Admin/Workoutplan/workouplan.service';
-import { WorkoutPlan } from '../../../Models/workoutPlans';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ThemeService } from '../../../Service/Theme/theme.service';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-admin-profile',
   standalone: true,
   imports: [CommonModule, NgxSpinnerModule, ReactiveFormsModule, BsDatepickerModule],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+  templateUrl: './admin-profile.component.html',
+  styleUrl: './admin-profile.component.css'
 })
-export class ProfileComponent implements OnInit {
-  isLightTheme: boolean = true;
-  isNavbarVisible: boolean = true;
-  memberId!: number;
-  member: Member | null = null;
-  // allMembers: Member[] = [];
-  fullImgPath: string ="";
-  trainingPrograms: TrainingProgram[] = [];
-  groupedTrainingPrograms: { typeName: string; programs: TrainingProgram[] }[] =
-    [];
-  modalRef?: BsModalRef;
-  memberForm: FormGroup;
 
+export class AdminProfileComponent implements OnInit {
+  branchId: number = 1;
+  userRole:string='';
+  staffId!:number;
+  isLightTheme: boolean = true;
+    isNavbarVisible: boolean = true;
+  
+    member: Staff | null = null;
+      modalRef?: BsModalRef;
+      memberForm: FormGroup;
 
   constructor(
-    private themeService: ThemeService,
-    private adminService: AdminService,
-    private spinner: NgxSpinnerService,
-    private modalService: BsModalService,
-    private toastr: ToastrService,
-    private fb: FormBuilder,
-    private datePipe: DatePipe,
-    private enrollProgramService: EnrollProgramService,
-    private workoutPlanService: WorkouplanService
-  ) {
-    const memberId = localStorage.getItem('UserId');
+      private themeService: ThemeService,
+        private adminService: AdminService,
+        private spinner: NgxSpinnerService,
+        private modalService: BsModalService,
+        private toastr: ToastrService,
+        private fb: FormBuilder,
+        private datePipe: DatePipe,
+  ){
+    const role = localStorage.getItem('Role') || '';
+    const branchId = localStorage.getItem('BranchId');
+    const staffId = localStorage.getItem('UserId');
 
-    this.memberId = memberId ? parseInt(memberId) : 0;
+    this.userRole = role;
+    this.branchId = branchId ? parseInt(branchId) : 0;
+    this.staffId = staffId ? parseInt(staffId) : 0;
 
-    this.memberForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      NIC: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[0-9]{9}[vVxX]$|^[0-9]{12}$/),
-        ],
-      ],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      emergencyContactName: ['', Validators.required],
-      emergencyContactNumber: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{10}$/)],
-      ],
-      doB: ['', [Validators.required, this.pastDateValidator]],
-      imageFile: [null],
-      address: this.fb.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        province: ['', Validators.required],
-        country: ['', Validators.required],
-      }),
-    });
-
-    this.patchMember();
-
-
+      this.memberForm = this.fb.group({
+          firstName: ['', Validators.required],
+          lastName: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          NIC: [
+            '',
+            [
+              Validators.required,
+              Validators.pattern(/^[0-9]{9}[vVxX]$|^[0-9]{12}$/),
+            ],
+          ],
+          phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+          doB: ['', [Validators.required, this.pastDateValidator]],
+          imageFile: [null],
+          address: this.fb.group({
+            street: ['', Validators.required],
+            city: ['', Validators.required],
+            province: ['', Validators.required],
+            country: ['', Validators.required],
+          }),
+        });
+    
+        this.patchMember();
+    
+    
   }
 
   ngOnInit(): void {
@@ -95,7 +86,7 @@ export class ProfileComponent implements OnInit {
   }
 
   loadMember(): void {
-    this.adminService.getMember(this.memberId).subscribe((response) => {
+    this.adminService.getStaffById(this.staffId).subscribe((response) => {
       this.member = response;
       console.log(this.member);
       console.log('member address:', this.member.address);
@@ -117,7 +108,7 @@ export class ProfileComponent implements OnInit {
   }
 
   patchMember(): void {
-    // const member = this.allMembers.find((m) => m.memberId === this.memberId);
+    // const member = this.allMembers.find((m) => m.staffId === this.staffId);
     const member = this.member;
     console.log("patch")
     if (member) {
@@ -132,8 +123,6 @@ export class ProfileComponent implements OnInit {
         email: member.email,
         NIC: member.nic,
         phone: member.phone,
-        emergencyContactName: member.emergencyContactName,
-        emergencyContactNumber: member.emergencyContactNumber,
         doB: formattedDate,
         branchId: member.branchId,
         isActive: member.isActive,
@@ -162,7 +151,7 @@ export class ProfileComponent implements OnInit {
 
 
   confirm() {
-    this.adminService.deleteMember(this.memberId).subscribe(
+    this.adminService.deleteMember(this.staffId).subscribe(
       (response) => {
         this.toastr.success('Member Deleted successfully', 'Delete Member', {
           timeOut: 3000,
@@ -172,7 +161,7 @@ export class ProfileComponent implements OnInit {
           toastClass: 'ngx-toastr',
         });
         this.modalRef?.hide();
-        this.memberId = 0;
+        this.staffId = 0;
         // this.loadAllMembers();
       },
       (error) => {
@@ -216,14 +205,7 @@ export class ProfileComponent implements OnInit {
       formData.append('Email', this.memberForm.get('email')?.value);
       formData.append('NIC', this.memberForm.get('NIC')?.value);
       formData.append('Phone', this.memberForm.get('phone')?.value);
-      formData.append(
-        'EmergencyContactName',
-        this.memberForm.get('emergencyContactName')?.value
-      );
-      formData.append(
-        'EmergencyContactNumber',
-        this.memberForm.get('emergencyContactNumber')?.value
-      );
+      
     
       formData.append('IsActive', 'true');
       formData.append('Gender', 'male');
@@ -242,9 +224,9 @@ export class ProfileComponent implements OnInit {
         formData.append('ImageFile', imageFile, imageFile.name);
       }
 
-      if (this.memberId != 0) {
-        // If memberId exists, update the member
-        this.adminService.updateMember(this.memberId, formData).subscribe(
+      if (this.staffId != 0) {
+        // If staffId exists, update the member
+        this.adminService.updateStaff(this.staffId, formData).subscribe(
           (response) => {
             console.log(' successfully', response);
             this.toastr.success(
@@ -259,7 +241,7 @@ export class ProfileComponent implements OnInit {
               }
             );
             this.modalRef?.hide();
-            this.memberId = 0;
+            this.staffId = 0;
             //this.memberForm.reset();
           },
           (error) => {
@@ -276,6 +258,4 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
- 
 }

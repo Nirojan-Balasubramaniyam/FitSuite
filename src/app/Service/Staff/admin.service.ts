@@ -137,6 +137,17 @@ export class AdminService {
 
   private staffUrl = `https://localhost:7220/api/Staff`; 
 
+  updateStaffPassword(staffId: number, password: string): Observable<any> {
+    const url = `${this.staffUrl}/update-password/${staffId}`;
+    const body = { password };  
+    return this.http.put(url, body);
+  }
+
+  checkStaffPassword(staffId: number, password: string): Observable<boolean> {
+    const url = `${this.staffUrl}/check-password/${staffId}?password=${password}`;
+    return this.http.get<boolean>(url);
+  }
+
  
 
   // Get all staff with pagination

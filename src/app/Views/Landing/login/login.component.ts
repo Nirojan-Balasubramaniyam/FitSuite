@@ -19,6 +19,7 @@ import { AdminService } from '../../../Service/Staff/admin.service';
 import { Member } from '../../../Models/member';
 import { MailService } from '../../../Service/Admin/MailService/mail.service';
 import { SendMailRequest } from '../../../Models/sendMailRequest';
+import { WindowDataService } from '../../../Service/Biomatrics/window-data.service';
 
 @Component({
   selector: 'app-login',
@@ -54,7 +55,8 @@ export class LoginComponent implements OnInit {
     private adminService: AdminService,
     private spinner: NgxSpinnerService,
     private modalService: BsModalService,
-    private mailService: MailService
+    private mailService: MailService,
+    private windowauth: WindowDataService
   ) {
     this.signinForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -100,8 +102,8 @@ export class LoginComponent implements OnInit {
         const role = localStorage.getItem('Role');
 
         if (
-          role?.toLowerCase() === '0' ||
-          role?.toLowerCase() === '1'
+          role?.toLowerCase() === 'superadmin' ||
+          role?.toLowerCase() === 'admin'
         ) {
           this.router.navigate(['/admin/dashboard']);
         } else if (role?.toLowerCase() === 'member') {
@@ -227,5 +229,30 @@ export class LoginComponent implements OnInit {
     } else {
       this.toastr.error('Incorrect OTP.');
     }
+  }
+
+  
+  bioMatricsLogin() {
+    const storedCredential = this.getStoredCredential();
+    if (storedCredential) {
+      this.windowauth.login();
+    } else {
+      this.router.navigate(['/bio'])
+    }
+  }
+
+  
+  private getStoredCredential(): any {
+    const cookieName = 'webauthn_credential=';
+    const cookies = document.cookie.split(';');
+  
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.startsWith(cookieName)) {
+        const credentialString = cookie.substring(cookieName.length);
+        return JSON.parse(decodeURIComponent(credentialString));
+      }
+    }
+    return null; 
   }
 }

@@ -1,0 +1,156 @@
+.card img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .card .btn-link {
+    padding: 0;
+  }
+
+  .edit-btn{
+    position: relative;
+    left: -20px;
+    top: -15px;
+  }
+
+  .edit-btn:hover{
+
+  }
+
+  /* Container Styling */
+.training-programs-container {
+    /* margin-top: 20px; */
+    padding-top: 0px;
+    padding: 15px;
+    /* background-color: #f9f9f9; */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Group Header */
+.program-group-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    /* margin-top: 15px; */
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 5px solid #dc3545;
+}
+
+/* Program List */
+.program-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.program-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.program-item:last-child {
+    border-bottom: none;
+}
+
+/* Program Info */
+.program-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.program-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.program-cost {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Program Description */
+.program-description {
+    font-size: 0.95rem;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .program-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .program-name,
+    .program-cost {
+        font-size: 1rem;
+    }
+
+    .program-description {
+        font-size: 0.9rem;
+    }
+}
+
+
+.form-group {
+    margin: 15px 0px;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    margin-top: 20px;
+  }
+  
+ 
+  .form-control {
+    padding: 10px;
+    padding-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background: transparent;
+  }
+  
+  
+  .floating-label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #999;
+    font-size: 16px;
+    pointer-events: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+
+  .form-control:focus+.floating-label,
+  .form-control:not(:placeholder-shown)+.floating-label {
+    top: -10px;
+    left: 10px;
+    font-size: 15px;
+    color: #007bff;
+    border-radius: 7px;
+    z-index: 1;
+  }
+  
+
+  .form-control::placeholder {
+    /* color: transparent; */
+  }
+  
+ 
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+
+  }

@@ -43,6 +43,7 @@ export class MemberManagementComponent {
   pageSize: number = 6;  // Records per page
   pageIndex: number = 0;
   userRole:string='';
+  staffId!:number;
   branches: Branch[] = [];
   selectedBranch: number = this.branchId
 
@@ -59,9 +60,11 @@ export class MemberManagementComponent {
       
     const role = localStorage.getItem('Role') || '';
     const branchId = localStorage.getItem('BranchId');
+    const staffId = localStorage.getItem('UserId');
 
     this.userRole = role;
     this.branchId = branchId ? parseInt(branchId) : 0;
+    this.staffId = staffId ? parseInt(staffId) : 0;
 
     this.memberForm = this.fb.group({
       firstName: ['', Validators.required],

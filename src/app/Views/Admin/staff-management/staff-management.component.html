@@ -24,7 +24,8 @@
             <tr>
               <th scope="col">Staff Id</th>
               <th scope="col">Staff Name</th>
-              <th scope="col">Contact Number</th>
+              <th scope="col">Role</th>
+              <th scope="col">Phone</th>
               <th scope="col">Branch</th>
               <th scope="col">Actions</th>
             </tr>
@@ -33,11 +34,12 @@
             <tr *ngFor="let staff of staffs | staffFilter:searchText">
               <td class="d-flex justify-content-around align-items-center">
                 <img
-                  [src]="(staff.imagePath ? fullImgPath + staff.imagePath : '../../../../../assessts/user-avatar-male-5.png')"
+                  [src]="(staff.imagePath ? staff.imagePath : '../../../../../assessts/user-avatar-male-5.png')"
                   alt="Profile Image" width="50px" class="profile-image" /> 
                 S00{{ staff.staffId }}</td>
               <td>{{ staff.firstName + "-" + staff.lastName }}</td>
   
+              <td> {{staff.userRole}} </td>
               <td> {{staff.phone}} </td>
               <td>{{ staff.branchId }}</td>
               <td class="">
@@ -181,43 +183,9 @@
             </div>
           </div>
   
-          <!-- Emergency Contact Name -->
-          <div class="col-12 col-md-6">
-            <div class="form-group">
-              <div class="input-wrapper">
-                <input id="emergencyContactName" formControlName="emergencyContactName" class="form-control"
-                  placeholder="" />
-                <label for="emergencyContactName" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact Name <span
-                    *ngIf="isRequired('emergencyContactName')" class="text-danger">*</span></label>
-              </div>
-              <div
-                *ngIf="staffForm.get('emergencyContactName')?.invalid && staffForm.get('emergencyContactName')?.touched"
-                class="text-danger">
-                <div *ngIf="staffForm.get('emergencyContactName')?.hasError('required')">Emergency contact name is
-                  required.</div>
-              </div>
-            </div>
-          </div>
+      
   
-          <!-- Emergency Contact Number -->
-          <div class="col-12 col-md-6">
-            <div class="form-group">
-              <div class="input-wrapper">
-                <input id="emergencyContactNumber" formControlName="emergencyContactNumber" class="form-control"
-                  placeholder="" />
-                <label for="emergencyContactNumber" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">Emergency Contact Number <span
-                    *ngIf="isRequired('emergencyContactNumber')" class="text-danger">*</span></label>
-              </div>
-              <div
-                *ngIf="staffForm.get('emergencyContactNumber')?.invalid && staffForm.get('emergencyContactNumber')?.touched"
-                class="text-danger">
-                <div *ngIf="staffForm.get('emergencyContactNumber')?.hasError('required')">Emergency contact number is
-                  required.</div>
-                <div *ngIf="staffForm.get('emergencyContactNumber')?.hasError('pattern')">Emergency contact number must
-                  be 10 digits.</div>
-              </div>
-            </div>
-          </div>
+       
   
   
           <!-- Address Section -->
@@ -292,9 +260,9 @@
                 <!-- Select dropdown for User Role -->
                 <select id="userRole" formControlName="userRole" class="form-control">
                   <option value="" disabled selected>Select Role</option>
-                  <option *ngIf="userRole==='superAdmin'"  value="1">SuperAdmin</option>
-                  <option *ngIf="userRole==='superAdmin'" value="2">Admin</option>
-                  <option  value="3">Trainer</option>
+                  <option *ngIf="userRole==='superAdmin'"  value="superAdmin">SuperAdmin</option>
+                  <option *ngIf="userRole==='superAdmin'" value="admin">Admin</option>
+                  <option  value="trainer">Trainer</option>
                 </select>
                 <label for="userRole" class="floating-label" [ngStyle]="{ 'background-color': getLabelBackground() }">
                   User Role <span *ngIf="isRequired('userRole')" class="text-danger">*</span>
