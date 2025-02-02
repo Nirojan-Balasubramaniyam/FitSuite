@@ -81,6 +81,7 @@ export class MemberDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     this.loadMember();
+    this.loadTrainingPrograms();
     this.checkPassword();
   }
 
@@ -98,6 +99,7 @@ export class MemberDashboardComponent implements OnInit {
       .getTrainingProgramsByMemberId(this.memberId)
       .subscribe((programs: TrainingProgram[]) => {
         this.trainingPrograms = programs;
+        console.log("gg", programs)
         this.groupProgramsByType();
         this.spinner.hide();
       });

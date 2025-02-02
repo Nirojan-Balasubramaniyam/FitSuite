@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="mb-5 p-3 shadow rounded">
-    <div class="row mb-4" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
+    <div class="row mb-4" style="z-index:0;" [ngStyle]="{'background-color': isLightTheme? 'white': '#1e2125'}">
       <h4 class="fw-bold mb-4" [ngStyle]="{'color': isLightTheme ? '#b71c1c' : 'white'}">
         Program Management
       </h4>
@@ -36,7 +36,7 @@
           <p [ngStyle]="{'color': isLightTheme? 'black': 'white'}"><strong>Cost:</strong> Rs. {{ program.cost }}</p>
           <p [ngStyle]="{'color': isLightTheme? 'black': 'white'}"><strong>Description:</strong> {{ program.description }}</p>
          
-            <img mat-card-image [src]="fullImgPath + program.imagePath" alt="Program Image" class="image-fluid"/>
+            <img mat-card-image [src]=" program.imagePath" alt="Program Image" class="image-fluid"/>
           
         </mat-card-content>
 
@@ -66,7 +66,7 @@
   </div>
 </ng-template>
 
-<ng-template #trainingProgramForm>
+<ng-template #trainingProgramForm >
   <div class="modal-header">
 
     <h4 class="modal-title pull-left">Add Program</h4>
@@ -76,7 +76,7 @@
     </button>
 
   </div>
-  <div class="modal-body">
+  <div class="modal-body" >
     <form [formGroup]="programForm" (ngSubmit)="onSubmit()">
 
       <div class="row">

@@ -14,7 +14,7 @@
                     Set Discounts
                 </button>
             </div>
-            <div class="col-12 m-2">
+            <div *ngIf="!setDiscount" class="col-12 m-2">
                 <button class="btn" [ngClass]="{'btn-success': setDiscount, 'btn-info': !setDiscount}"
                     (click)="togglePassword()">
                     Change Password

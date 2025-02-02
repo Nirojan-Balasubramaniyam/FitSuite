@@ -39,7 +39,15 @@
                 S00{{ staff.staffId }}</td>
               <td>{{ staff.firstName + "-" + staff.lastName }}</td>
   
-              <td> {{staff.userRole}} </td>
+              <td>
+                <ng-container *ngIf="staff.userRole === 1">Superadmin</ng-container>
+                <ng-container *ngIf="staff.userRole === 2">Admin</ng-container>
+                <ng-container *ngIf="staff.userRole  === 3">Trainer</ng-container>
+                <!-- Optionally, handle unknown roles -->
+                <ng-container *ngIf="staff.userRole !== 1 && staff.userRole !== 2 && staff.userRole !== 3">
+                  Unknown Role
+                </ng-container>
+              </td>
               <td> {{staff.phone}} </td>
               <td>{{ staff.branchId }}</td>
               <td class="">

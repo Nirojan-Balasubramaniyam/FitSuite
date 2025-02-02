@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { ThemeService } from '../../Service/Theme/theme.service';
+import { ApprovalRequest } from '../../Models/approvalRequest';
+import { ApprovalRequestService } from '../../Service/Admin/Request/approval-request.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -10,7 +12,7 @@ import { ThemeService } from '../../Service/Theme/theme.service';
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.css'
 })
-export class AdminLayoutComponent  {
+export class AdminLayoutComponent implements OnInit  {
   name:string = "Admin";
   
   isNavbarVisible: boolean = true; // Controls whether the sidebar is visible
@@ -20,9 +22,12 @@ export class AdminLayoutComponent  {
   isMoonButton = true;
   userRole:string='';
   branchId:number=1;
+  approvalRequests: ApprovalRequest[] = [];
 
 
-  constructor(private themeService : ThemeService, private router: Router) {
+
+  constructor(private themeService : ThemeService, private router: Router,     private requestService: ApprovalRequestService,
+  ) {
     const role = localStorage.getItem('Role') || '';
     const branchId = localStorage.getItem('BranchId');
 
@@ -47,6 +52,22 @@ export class AdminLayoutComponent  {
     this.isNavbarVisible = !this.isNavbarVisible;
     this.navBarWidth = this.isNavbarVisible ? '250px' : '90px';
 
+  }
+
+  ngOnInit(): void {
+    this.loadRequests();
+  }
+
+  loadRequests(): void {
+    this.requestService
+      .getAllRequests()
+      .subscribe((response: ApprovalRequest[]) => {
+        // Filter branches to only include active ones (isActive = true)
+        this.approvalRequests = response.filter(request => request.status.toLowerCase()==="pending");
+
+        console.log(this.approvalRequests);
+      });
+   
   }
 
   toggleDropdown(event: Event): void {
