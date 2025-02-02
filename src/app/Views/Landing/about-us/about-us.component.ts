@@ -49,35 +49,35 @@ export class AboutUsComponent {
     {
       personName: 'Alex Johnson',
       profession: 'Fitness Enthusiast',
-      imagepath: '../../../../../assessts/testimonial/testimonial-1.jpg',
+      imagepath: '../../../../../assessts/testimonial/testimonial-6.jpg',
       rating: 5,
       feedback: 'Joining this gym has been a life-changing decision. The trainers are professional, and the equipment is top-notch. I’ve never felt more motivated to stay fit!'
     },
     {
       personName: 'Sophia Martinez',
       profession: 'Yoga Instructor',
-      imagepath: '../../../../../assessts/testimonial/testimonial-1.jpg',
+      imagepath: '../../../../../assessts/testimonial/testimonial-5.jpg',
       rating: 4,
       feedback: 'The variety of classes here is incredible. From yoga to strength training, there’s something for everyone. The community is supportive and welcoming.'
     },
     {
       personName: 'Michael Carter',
       profession: 'Athlete',
-      imagepath: '../../../../../assessts/testimonial/testimonial-1.jpg',
+      imagepath: '../../../../../assessts/testimonial/testimonial-2.jpg',
       rating: 5,
       feedback: 'As an athlete, I need a gym that meets my rigorous training needs. This gym delivers beyond expectations with its advanced facilities and expert trainers.'
     },
     {
       personName: 'Emily Davis',
       profession: 'Personal Trainer',
-      imagepath: '../../../../../assessts/testimonial/testimonial-1.jpg',
+      imagepath: '../../../../../assessts/testimonial/testimonial-3.jpg',
       rating: 4,
       feedback: 'I love the atmosphere here! It’s clean, well-maintained, and the staff genuinely care about your fitness journey. Highly recommended for anyone serious about health and wellness.'
     },
     {
       personName: 'Chris Wilson',
       profession: 'Business Owner',
-      imagepath: '../../../../../assessts/testimonial/testimonial-1.jpg',
+      imagepath: '../../../../../assessts/testimonial/testimonial-4.jpg',
       rating: 4,
       feedback: 'Balancing work and fitness is tough, but this gym makes it easy. Their flexible hours and personal training sessions have helped me stay in great shape!'
     }

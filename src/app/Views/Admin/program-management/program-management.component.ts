@@ -164,9 +164,7 @@ export class ProgramManagementComponent {
   onEdit(programId: number): void {
     const program = this.trainingPrograms.find(p => p.programId === programId);
     if (program) {
-      this.programId = programId; // Store programId for updating
-
-      // Patch the form with the selected program's data
+      this.programId = programId; 
       this.programForm.patchValue({
         programId: program.programId,
         programName: program.programName,
@@ -242,7 +240,6 @@ export class ProgramManagementComponent {
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'gray modal-lg' }));
     this.modalRef.onHide?.subscribe(() => {
       this.programForm.reset();
-      // Reset form when modal is closed
     });
   }
 

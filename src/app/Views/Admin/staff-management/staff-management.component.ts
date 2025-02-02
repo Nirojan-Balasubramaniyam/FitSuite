@@ -111,6 +111,7 @@ export class StaffManagementComponent {
       this.totalRecords = response.totalRecords;
       console.log(pageIndex, pageSize)
       console.log('Loaded staffs:', this.staffs);
+      
       this.spinner.hide();
 
     });

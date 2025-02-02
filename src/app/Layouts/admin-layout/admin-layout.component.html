@@ -80,7 +80,7 @@
                     </a>
                     <span id="requestCount" class="position-relative translate-middle badge rounded-pill {{isMoonButton? 'text-danger' : 'text-light'}} {{isMoonButton? 'bg-light' : 'bg-danger'}}" routerLinkActive="approval-count-active"
                         style="position: relative; top: -40px; left: 208px;">
-                        0
+                        {{approvalRequests.length}}
                     </span>
                 </li>
 
@@ -118,7 +118,7 @@
                                 <span *ngIf="isNavbarVisible">Program Report</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a routerLink="/admin/audit-report" class="sub-sidebar-link"
                                 [ngStyle]="{'margin-left':isNavbarVisible? '60px':'35px'}" routerLinkActive="sub-sidebar-active">
                                 <i class="fas fa-clipboard-list subNav-icon"></i>
@@ -126,7 +126,7 @@
                                 <span *ngIf="isNavbarVisible">Audit Report</span>
 
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
