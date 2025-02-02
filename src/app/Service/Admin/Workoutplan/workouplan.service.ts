@@ -8,18 +8,18 @@ import { Observable } from 'rxjs';
 })
 export class WorkouplanService {
 
-  private workoutPlanUrl = 'https://localhost:7220/api/WorkoutPlan';  
+  private workoutPlanUrl = 'https://localhost:7220/api/WorkoutPlan';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  
-  AddWorkOutPlans(data:WorkOutPlanRequest){
+
+  AddWorkOutPlans(data: WorkOutPlanRequest) {
     return this.http.post(this.workoutPlanUrl, data);
   };
 
-  
-  GetUniqueMembers(){
+
+  GetUniqueMembers() {
     return this.http.get(`${this.workoutPlanUrl}/UniqueMembers}`)
   }
 
@@ -29,27 +29,41 @@ export class WorkouplanService {
     );
   }
 
-  GetAllWorkOutPlan(memberId: number){
+  GetAllWorkOutPlan(memberId: number) {
     return this.http.get<WorkoutPlan[]>(
       `${this.workoutPlanUrl}/All/${memberId}`
     );
   }
 
-  StartPlan(Id:number){
+  StartPlan(Id: number) {
     return this.http.get<WorkoutPlan[]>(
       `${this.workoutPlanUrl}/Start/${Id}`
     );
   }
 
-  EndPlan(Id:number){
+  EndPlan(Id: number) {
     return this.http.get<WorkoutPlan[]>(
       `${this.workoutPlanUrl}/End/${Id}`
     );
   }
-}
+  updatePlanTime(workoutPlan: number, starting: string, ending: string, day: string) {
+    const body = {
+      workoutPlanId: workoutPlan,
+      Starting: starting,
+      Ending: ending,
+      date: day
+    };
+   
+
+      return this.http.put(this.workoutPlanUrl + '/workTime', body,{
+        responseType: 'text'
+      });
+    }
+
+  }
 
 export interface WorkOutPlanRequest {
-  name:string;
+  name: string;
   repsCount: number;
   weight: number;
   staffId: number;

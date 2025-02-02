@@ -30,6 +30,7 @@ export class WorkoutPlanManagementComponent {
   searchText: string = '';
 
   @ViewChild('workoutPlanForm') workoutPlanForm!: TemplateRef<any>;
+  staffId!:number;
 
   constructor(
     private themeService: ThemeService,
@@ -42,8 +43,12 @@ export class WorkoutPlanManagementComponent {
     this.workoutForm = this.fb.group({
       name: ['', [Validators.required]],
       repsCount: ['', [Validators.required]],
-      weight: ['', [Validators.required, Validators.min(1)]],
+      weight: ['', [Validators.required]],
+      MemberId:['',[Validators.required]],
     });
+    const staffId = localStorage.getItem('UserId');
+    this.staffId = staffId ? parseInt(staffId) : 0;
+
   }
 
   ngOnInit(): void {
@@ -83,7 +88,7 @@ export class WorkoutPlanManagementComponent {
   
 
   onSubmit(): void {
-    if (this.workoutForm && this.workoutForm.valid) {
+    if (true) {
       const formData = this.workoutForm.value;
 
       if (this.workoutPlanId !== 0) {
@@ -106,7 +111,15 @@ export class WorkoutPlanManagementComponent {
           }
         );
       } else {
-        this.trainerService.addWorkoutPlan(formData).subscribe(
+        let workOutPlans = {
+          name: this.workoutForm.get('name')?.value,
+          repsCount: this.workoutForm.get('repsCount')?.value,
+          weight: this.workoutForm.get('weight')?.value,
+          memberId: this.workoutForm.get('MemberId')?.value,
+          staffId:  this.staffId,  // Assuming Staffid can be optional
+        };
+         console.log(workOutPlans)
+        this.trainerService.addWorkoutPlan(workOutPlans).subscribe(
           (response: any) => {
             this.toastr.success("Workout plan created successfully", "Workout Plan Creation", {
               timeOut: 5000,
@@ -125,6 +138,7 @@ export class WorkoutPlanManagementComponent {
         );
       }
     } else {
+      
       console.log('Form is invalid');
     }
   }
